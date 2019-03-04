@@ -1,12 +1,9 @@
 import React from 'react';
-import EditAgentModal from '../../../test/agent-edit-modal';
 import CampaignInsert from './campaign-insert';
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
 
-import {
-    Table, Input, Button, Icon, Divider, Modal
-} from 'antd';
+import {Button, Divider, Icon, Input, Table} from 'antd';
 import Highlighter from 'react-highlight-words';
 
 
@@ -28,13 +25,13 @@ class CampaignList extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps!=this.props){
+        if (prevProps !== this.props) {
             axios.get('http://127.0.0.1:8000/api/campaign/')
-            .then(res => {
-                this.setState({
-                    campaigns: res.data,
+                .then(res => {
+                    this.setState({
+                        campaigns: res.data,
+                    });
                 });
-            });
             console.log('i am updating');
         }
     }
@@ -88,17 +85,17 @@ class CampaignList extends React.Component {
                 textToHighlight={text.toString()}
             />
         ),
-    })
+    });
 
     handleSearch = (selectedKeys, confirm) => {
         confirm();
         this.setState({searchText: selectedKeys[0]});
-    }
+    };
 
     handleReset = (clearFilters) => {
         clearFilters();
         this.setState({searchText: ''});
-    }
+    };
 
     handleDelete(id) {
         axios.delete(`http://127.0.0.1:8000/api/campaign/${id}`)
@@ -136,7 +133,8 @@ class CampaignList extends React.Component {
                 key: 'operation',
                 width: '30%',
                 render: (text, record) => <div>
-                    <Button type='primary' onClick={() => this.handleEdit(record.id)}>Edit</Button><Divider type='vertical'/>
+                    <Button type='primary' onClick={() => this.handleEdit(record.id)}>Edit</Button><Divider
+                    type='vertical'/>
                     <Button type='danger' onClick={() => this.handleDelete(record.id)}>Delete</Button>
                 </div>
             }

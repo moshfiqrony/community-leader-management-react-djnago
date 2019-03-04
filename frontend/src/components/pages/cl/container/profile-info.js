@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Layout, Drawer, List, Avatar, Divider, Col, Row,} from "antd";
+import {Col, Divider, Layout, Row,} from "antd";
 
 const {
     Content
@@ -90,7 +90,7 @@ class Profile extends React.Component {
                             <DescriptionItem title="Department" content="AFX"/>
                         </Col>
                         <Col span={12}>
-                            <DescriptionItem title="Supervisor" content={<a>Lin</a>}/>
+                            <DescriptionItem title="Supervisor" content={<a href='#name'>Lin</a>}/>
                         </Col>
                     </Row>
                     <Row>

@@ -1,31 +1,28 @@
 import React from 'react';
-import axios from 'axios';
 
-import {
-    Button, Modal, Form, Select, DatePicker,
-} from 'antd';
+import {Button, DatePicker, Form, Modal, Select,} from 'antd';
 import Input from "antd/lib/input";
 
-const { Option } = Select;
+const {Option} = Select;
 
 
-const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
+const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
     // eslint-disable-next-line
     class extends React.Component {
 
-        constructor(){
+        constructor() {
             super();
             this.state = {
-                agents:[],
+                agents: [],
                 date: '',
                 location: 'sd',
             }
         }
 
-        componentDidMount(){
+        componentDidMount() {
         }
 
-        handleLocationAuto(date){
+        handleLocationAuto(date) {
             this.props.form.setFieldsValue({
                 location: date.format('YYYY-MM-DD')
             })
@@ -35,7 +32,7 @@ const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
             const {
                 visible, onCancel, onCreate, form,
             } = this.props;
-            const { getFieldDecorator } = form;
+            const {getFieldDecorator} = form;
             return (
                 <Modal
                     visible={visible}
@@ -47,10 +44,10 @@ const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
                     <Form layout="vertical">
                         <Form.Item label="Select Agent">
                             {getFieldDecorator('date-picker', {
-                                rules: [{ required: true, message: 'Please input the title of Campaign!' }],
+                                rules: [{required: true, message: 'Please input the title of Campaign!'}],
                             })(
                                 <Select
-                                placeholder="Select a option and change input text above"
+                                    placeholder="Select a option and change input text above"
                                 >
                                     <Option key='1' value='1'>Rony1</Option>
                                     <Option key='2' value='2'>Rony2</Option>
@@ -61,14 +58,14 @@ const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
                         </Form.Item>
                         <Form.Item>
                             {getFieldDecorator('date', {
-                                rules: [{required: true, message: 'Please select date!' }],
+                                rules: [{required: true, message: 'Please select date!'}],
                             })(
                                 <DatePicker onChange={(date) => this.handleLocationAuto(date)}/>
                             )}
                         </Form.Item>
                         <Form.Item>
                             {getFieldDecorator('location', {
-                                rules: [{required: true, message: 'Please select date!',  }],
+                                rules: [{required: true, message: 'Please select date!',}],
                             })(
                                 <Input disabled={true}/>
                             )}
@@ -86,12 +83,12 @@ class AddNewData extends React.Component {
     };
 
     showModal = () => {
-        this.setState({ visible: true });
-    }
+        this.setState({visible: true});
+    };
 
     handleCancel = () => {
-        this.setState({ visible: false });
-    }
+        this.setState({visible: false});
+    };
 
     handleCreate = () => {
         const form = this.formRef.props.form;
@@ -103,13 +100,13 @@ class AddNewData extends React.Component {
             console.log(values.date.format('YYYY-MM-DD'));
 
             form.resetFields();
-            this.setState({ visible: false });
+            this.setState({visible: false});
         });
-    }
+    };
 
     saveFormRef = (formRef) => {
         this.formRef = formRef;
-    }
+    };
 
     render() {
         return (

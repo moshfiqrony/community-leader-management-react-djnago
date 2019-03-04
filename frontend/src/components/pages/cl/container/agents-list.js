@@ -1,9 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import {
-    Table, Input, Button, Icon, Tag
-} from 'antd';
+import {Button, Icon, Input, Table, Tag} from 'antd';
 import Highlighter from 'react-highlight-words';
 
 
@@ -73,24 +71,24 @@ class AgentList extends React.Component {
                 textToHighlight={text.toString()}
             />
         ),
-    })
+    });
 
     handleSearch = (selectedKeys, confirm) => {
         confirm();
         this.setState({searchText: selectedKeys[0]});
-    }
+    };
 
     handleReset = (clearFilters) => {
         clearFilters();
         this.setState({searchText: ''});
-    }
+    };
 
-    reloadData(){
-        console.log('i am on')
+    reloadData() {
+        console.log('i am on');
         axios.get('http://127.0.0.1:8000/api/agent/')
-        .then(res => this.setState({
-            agents: res.data
-        }))
+            .then(res => this.setState({
+                agents: res.data
+            }))
     }
 
     render() {
@@ -117,13 +115,15 @@ class AgentList extends React.Component {
             dataIndex: 'asign',
             key: 'asign',
             width: '10%',
-            render: (text, record)=>record.asign ? <Tag color='#e53935'>Assigned</Tag> : <Tag color='#8bc34a'>Not Assigned</Tag>,
+            render: (text, record) => record.asign ? <Tag color='#e53935'>Assigned</Tag> :
+                <Tag color='#8bc34a'>Not Assigned</Tag>,
         }, {
             title: 'Active',
             dataIndex: 'active',
             key: 'active',
             width: '10%',
-            render: (text, record)=>record.active ? <Tag color='#8bc34a'>Activated</Tag> : <Tag color='#e53935'>Deactivated</Tag>,
+            render: (text, record) => record.active ? <Tag color='#8bc34a'>Activated</Tag> :
+                <Tag color='#e53935'>Deactivated</Tag>,
         }];
         return (
             <div>

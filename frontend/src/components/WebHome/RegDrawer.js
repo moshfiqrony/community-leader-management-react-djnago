@@ -1,16 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 
-import {
-    Form, Input, Select, Button, Avatar,
-} from 'antd';
+import {Avatar, Button, Form, Input, Select,} from 'antd';
 
 const {Option} = Select;
 
 
 class RegistrationForm extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
             districts: [],
@@ -33,48 +31,42 @@ class RegistrationForm extends React.Component {
                 fd.append('phone', values.phone);
                 fd.append('password', values.password);
                 fd.append('district', values.district);
-                if(values.role == 1){
-                    console.log(values.role);
+                if (values.role === 1) {
                     axios.post('http://127.0.0.1:8000/api/cl/', fd)
                         .then(res => {
-                            console.log(res);
-                            if (res.statusText == 'Created'){
+                            if (res.statusText === 'Created') {
                                 alert('Account Created! Please Login')
-                            }else {
+                            } else {
                                 alert('Account Not Created! Try Again')
                             }
                         })
                         .catch(error => {
-                            console.log(error.response);
-                            if(error.response.status == 400){
+                            if (error.response.status === 400) {
                                 alert('Phone Number Exist!')
                             }
                         })
-                }else if(values.role == 2){
-                    console.log(values.role);
+                } else if (values.role === 2) {
                     axios.post('http://127.0.0.1:8000/api/agent/', fd)
                         .then(res => {
-                            console.log(res);
-                            if (res.statusText == 'Created'){
+                            if (res.statusText === 'Created') {
                                 alert('Account Created! Please Login')
-                            }else {
+                            } else {
                                 alert('Account Not Created! Try Again')
                             }
                         })
                         .catch(error => {
-                            console.log(error.response);
-                            if(error.response.status == 400){
+                            if (error.response.status === 400) {
                                 alert('Phone Number Exist!')
                             }
                         })
 
                 }
-            }else{
+            } else {
                 alert('Please Follow All The Instructions');
             }
         });
         this.props.form.resetFields();
-    }
+    };
 
 
     compareToFirstPassword = (rule, value, callback) => {
@@ -84,7 +76,7 @@ class RegistrationForm extends React.Component {
         } else {
             callback();
         }
-    }
+    };
 
     validateToNextPassword = (rule, value, callback) => {
         const form = this.props.form;
@@ -92,7 +84,7 @@ class RegistrationForm extends React.Component {
             form.validateFields(['confirm'], {force: true});
         }
         callback();
-    }
+    };
 
     render() {
         const {getFieldDecorator} = this.props.form;
@@ -140,7 +132,8 @@ class RegistrationForm extends React.Component {
                             validator: this.compareToFirstPassword,
                         }],
                     })(
-                        <Input type="password" placeholder='Please Enter Your Confirm Password *' onBlur={this.handleConfirmBlur}/>
+                        <Input type="password" placeholder='Please Enter Your Confirm Password *'
+                               onBlur={this.handleConfirmBlur}/>
                     )}
                 </Form.Item>
                 <Form.Item>
@@ -150,8 +143,8 @@ class RegistrationForm extends React.Component {
                         <Select
                             placeholder="Select A District"
                         >
-                            {this.state.districts.map(district=>{
-                                return(<Option key={district.id} value={district.id}>{district.name}</Option>);
+                            {this.state.districts.map(district => {
+                                return (<Option key={district.id} value={district.id}>{district.name}</Option>);
                             })}
                         </Select>
                     )}

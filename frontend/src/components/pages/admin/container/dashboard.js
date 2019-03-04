@@ -20,10 +20,10 @@ export default function (props) {
                         <h5 className='textColor'>Total Agents</h5>
                     </div>
                     {/*<div className='CountBadge center  green darken-1'>*/}
-                        {/*<h5 className='textColor'>Total Campaign</h5>*/}
+                    {/*<h5 className='textColor'>Total Campaign</h5>*/}
                     {/*</div>*/}
                     {/*<div className='CountBadge center  blue-grey darken-3'>*/}
-                        {/*<h5 className='textColor'>Total Campaign</h5>*/}
+                    {/*<h5 className='textColor'>Total Campaign</h5>*/}
                     {/*</div>*/}
                 </div>
             </div>

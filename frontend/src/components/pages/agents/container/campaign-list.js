@@ -38,7 +38,7 @@ class CampaignList extends React.Component {
                         {data.map((campaign)=>{
                             return(<tr key={campaign.key}>
                                 <td>{campaign.key}</td>
-                                <td><a onClick={()=>this.handleClick(campaign.key)}>{campaign.name}</a></td>
+                                <td><a href='#campaign' onClick={()=>this.handleClick(campaign.key)}>{campaign.name}</a></td>
                             </tr>)
                         })}
                     </tbody>

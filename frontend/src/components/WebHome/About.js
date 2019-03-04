@@ -7,7 +7,7 @@ const About = () => {
     return (
         <div>
             <Header/>
-            <div style={{ minHeight: '79vh' }} className='center'>
+            <div style={{minHeight: '79vh'}} className='center'>
                 <div>
                     <Divider orientation="left"><h4>What We Do</h4></Divider>
                     <p>MARKET RESEARCH ON DEMAND, Generate high quality insights for your business using
@@ -33,7 +33,7 @@ const About = () => {
             <FooterWeb/>
         </div>
     )
-}
+};
 
 
 export default About;

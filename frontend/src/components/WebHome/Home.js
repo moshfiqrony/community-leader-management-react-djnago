@@ -7,7 +7,7 @@ const Home = () => {
     return (
         <div>
             <Header/>
-            <div style={{ minHeight: '79vh' }} className='center'>
+            <div style={{minHeight: '79vh'}} className='center'>
                 <Carousel autoplay>
                     <div><h3>1</h3></div>
                     <div><h3>2</h3></div>
@@ -19,7 +19,7 @@ const Home = () => {
         </div>
 
     )
-}
+};
 
 
 export default Home;

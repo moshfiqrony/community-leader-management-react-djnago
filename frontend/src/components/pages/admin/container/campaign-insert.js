@@ -2,18 +2,16 @@ import React from 'react';
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
 
-import {
-    Button, Modal, Form, Input,
-} from 'antd';
+import {Button, Form, Input, Modal,} from 'antd';
 
-const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
+const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
     // eslint-disable-next-line
     class extends React.Component {
         render() {
             const {
                 visible, onCancel, onCreate, form,
             } = this.props;
-            const { getFieldDecorator } = form;
+            const {getFieldDecorator} = form;
             return (
                 <Modal
                     visible={visible}
@@ -25,9 +23,9 @@ const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
                     <Form layout="vertical">
                         <Form.Item label="Campaign Title">
                             {getFieldDecorator('campaignTitle', {
-                                rules: [{ required: true, message: 'Please input the title of Campaign!' }],
+                                rules: [{required: true, message: 'Please input the title of Campaign!'}],
                             })(
-                                <Input />
+                                <Input/>
                             )}
                         </Form.Item>
                     </Form>
@@ -43,12 +41,12 @@ class CollectionsPage extends React.Component {
     };
 
     showModal = () => {
-        this.setState({ visible: true });
-    }
+        this.setState({visible: true});
+    };
 
     handleCancel = () => {
-        this.setState({ visible: false });
-    }
+        this.setState({visible: false});
+    };
 
     handleCreate = () => {
         const form = this.formRef.props.form;
@@ -62,30 +60,30 @@ class CollectionsPage extends React.Component {
 
             axios.post('http://127.0.0.1:8000/api/campaign/', fd)
                 .then(res => {
-                    if ((res.statusText == 'Created')){
+                    if ((res.statusText === 'Created')) {
                         alert('Saved');
                         this.props.history.push('/admin/campaignlist/');
-                    } else{
+                    } else {
                         alert('Not Saved');
                         console.log(res);
                     }
-                })
+                });
 
             form.resetFields();
-            this.setState({ visible: false });
+            this.setState({visible: false});
         });
-    }
+    };
 
     saveFormRef = (formRef) => {
         this.formRef = formRef;
-    }
+    };
 
-    reloadData(){
-        console.log('i am on')
+    reloadData() {
+        console.log('i am on');
         axios.get('http://127.0.0.1:8000/api/agent/')
-        .then(res => this.setState({
-            agents: res.data
-        }))
+            .then(res => this.setState({
+                agents: res.data
+            }))
     }
 
     render() {

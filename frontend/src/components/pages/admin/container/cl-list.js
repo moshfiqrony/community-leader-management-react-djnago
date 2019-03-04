@@ -2,9 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
 
-import {
-    Table, Input, Button, Icon, Divider,Tag
-} from 'antd';
+import {Button, Icon, Input, Table, Tag} from 'antd';
 
 import Highlighter from 'react-highlight-words';
 
@@ -105,7 +103,7 @@ class CLListContainer extends React.Component {
         fd.append('active', false);
         axios.patch(`http://127.0.0.1:8000/api/cl/${id}/`, fd)
             .then(res => {
-                if(res.statusText=='OK'){
+                if (res.statusText === 'OK') {
                     this.setState({
                         shouldLoad: true,
                     })
@@ -119,19 +117,20 @@ class CLListContainer extends React.Component {
         fd.append('active', true);
         axios.patch(`http://127.0.0.1:8000/api/cl/${id}/`, fd)
             .then(res => {
-                if(res.statusText=='OK'){
+                if (res.statusText === 'OK') {
                     this.setState({
                         shouldLoad: true,
                     })
                 }
             });
     }
-    reloadData(){
-        console.log('i am on')
+
+    reloadData() {
+        console.log('i am on');
         axios.get('http://127.0.0.1:8000/api/agent/')
-        .then(res => this.setState({
-            agents: res.data
-        }))
+            .then(res => this.setState({
+                agents: res.data
+            }))
     }
 
     render() {
@@ -158,7 +157,8 @@ class CLListContainer extends React.Component {
             dataIndex: 'active',
             key: 'active',
             width: '5%',
-            render: (text, record)=>record.active ? <Tag color='#8bc34a'>Activated</Tag> : <Tag color='#e53935'>Deactivated</Tag>
+            render: (text, record) => record.active ? <Tag color='#8bc34a'>Activated</Tag> :
+                <Tag color='#e53935'>Deactivated</Tag>
         }, {
             title: 'Action',
             key: 'operation',

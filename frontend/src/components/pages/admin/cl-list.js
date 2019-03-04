@@ -25,8 +25,8 @@ class AdminCLList extends React.Component {
                     <SiderMain/>
                     <Layout style={{marginLeft: 200}}>
                         <HeaderMain data={this.state.title}/>
-                        <div style={{margin: '24px 16px 0', overflow: 'initial', backgroundColor:'#fff', padding: 10}}>
-                            <CLList />
+                        <div style={{margin: '24px 16px 0', overflow: 'initial', backgroundColor: '#fff', padding: 10}}>
+                            <CLList/>
                         </div>
                         <FooterMain/>
                     </Layout>

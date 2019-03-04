@@ -4,22 +4,23 @@ import {Table} from "antd";
 import AddNewLocation from './add-new-location';
 
 
-class LocationChecklist extends React.Component{
-    constructor(){
+class LocationChecklist extends React.Component {
+    constructor() {
         super();
         this.state = {
             locations: [],
         }
     }
+
     componentDidMount() {
-        console.log(this.props)
+
         axios.get('http://127.0.0.1:8000/api/location/')
             .then(res => this.setState({
                 locations: res.data,
             }))
     }
 
-    render(){
+    render() {
         const columns = [{
             title: 'ID',
             dataIndex: 'id',
@@ -30,18 +31,18 @@ class LocationChecklist extends React.Component{
             dataIndex: 'date',
             key: 'date',
             width: '30%',
-        },{
+        }, {
             title: 'Location',
             dataIndex: 'location',
             key: 'location',
             width: '30  %',
         },
         ];
-        return(
+        return (
             <div>
-                {console.log(this.state.locations)}
+
                 <AddNewLocation {...this.props}/>
-                <Table pagination={false} columns={columns} dataSource={this.state.locations}/>
+                <Table rowKey='id' pagination={false} columns={columns} dataSource={this.state.locations}/>
             </div>
         )
     }

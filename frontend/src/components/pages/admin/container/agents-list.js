@@ -2,20 +2,18 @@ import React from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 
-import {
-    Table, Input, Button, Icon, Tag
-} from 'antd';
+import {Button, Icon, Input, Table, Tag} from 'antd';
 
 import Highlighter from 'react-highlight-words';
 
 
 class AgentList extends React.Component {
-    constructor(){
+    constructor() {
         super();
-        this.state ={
+        this.state = {
             searchText: '',
             agents: [],
-        }
+        };
         this.handleLoad = this.handleLoad.bind(this);
     }
 
@@ -25,12 +23,13 @@ class AgentList extends React.Component {
                 agents: res.data,
             }));
     }
-    componentDidUpdate(prevProps, prevState, snapshot){
-        if(prevProps!=this.props){
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps !== this.props) {
             axios.get('http://127.0.0.1:8000/api/agent/')
-            .then(res => this.setState({
-                agents: res.data,
-            }));
+                .then(res => this.setState({
+                    agents: res.data,
+                }));
         }
         console.log('I am from Component did update');
     }
@@ -95,7 +94,7 @@ class AgentList extends React.Component {
         this.setState({searchText: ''});
     };
 
-    handleLoad(){
+    handleLoad() {
         axios.get('http://127.0.0.1:8000/api/agent/')
             .then(res => {
                 this.setState({
@@ -103,13 +102,14 @@ class AgentList extends React.Component {
                 })
             })
     };
+
     handleBlock(id) {
         console.log('I am from handle click', id);
         let fd = new FormData();
         fd.append('active', false);
         axios.patch(`http://127.0.0.1:8000/api/agent/${id}/`, fd)
             .then(res => {
-                if(res.statusText=='OK'){
+                if (res.statusText === 'OK') {
                     this.props.history.push('/admin/agentslist');
                 }
             });
@@ -121,7 +121,7 @@ class AgentList extends React.Component {
         fd.append('active', true);
         axios.patch(`http://127.0.0.1:8000/api/agent/${id}/`, fd)
             .then(res => {
-                if(res.statusText=='OK'){
+                if (res.statusText === 'OK') {
                     this.props.history.push('/admin/agentslist');
                 }
             });
@@ -134,7 +134,7 @@ class AgentList extends React.Component {
             key: 'id',
             width: '5%',
             ...this.getColumnSearchProps('id'),
-        },{
+        }, {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
@@ -151,14 +151,16 @@ class AgentList extends React.Component {
             dataIndex: 'active',
             key: 'active',
             width: '5%',
-            render: (text, record)=>record.active ? <Tag color='#8bc34a'>Activated</Tag> : <Tag color='#e53935'>Deactivated</Tag>,
-        },{
+            render: (text, record) => record.active ? <Tag color='#8bc34a'>Activated</Tag> :
+                <Tag color='#e53935'>Deactivated</Tag>,
+        }, {
             title: 'Assigned',
             dataIndex: 'asign',
             key: 'asign',
             width: '5%',
-            render: (text, record)=>record.asign ? <Tag color='#8bc34a'>Assigned</Tag> : <Tag color='#e53935'>Not Assigned</Tag>,
-        },{
+            render: (text, record) => record.asign ? <Tag color='#8bc34a'>Assigned</Tag> :
+                <Tag color='#e53935'>Not Assigned</Tag>,
+        }, {
             title: 'Action',
             key: 'operation',
             width: '30%',
@@ -170,10 +172,10 @@ class AgentList extends React.Component {
         }];
         return (
             <div>
-                <Button htmlType='button' type='primary' icon='reload' onClick={this.handleLoad} >Reload</Button>
+                <Button htmlType='button' type='primary' icon='reload' onClick={this.handleLoad}>Reload</Button>
                 <Table pagination={false} columns={columns} dataSource={this.state.agents}/>
             </div>
-           );
+        );
     }
 }
 

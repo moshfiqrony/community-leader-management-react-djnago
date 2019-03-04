@@ -6,14 +6,13 @@ import NewAgentChecklist from './container/new-agent-checklist';
 import LocationChecklist from './container/location-checklist';
 import DataCollectionChecklist from './container/data-collection-checklist';
 import Overview from './container/overview';
-import { Layout, Tabs} from 'antd';
+import {Layout, Tabs} from 'antd';
 import axios from 'axios';
 
 const TabPane = Tabs.TabPane;
 
 
-
-class CampaignDetails extends React.Component{
+class CampaignDetails extends React.Component {
 
     constructor(props) {
         super(props);
@@ -27,25 +26,27 @@ class CampaignDetails extends React.Component{
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         axios.get(`http://127.0.0.1:8000/api/campaign/${this.props.match.params.campaignId}`)
-        .then(res => this.setState({
-            data: res.data
-        }));
+            .then(res => this.setState({
+                data: res.data
+            }));
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <Layout>
                     <SiderMain/>
                     <Layout style={{marginLeft: 200}}>
                         <HeaderMain data={this.state.data.name}/>
-                        <div 
-                        style={{margin: '24px 16px 0', 
-                                overflow: 'initial', 
-                                backgroundColor:'#fff', 
-                                padding: 10}}
+                        <div
+                            style={{
+                                margin: '24px 16px 0',
+                                overflow: 'initial',
+                                backgroundColor: '#fff',
+                                padding: 10
+                            }}
                         >
                             <Tabs onChange={callback} type="card">
                                 <TabPane tab="Overview" key="1">
@@ -76,6 +77,6 @@ class CampaignDetails extends React.Component{
 
 function callback(key) {
     console.log(key);
-  }
+}
 
 export default CampaignDetails;

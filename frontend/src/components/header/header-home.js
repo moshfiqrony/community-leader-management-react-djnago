@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { Layout } from 'antd';
+import {Layout} from 'antd';
 
 const {
-  Header
+    Header
 } = Layout;
 
 
-class HeaderHome extends React.Component{
+class HeaderHome extends React.Component {
     render() {
         return (
             <div>
-                <Header style={{ background: '#ffd', padding: 0 }}>
+                <Header style={{background: '#ffd', padding: 0}}>
 
                 </Header>
             </div>

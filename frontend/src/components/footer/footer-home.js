@@ -1,8 +1,8 @@
 import React from 'react'
 
 export default function () {
-    return(
-        <footer style={{backgroundColor: '#2c2f0b'}} class="page-footer">
+    return (
+        <footer style={{backgroundColor: '#2c2f0b'}} className="page-footer">
             <div className="footer-copyright">
                 <div className="container">
                     © 2019 Copyright D2

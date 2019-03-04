@@ -4,13 +4,14 @@ import {Table} from "antd";
 import AddNewData from './add-new-data';
 
 
-class LocationChecklist extends React.Component{
-    constructor(){
+class LocationChecklist extends React.Component {
+    constructor() {
         super();
         this.state = {
             data: [],
         }
     }
+
     componentDidMount() {
         axios.get('http://127.0.0.1:8000/api/datacollection/')
             .then(res => this.setState({
@@ -18,7 +19,7 @@ class LocationChecklist extends React.Component{
             }))
     }
 
-    render(){
+    render() {
         const columns = [{
             title: 'ID',
             dataIndex: 'id',
@@ -29,17 +30,17 @@ class LocationChecklist extends React.Component{
             dataIndex: 'location',
             key: 'location',
             width: '30%',
-        },{
+        }, {
             title: 'Data Collected',
             dataIndex: 'dataAmount',
             key: 'dataAmount',
             width: '30  %',
         },
         ];
-        return(
+        return (
             <div>
                 <AddNewData {...this.props}/>
-                <Table pagination={false} columns={columns} dataSource={this.state.data}/>
+                <Table rowKey='id' pagination={false} columns={columns} dataSource={this.state.data}/>
             </div>
         )
     }

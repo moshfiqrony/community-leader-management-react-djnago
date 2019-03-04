@@ -1,28 +1,25 @@
 import React from 'react';
 import AddNewAgent from './add-new-agent';
 import axios from 'axios';
-import {
-    Table, Input, Button, Icon,
-} from 'antd';
+import {Button, Icon, Input, Table,} from 'antd';
 import Highlighter from 'react-highlight-words';
 
 
 class NewAgentChecklist extends React.Component {
-    componentDidMount() {
-        const clId = this.props.match.params.campaignId;
-        axios.get(`http://127.0.0.1:8000/api/campaignDetails/?clId=1&campaignId=${this.props.match.params.campaignId}`)
-            .then(res => this.setState({
-                data: res.data,
-
-            }))
-    }
-
     state = {
         searchText: '',
         IsVisible: false,
         data: [],
         selectedAgents: [],
     };
+
+    componentDidMount() {
+        axios.get(`http://127.0.0.1:8000/api/campaignDetails/?clId=1&campaignId=${this.props.match.params.campaignId}`)
+            .then(res => this.setState({
+                data: res.data,
+
+            }))
+    }
 
     getColumnSearchProps = (dataIndex) => ({
         filterDropdown: ({
@@ -72,35 +69,35 @@ class NewAgentChecklist extends React.Component {
                 textToHighlight={text.toString()}
             />
         ),
-    })
+    });
 
     handleSearch = (selectedKeys, confirm) => {
         confirm();
         this.setState({searchText: selectedKeys[0]});
-    }
+    };
 
     handleReset = (clearFilters) => {
         clearFilters();
         this.setState({searchText: ''});
-    }
+    };
 
     render() {
         const columns = [{
             title: 'ID',
             dataIndex: 'agentId.id',
-            key: 'key',
+            key: 'agentId.id',
             width: '5%',
             ...this.getColumnSearchProps('agentId.id'),
         }, {
             title: 'Name',
             dataIndex: 'agentId.name',
-            key: 'name',
+            key: 'agentId.name',
             width: '30%',
             ...this.getColumnSearchProps('agentId.name'),
-        },{
+        }, {
             title: 'Phone',
             dataIndex: 'agentId.phone',
-            key: 'phone',
+            key: 'agentId.phone',
             width: '30  %',
             ...this.getColumnSearchProps('agentId.phone'),
         },
@@ -110,7 +107,7 @@ class NewAgentChecklist extends React.Component {
                 <div style={{padding: 10}}>
                     <AddNewAgent/>
                 </div>
-                <Table pagination={{pageSize: 5}} columns={columns} dataSource={this.state.data}/>
+                <Table rowKey="id" pagination={{pageSize: 5}} columns={columns} dataSource={this.state.data}/>
             </div>
 
         );

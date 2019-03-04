@@ -1,36 +1,34 @@
 import React from 'react';
 import axios from 'axios';
 
-import {
-    Button, Modal, Form, Select,
-} from 'antd';
+import {Button, Form, Modal, Select,} from 'antd';
 
-const { Option } = Select;
+const {Option} = Select;
 
 
-const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
+const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
     // eslint-disable-next-line
     class extends React.Component {
 
-        constructor(){
+        constructor() {
             super();
             this.state = {
-                agents:[],
+                agents: [],
             }
         }
 
-        componentDidMount(){
+        componentDidMount() {
             axios.get('http://127.0.0.1:8000/api/agent/')
-            .then(res => this.setState({
-                agents: res.data,
-            }))
+                .then(res => this.setState({
+                    agents: res.data,
+                }))
         }
 
         render() {
             const {
                 visible, onCancel, onCreate, form,
             } = this.props;
-            const { getFieldDecorator } = form;
+            const {getFieldDecorator} = form;
             return (
                 <Modal
                     visible={visible}
@@ -42,17 +40,20 @@ const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
                     <Form layout="vertical">
                         <Form.Item label="Select Agent">
                             {getFieldDecorator('agent', {
-                                rules: [{ required: true, message: 'Please input the title of Campaign!' }],
+                                rules: [{required: true, message: 'Please input the title of Campaign!'}],
                             })(
                                 <Select
-                                placeholder="Select a option and change input text above"
+                                    placeholder="Select a option and change input text above"
                                 >
                                     {console.log(this.state.agents)}
                                     {this.state.agents.map((agent) => {
-                                        if(!agent.asign && agent.active){
-                                            return(<Option key={agent.id} value={agent.id}>{agent.name+' '+agent.phone}</Option>)
+                                        if (!agent.asign && agent.active) {
+                                            return (<Option key={agent.id}
+                                                            value={agent.id}>{agent.name + ' ' + agent.phone}</Option>)
+                                        }else {
+                                            return(null)
                                         }
-                                    })}                                    
+                                    })}
                                 </Select>
                             )}
                         </Form.Item>
@@ -69,12 +70,12 @@ class AddNewAgent extends React.Component {
     };
 
     showModal = () => {
-        this.setState({ visible: true });
-    }
+        this.setState({visible: true});
+    };
 
     handleCancel = () => {
-        this.setState({ visible: false });
-    }
+        this.setState({visible: false});
+    };
 
     handleCreate = () => {
         const form = this.formRef.props.form;
@@ -83,16 +84,16 @@ class AddNewAgent extends React.Component {
                 return;
             }
 
-            console.log(values.agent)
+            console.log(values.agent);
 
             form.resetFields();
-            this.setState({ visible: false });
+            this.setState({visible: false});
         });
-    }
+    };
 
     saveFormRef = (formRef) => {
         this.formRef = formRef;
-    }
+    };
 
     render() {
         return (

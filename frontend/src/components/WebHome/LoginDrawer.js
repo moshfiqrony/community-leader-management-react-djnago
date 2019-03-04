@@ -1,16 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 
-import {
-    Form, Input, Button, Avatar, Select,
-} from 'antd';
+import {Avatar, Button, Form, Input, Select,} from 'antd';
 
 const {Option} = Select;
 
 
 class LoginForm extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
             districts: [],
@@ -31,7 +29,7 @@ class LoginForm extends React.Component {
                 console.log('Received values of form: ', values);
             }
         });
-    }
+    };
 
 
     compareToFirstPassword = (rule, value, callback) => {
@@ -41,7 +39,7 @@ class LoginForm extends React.Component {
         } else {
             callback();
         }
-    }
+    };
 
     validateToNextPassword = (rule, value, callback) => {
         const form = this.props.form;
@@ -49,7 +47,7 @@ class LoginForm extends React.Component {
             form.validateFields(['confirm'], {force: true});
         }
         callback();
-    }
+    };
 
     render() {
         const {getFieldDecorator} = this.props.form;

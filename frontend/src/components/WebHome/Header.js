@@ -2,14 +2,14 @@ import React from 'react'
 import RegDrawer from "./RegDrawer";
 import {Link} from "react-router-dom";
 import LoginDrawer from './LoginDrawer'
-import {Drawer, Button, Form} from 'antd';
+import {Button, Drawer, Form} from 'antd';
 
 
-const Reg = Form.create({ name: 'normal_login' })(RegDrawer);
-const Login = Form.create({ name: 'normal_login' })(LoginDrawer);
+const Reg = Form.create({name: 'normal_login'})(RegDrawer);
+const Login = Form.create({name: 'normal_login'})(LoginDrawer);
 
 class Header extends React.Component {
-    constructor(){
+    constructor() {
         super();
         this.state = {
             Reg: {
@@ -23,7 +23,7 @@ class Header extends React.Component {
     }
 
     showDrawer = (e) => {
-        console.log(e.target.name)
+        console.log(e.target.name);
         this.setState({
             [e.target.name]: {
                 visible: true
@@ -33,8 +33,8 @@ class Header extends React.Component {
 
     onClose = (e) => {
         this.setState({
-            Reg:{visible: false,},
-            Log:{visible: false,},
+            Reg: {visible: false,},
+            Log: {visible: false,},
         });
     };
 
@@ -43,15 +43,16 @@ class Header extends React.Component {
         return (
             <div className='navbar-fixed'>
                 <nav style={{backgroundColor: '#2c2f0b'}}>
-                    <div class="nav-wrapper">
-                        <Link to='/' class="brand-logo"><img style={{paddingTop: 10, paddingLeft: 10}}
+                    <div className="nav-wrapper">
+                        <Link to='/' className="brand-logo"><img style={{paddingTop: 10, paddingLeft: 10}}
                                                              src='http://getd2.com/img/logo-new.png'
                                                              alt='logo'/></Link>
-                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <ul id="nav-mobile" className="right hide-on-med-and-down">
                             <li><Link to='/'>Home</Link></li>
                             <li><Link to='/about'>About</Link></li>
                             <li><Link to='/contact'>Contact</Link></li>
-                            <Button name='Reg' className='btn  brown darken-4' onClick={this.showDrawer}>Registration</Button>
+                            <Button name='Reg' className='btn  brown darken-4'
+                                    onClick={this.showDrawer}>Registration</Button>
                             <Button name='Log' className='btn  brown darken-4' onClick={this.showDrawer}>Login</Button>
 
 
