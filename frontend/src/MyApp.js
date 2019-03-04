@@ -20,6 +20,8 @@ import AdminCampaignList from './components/pages/admin/campaign-list';
 import AdminDashboard from './components/pages/admin/dashboard';
 import AdminAgentList from './components/pages/admin/agent-list';
 import AdminCLList from './components/pages/admin/cl-list';
+import AdminSubmission from './components/pages/admin/submissions';
+import AdminSubmissionList from './components/pages/admin/submissions-list';
 
 //agents routing
 import AgentDashboard from './components/pages/agents/dashboard';
@@ -83,6 +85,10 @@ class MyApp extends React.Component {
                         <Route path='/admin/agentslist' component={() => this.state.user.isLogin && this.state.user.active ? <AdminAgentList/> : <Redirect to='/error'/>}/>
 
                         <Route path='/admin/cllist' component={() => this.state.user.isLogin && this.state.user.active ? <AdminCLList/> : <Redirect to='/error'/>}/>
+
+                        <Route exact path='/admin/submissions' component={() => this.state.user.isLogin && this.state.user.active ? <AdminSubmission/> : <Redirect to='/error'/>}/>
+
+                        <Route path='/admin/submissions/campaignlist/:campaignId' component={(props) => this.state.user.isLogin && this.state.user.active ? <AdminSubmissionList {...props}/> : <Redirect to='/error'/>}/>
                         {/* admin routing end */}
 
 

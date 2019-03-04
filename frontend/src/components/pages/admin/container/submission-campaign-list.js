@@ -15,7 +15,7 @@ class CampaignList extends React.Component {
 
     handleClick(id){
         console.log('campaign clicked', id)
-        this.props.history.push('/cl/campaignlist/'+id);
+        this.props.history.push('/admin/submissions/campaignlist/'+id);
 
     }
 
