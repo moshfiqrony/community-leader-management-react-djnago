@@ -6,7 +6,7 @@ import CampaignList from './container/campaign-list'
 
 import {Layout,} from "antd";
 
-class CLCampaignList extends React.Component {
+class AgentCampaignList extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -36,4 +36,4 @@ class CLCampaignList extends React.Component {
     }
 }
 
-export default CLCampaignList;
+export default AgentCampaignList;

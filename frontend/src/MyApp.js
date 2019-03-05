@@ -20,11 +20,12 @@ import AdminCLList from './components/pages/admin/cl-list';
 import AdminSubmission from './components/pages/admin/submissions';
 import AdminSubmissionList from './components/pages/admin/submissions-list';
 //agents routing
-// import AgentDashboard from './components/pages/agents/dashboard';
-// import AgentProfile from './components/pages/agents/profile';
 import AgentCampaignList from './components/pages/agents/campaign-list';
+import AgentProfile from "./components/pages/agents/profile";
+import AgentDashboard from './components/pages/agents/dashboard';
 //extra components
 import ErrorPage from './components/WebHome/404';
+
 
 
 // main app
@@ -111,11 +112,20 @@ class MyApp extends React.Component {
 
 
                         {/* agent routing starts */}
+                        <Route exact path='/agent/'
+                               component={() => this.state.user.isLogin && this.state.user.active ?
+                                   <AgentDashboard/> : <Redirect to='/error'/>}/>
                         <Route path='/agent/campaignlist'
                                component={() => this.state.user.isLogin && this.state.user.active ?
                                    <AgentCampaignList/> : <Redirect to='/error'/>}/>
 
+                        <Route path='/agent/profile'
+                               component={() => this.state.user.isLogin && this.state.user.active ?
+                                   <AgentProfile/> : <Redirect to='/error'/>}/>
 
+                        <Route path='/agent/dashboard'
+                               component={() => this.state.user.isLogin && this.state.user.active ?
+                                   <AgentDashboard/> : <Redirect to='/error'/>}/>
                         {/* agent routing ends */}
 
                         <Route path='/error' component={ErrorPage}/>

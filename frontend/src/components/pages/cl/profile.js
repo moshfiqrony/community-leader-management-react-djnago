@@ -2,11 +2,12 @@ import React from 'react'
 import FooterMain from '../../footer/footer-main'
 import SiderMain from '../../sidebar/sidebar-dashboard'
 import HeaderMain from '../../header/header-main'
-import Content from './container/profile-info'
 
-import {Layout} from "antd";
+import {Layout, Tabs} from "antd";
 
-class CLDashboard extends React.Component {
+const TabPane = Tabs.TabPane;
+
+class CLProfile extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -25,7 +26,21 @@ class CLDashboard extends React.Component {
                     <SiderMain/>
                     <Layout style={{marginLeft: 200}}>
                         <HeaderMain data={this.state.title}/>
-                        <Content data={this.state}/>
+                        <div style={{
+                                margin: '24px 16px 0',
+                                overflow: 'initial',
+                                backgroundColor: '#fff',
+                                padding: 10
+                            }}>
+                        <Tabs type="card">
+                                <TabPane tab="Personal Information" key="1">
+                                    <h5>Personal Information</h5>
+                                </TabPane>
+                                <TabPane tab="Identity and Payment Information" key="2">
+                                    <h5>Identity and Payment Information</h5>
+                                </TabPane>
+                            </Tabs>
+                        </div>
                         <FooterMain/>
                     </Layout>
                 </Layout>
@@ -34,4 +49,4 @@ class CLDashboard extends React.Component {
     }
 }
 
-export default CLDashboard;
+export default CLProfile;
