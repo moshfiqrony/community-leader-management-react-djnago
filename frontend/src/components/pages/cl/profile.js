@@ -6,7 +6,6 @@ import SiderMain from '../../sidebar/sidebar-dashboard';
 import HeaderMain from '../../header/header-main';
 import PersonalInfo from './container/personal-info';
 import IdPaymentInfo from './container/id-payment-info';
-import EditProfile from './container/edit-profile';
 
 import {Layout, Tabs} from "antd";
 
@@ -54,10 +53,7 @@ class CLProfile extends React.Component {
                                     <h5>Identity and Payment Information</h5>
                                     <IdPaymentInfo {...this.state}/>
                                 </TabPane>
-                                <TabPane tab="Edit Profile" key="3">
-                                    <h5>Edit Profile</h5>
-                                    <EditProfile {...this.state}/>
-                                </TabPane>
+                                
                             </Tabs>
                         </div>
                         <FooterMain/>
