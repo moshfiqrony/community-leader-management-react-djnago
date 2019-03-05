@@ -49,7 +49,9 @@ class CampaignList extends React.Component {
                     {this.state.data.map((campaign) => {
                         return (<tr key={campaign.id}>
                             <td>{campaign.id}</td>
-                            <td><a onClick={() => this.handleClick(campaign.id)}>{campaign.name}</a></td>
+                            <td>
+                                {/* eslint-disable-next-line */}
+                                <a onClick={() => this.handleClick(campaign.id)}>{campaign.name}</a></td>
                         </tr>)
                     })}
                     </tbody>

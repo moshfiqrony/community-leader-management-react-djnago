@@ -1,7 +1,12 @@
-import React from 'react'
-import FooterMain from '../../footer/footer-main'
-import SiderMain from '../../sidebar/sidebar-dashboard'
-import HeaderMain from '../../header/header-main'
+import React from 'react';
+import axios from 'axios';
+
+import FooterMain from '../../footer/footer-main';
+import SiderMain from '../../sidebar/sidebar-dashboard';
+import HeaderMain from '../../header/header-main';
+import PersonalInfo from './container/personal-info';
+import IdPaymentInfo from './container/id-payment-info';
+import EditProfile from './container/edit-profile';
 
 import {Layout, Tabs} from "antd";
 
@@ -16,7 +21,15 @@ class CLProfile extends React.Component {
             date: new Date().toDateString(),
             campCnt: 10,
             agentCnt: 20,
+            cl: [],
         }
+    }
+
+    componentDidMount(){
+        axios.get('http://127.0.0.1:8000/api/cldetails/1/')
+        .then(res => this.setState({
+            cl: res.data,
+        }))
     }
 
     render() {
@@ -35,9 +48,15 @@ class CLProfile extends React.Component {
                         <Tabs type="card">
                                 <TabPane tab="Personal Information" key="1">
                                     <h5>Personal Information</h5>
+                                    <PersonalInfo {...this.state}/>
                                 </TabPane>
                                 <TabPane tab="Identity and Payment Information" key="2">
                                     <h5>Identity and Payment Information</h5>
+                                    <IdPaymentInfo {...this.state}/>
+                                </TabPane>
+                                <TabPane tab="Edit Profile" key="3">
+                                    <h5>Edit Profile</h5>
+                                    <EditProfile {...this.state}/>
                                 </TabPane>
                             </Tabs>
                         </div>
