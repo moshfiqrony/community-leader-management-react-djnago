@@ -8,6 +8,7 @@ import DataCollectionChecklist from './container/data-collection-checklist';
 import Overview from './container/overview';
 import {Layout, Tabs} from 'antd';
 import axios from 'axios';
+import {withRouter} from "react-router-dom";
 
 const TabPane = Tabs.TabPane;
 
@@ -30,7 +31,10 @@ class CampaignDetails extends React.Component {
         axios.get(`http://127.0.0.1:8000/api/campaign/${this.props.match.params.campaignId}`)
             .then(res => this.setState({
                 data: res.data
-            }));
+            })).catch(err => {
+                console.log(err);
+                this.props.history.push('/notFound');
+        });
     }
 
     render() {
@@ -79,4 +83,4 @@ function callback(key) {
     console.log(key);
 }
 
-export default CampaignDetails;
+export default withRouter(CampaignDetails);

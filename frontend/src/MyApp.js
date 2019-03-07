@@ -25,7 +25,8 @@ import AgentProfile from "./components/pages/agents/profile";
 import AgentDashboard from './components/pages/agents/dashboard';
 //extra components
 import ErrorPage from './components/WebHome/404';
-
+import NotFound from './components/WebHome/not-found';
+import {Switch} from "react-router-dom";
 
 
 // main app
@@ -46,7 +47,7 @@ class MyApp extends React.Component {
             <div>
                 {/* Routing starts */}
                 <BrowserRouter>
-                    <div>
+                        <Switch>
                         {/* web view routing */}
                         <Route path='/about' component={About}/>
 
@@ -129,7 +130,9 @@ class MyApp extends React.Component {
                         {/* agent routing ends */}
 
                         <Route path='/error' component={ErrorPage}/>
-                    </div>
+                        <Route exact path='/notfound' component={NotFound}/>
+                        <Route component={NotFound}/>
+                        </Switch>
                 </BrowserRouter>
                 {/* routing ends */}
             </div>
