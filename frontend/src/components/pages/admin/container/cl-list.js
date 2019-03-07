@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
+import UserDetailsiew from './user-detail-view';
 
-import {Button, Icon, Input, Table, Tag} from 'antd';
+import {Button, Drawer, Icon, Input, Table, Tag} from 'antd';
 
 import Highlighter from 'react-highlight-words';
 
@@ -14,6 +15,8 @@ class CLListContainer extends React.Component {
             searchText: '',
             agents: [],
             shouldLoad: false,
+            visible: false,
+            id: '',
         }
         // this.handleLoad = this.handleLoad.bind(this);
     }
@@ -125,6 +128,22 @@ class CLListContainer extends React.Component {
             });
     }
 
+    handleViewDetails(id) {
+        console.log('I am from handle View Details, with id ', id);
+        this.setState({
+            visible: true,
+            id: id,
+        })
+    }
+
+    onClose = () => {
+        this.setState({
+            visible: false,
+            id: '',
+        });
+    };
+
+
     reloadData() {
         console.log('i am on');
         axios.get('http://127.0.0.1:8000/api/agent/')
@@ -162,17 +181,33 @@ class CLListContainer extends React.Component {
         }, {
             title: 'Action',
             key: 'operation',
-            width: '30%',
+            width: '10%',
             render: (text, record) => record.active
                 ?
                 <Button onClick={() => this.handleBlock(record.id)} type='danger'>Block</Button>
                 :
                 <Button onClick={() => this.handleActivate(record.id)} type='primary'>Activate</Button>
+        }, {
+            title: 'Views',
+            key: 'details',
+            width: '10%',
+            render: (text, record) => <Button onClick={() => this.handleViewDetails(record.id)} type='primary'>View
+                Details</Button>
         }];
         return (
             <div>
                 <Button icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
-                <Table pagination={false} columns={columns} dataSource={this.state.agents}/>
+                <Table rowKey={'id'} pagination={false} columns={columns} dataSource={this.state.agents}/>
+                <Drawer
+                    title="Profile Information"
+                    width={900}
+                    placement="right"
+                    closable={false}
+                    onClose={this.onClose}
+                    visible={this.state.visible}
+                >
+                    <UserDetailsiew id={this.state.id} role={'cl'}/>
+                </Drawer>
             </div>
         );
     }

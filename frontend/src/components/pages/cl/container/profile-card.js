@@ -7,7 +7,7 @@ export default function(props){
         className='z-depth-1'
         style={{width: 250, margin: '0 auto'}}>
         <Tag style={{backgroundColor: '#13c2c2', color: 'white'}} className='center'>{props.cl.active ? 'Active': 'Deactive'}</Tag>
-        <Avatar className='center-align' size={200} src="http://getd2.com/img/logo-new.png" />
+        <Avatar className='center-align' size={200} src={props.cl.profile_pic} />
         <h5 className='center'>{props.cl.name}</h5>
         <div>Phone : <Tag style={{backgroundColor: '#d4b106', color: 'white'}} className='center'><p>{props.cl.phone}</p></Tag></div>
         <div>Role : <Tag style={{backgroundColor: '#3f6600', color: 'white'}} className='center'>Community Leader</Tag></div>
