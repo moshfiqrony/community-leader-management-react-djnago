@@ -3,17 +3,26 @@ import CampaignInsert from './campaign-insert';
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
 
-import {Button, Divider, Icon, Input, Table} from 'antd';
+import {Button, Divider, Icon, Input, Table, Modal} from 'antd';
 import Highlighter from 'react-highlight-words';
 
 
 class CampaignList extends React.Component {
-    state = {
-        searchText: '',
-        IsVisible: false,
-        campaigns: [],
-
-    };
+    constructor(){
+        super();
+        this.state={
+            searchText: '',
+            visible: false,
+            name: '',
+            id: '',
+            campaigns: [],
+        };
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
+        this.handleEditCancle = this.handleEditCancle.bind(this);
+        this.handleEditInsert = this.handleEditInsert.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
 
     componentDidMount() {
         axios.get('http://127.0.0.1:8000/api/campaign/')
@@ -30,9 +39,9 @@ class CampaignList extends React.Component {
                 .then(res => {
                     this.setState({
                         campaigns: res.data,
+                        visible: false,
                     });
                 });
-            console.log('i am updating');
         }
     }
 
@@ -98,7 +107,7 @@ class CampaignList extends React.Component {
     };
 
     handleDelete(id) {
-        axios.delete(`http://127.0.0.1:8000/api/campaign/${id}`)
+        axios.delete(`http://127.0.0.1:8000/api/campaign/${id}/`)
             .then(res => {
                 if (res.statusText === 'No Content') {
                     alert('Deleted');
@@ -110,10 +119,40 @@ class CampaignList extends React.Component {
             });
     }
 
-    handleEdit(id) {
-        console.log('i am from edit for id ', id);
+    handleEdit(id, name) {
+        this.setState({
+            visible: true,
+            name: name,
+            id: id,
+        });
     }
-
+    handleEditInsert(){
+        let fd = new FormData();
+        fd.append('name', this.state.name);
+        axios.patch(`http://127.0.0.1:8000/api/campaign/${this.state.id}/`, fd)
+        .then(res => {
+            if(res.statusText === 'OK' && res.data.name === this.state.name){
+                this.setState({
+                    visible: false,
+                    name: '',
+                    id: '',
+                })
+                this.props.history.push('/admin/campaignlist');
+            }else{
+                alert('Problem To Save');
+            }
+        })
+    }
+    handleEditCancle(){
+        this.setState({
+            visible: false,
+        });
+    }
+    handleChange(e){
+        this.setState({
+            name: e.target.value,
+        })
+    }
     render() {
         const columns = [{
             title: 'ID',
@@ -133,7 +172,7 @@ class CampaignList extends React.Component {
                 key: 'operation',
                 width: '30%',
                 render: (text, record) => <div>
-                    <Button type='primary' onClick={() => this.handleEdit(record.id)}>Edit</Button><Divider
+                    <Button type='primary' onClick={() => this.handleEdit(record.id, record.name)}>Edit</Button><Divider
                     type='vertical'/>
                     <Button type='danger' onClick={() => this.handleDelete(record.id)}>Delete</Button>
                 </div>
@@ -144,7 +183,16 @@ class CampaignList extends React.Component {
                 <div style={{padding: 10}}>
                     <CampaignInsert/>
                 </div>
-                <Table pagination={false} columns={columns} dataSource={this.state.campaigns}/>
+                <Table rowKey={'id'} pagination={false} columns={columns} dataSource={this.state.campaigns}/>
+                <Modal
+                    visible={this.state.visible}
+                    okText='Save'
+                    onOk={this.handleEditInsert}
+                    onCancel={this.handleEditCancle}
+                >
+                    <h5>Edit Campaign Name</h5>
+                    <input type='text' name='name' value={this.state.name} onChange={this.handleChange}/>
+                </Modal>
             </div>
 
         );

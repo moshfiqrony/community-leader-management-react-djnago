@@ -19,9 +19,6 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
             }
         }
 
-        componentDidMount() {
-        }
-
         handleLocationAuto(date) {
             this.props.form.setFieldsValue({
                 location: date.format('YYYY-MM-DD')

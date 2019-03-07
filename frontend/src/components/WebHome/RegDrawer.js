@@ -31,7 +31,7 @@ class RegistrationForm extends React.Component {
                 fd.append('phone', values.phone);
                 fd.append('password', values.password);
                 fd.append('district', values.district);
-                if (values.role === 1) {
+                if (values.role === '1') {
                     axios.post('http://127.0.0.1:8000/api/cl/', fd)
                         .then(res => {
                             if (res.statusText === 'Created') {
@@ -45,7 +45,7 @@ class RegistrationForm extends React.Component {
                                 alert('Phone Number Exist!')
                             }
                         })
-                } else if (values.role === 2) {
+                } else if (values.role === '2') {
                     axios.post('http://127.0.0.1:8000/api/agent/', fd)
                         .then(res => {
                             if (res.statusText === 'Created') {

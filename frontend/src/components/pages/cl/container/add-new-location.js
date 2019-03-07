@@ -17,11 +17,6 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
             }
         }
 
-        componentDidMount() {
-            console.log(this.props);
-        }
-
-
         render() {
             const {
                 visible, onCancel, onCreate, form,

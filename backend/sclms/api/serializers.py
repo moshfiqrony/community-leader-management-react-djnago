@@ -12,7 +12,7 @@ class DistrictsSerializers(serializers.ModelSerializer):
 class CLSerializers(serializers.ModelSerializer):
     class Meta:
         model = CL
-        fields = ('id', 'phone', 'password', 'name', 'address', 'district','bid','bkash','mar_status','empl_status','gender','nid','active',)
+        fields = ('id', 'phone', 'password', 'profile_pic', 'name', 'address', 'district','bid','bkash','mar_status','empl_status','gender','nid','active',)
 
 
 class CLSerializers2(serializers.ModelSerializer):
@@ -20,13 +20,13 @@ class CLSerializers2(serializers.ModelSerializer):
 
     class Meta:
         model = CL
-        fields = ('id', 'phone', 'password', 'name', 'address', 'district','bid','bkash','mar_status','empl_status','gender','nid','active',)
+        fields = ('id', 'phone', 'password', 'profile_pic', 'name', 'address', 'district','bid','bkash','mar_status','empl_status','gender','nid','active',)
 
 
 class AgentSerializers(serializers.ModelSerializer):
     class Meta:
         model = Agent
-        fields = ('id', 'phone', 'password', 'name', 'address', 'district', 'asign', 'active','bid','bkash','mar_status','empl_status','gender','nid',)
+        fields = ('id', 'phone', 'password', 'name', 'profile_pic', 'address', 'district', 'asign', 'active','bid','bkash','mar_status','empl_status','gender','nid',)
 
 
 class AgentSerializers2(serializers.ModelSerializer):
@@ -34,7 +34,7 @@ class AgentSerializers2(serializers.ModelSerializer):
 
     class Meta:
         model = Agent
-        fields = ('id', 'phone', 'password', 'name', 'address', 'district', 'asign', 'active','bid','bkash','mar_status','empl_status','gender','nid',)
+        fields = ('id', 'phone', 'password', 'name', 'profile_pic', 'address', 'district', 'asign', 'active','bid','bkash','mar_status','empl_status','gender','nid',)
 
 
 class CampaignSerializers(serializers.ModelSerializer):
