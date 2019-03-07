@@ -17,23 +17,23 @@ export default class IdPaymentInfo extends React.Component {
                     </Col>
                     <Col span={16}>
                         <Row>
-                            <Card headStyle={cardHeadStyle} style={cardStyle} title='Bkash'>
+                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Bkash'>
                                 <h6>{this.props.cl.bkash}</h6>
                             </Card>
                         </Row>
                         <Divider/>
                         <Row align='center'>
-                            <Card headStyle={cardHeadStyle} style={cardStyle} title='National ID'>
-                                <img width='650' height='auto' alt='nid' src={this.props.cl.nid}/>
+                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='National ID'>
+                                <img className='responsive-img' width='650' height='auto' alt='nid' src={this.props.cl.nid}/>
                             </Card>
                         </Row>
                         <Divider/>
                         <Row align='center'>
-                            <Card headStyle={cardHeadStyle} style={cardStyle} title='Birth ID'>
-                                <img width='650' height='auto' alt='bid' src={this.props.cl.bid}/>
+                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Birth ID'>
+                                <img className='responsive-img' width='650' height='auto' alt='bid' src={this.props.cl.bid}/>
                             </Card>
                         </Row>
-                        
+
                     </Col>
                 </Row>
             </div>

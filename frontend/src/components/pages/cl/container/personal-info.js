@@ -21,7 +21,7 @@ export default class PersonalInfo extends React.Component {
                     </Col>
                     <Col span={16}>
                         <Row>
-                            <Card headStyle={cardHeadStyle} style={cardStyle} title='Full Name'
+                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Full Name'
                             // eslint-disable-next-line
                             extra={<a onClick={() => this.handleEdit('Fullname', `${this.props.cl.name}`, `${this.props.cl.id}`)}>Edit</a>}
                             >
@@ -30,7 +30,7 @@ export default class PersonalInfo extends React.Component {
                         </Row>
                         <Divider/>
                         <Row>
-                            <Card headStyle={cardHeadStyle} style={cardStyle} title='Gender'
+                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Gender'
                             // eslint-disable-next-line
                             extra={<a onClick={() => this.handleEdit('Gender', `${this.props.cl.gender}`, `${this.props.cl.id}`)}>Edit</a>}
                             >
@@ -39,7 +39,7 @@ export default class PersonalInfo extends React.Component {
                         </Row>
                         <Divider/>
                         <Row>
-                            <Card headStyle={cardHeadStyle} style={cardStyle} title='Present Address'
+                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Present Address'
                             // eslint-disable-next-line
                             extra={<a onClick={() => this.handleEdit('Present Address', `${this.props.cl.address}`, `${this.props.cl.id}`)}>Edit</a>}
                             >
@@ -48,7 +48,7 @@ export default class PersonalInfo extends React.Component {
                         </Row>
                         <Divider/>
                         <Row>
-                            <Card headStyle={cardHeadStyle} style={cardStyle} title='Marital Status'
+                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Marital Status'
                             // eslint-disable-next-line
                             extra={<a onClick={() => this.handleEdit('Marital Status', `${this.props.cl.mar_status}`, `${this.props.cl.id}`)}>Edit</a>}
                             >
@@ -57,7 +57,7 @@ export default class PersonalInfo extends React.Component {
                         </Row>
                         <Divider/>
                         <Row>
-                            <Card headStyle={cardHeadStyle} style={cardStyle} title='Employement Status'
+                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Employement Status'
                             // eslint-disable-next-line
                             extra={<a onClick={() => this.handleEdit('Fullname', `${this.props.cl.empl_status}`, `${this.props.cl.id}`)}>Edit</a>}
                             >

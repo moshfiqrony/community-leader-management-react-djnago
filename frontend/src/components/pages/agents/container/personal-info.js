@@ -14,20 +14,20 @@ export default class PersonalInfo extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{overflowY: 'scroll', overflowX: 'hidden'}}>
                 <Row>
                     <Col span={8}>
                         <ProfileCard cl={this.props.cl}/>
                     </Col>
                     <Col span={16}>
                         <Row>
-                            <Card headStyle={cardHeadStyle} style={cardStyle} title='Full Name'>
+                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Full Name'>
                                 <h6>{this.props.cl.name}</h6>
                             </Card>
                         </Row>
                         <Divider/>
                         <Row>
-                            <Card headStyle={cardHeadStyle} style={cardStyle} title='Gender'
+                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Gender'
                             // eslint-disable-next-line
                             >
                                 <h6>{this.props.cl.gender}</h6>
@@ -35,19 +35,19 @@ export default class PersonalInfo extends React.Component {
                         </Row>
                         <Divider/>
                         <Row>
-                            <Card headStyle={cardHeadStyle} style={cardStyle} title='Present Address'>
+                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Present Address'>
                             <h6>{this.props.cl.address}</h6>
                             </Card>
                         </Row>
                         <Divider/>
                         <Row>
-                            <Card headStyle={cardHeadStyle} style={cardStyle} title='Marital Status'>
+                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Marital Status'>
                             <h6>{this.props.cl.mar_status}</h6>
                             </Card>
                         </Row>
                         <Divider/>
                         <Row>
-                            <Card headStyle={cardHeadStyle} style={cardStyle} title='Employement Status'>
+                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Employement Status'>
                             <h6>{this.props.cl.empl_status}</h6>
                             </Card>
                         </Row>
