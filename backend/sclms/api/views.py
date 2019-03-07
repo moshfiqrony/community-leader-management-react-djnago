@@ -30,6 +30,8 @@ class CLDetailsViews(viewsets.ModelViewSet):
 class AgentViews(viewsets.ModelViewSet):
     queryset = Agent.objects.all().order_by('active', 'asign').reverse()
     serializer_class = AgentSerializers
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('phone',)
 
 
 class CampaignViews(viewsets.ModelViewSet):

@@ -28,9 +28,40 @@ class LoginForm extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 if(values.role === '1'){
-                    this.props.history.push('/cl');
+                    axios.get(`http://127.0.0.1:8000/api/cl/?phone=${values.phone}`)
+                        .then(res => {
+                            if(res.data.length === 0){
+                                alert('You Are Not Registered! Please Register');
+                            }else {
+                                if(res.data[0].password !== values.password){
+                                    alert('Incorect Password');
+                                }else {
+                                    this.props.history.push('/cl');
+                                }
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
                 }else if(values.role === '2'){
-                    this.props.history.push('/agent');
+                    axios.get(`http://127.0.0.1:8000/api/agent/?phone=${values.phone}`)
+                        .then(res => {
+                            if(res.data.length === 0){
+
+                                alert('You Are Not Registered! Please Register');
+                            }else {
+                                if(res.data[0].password !== values.password){
+
+                                    alert('Incorect Password');
+                                }else {
+                                    this.props.history.push('/agent');
+                                }
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                    // this.props.history.push('/cl');
                 }
             }
         });
