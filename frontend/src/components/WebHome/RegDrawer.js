@@ -101,7 +101,7 @@ class RegistrationForm extends React.Component {
                             required: true, message: 'Please input your Name!',
                         }],
                     })(
-                        <Input type='text' placeholder='Please Enter Your Name *'/>
+                        <Input className='browser-default' type='text' placeholder='Please Enter Your Name *'/>
                     )}
                 </Form.Item>
                 <Form.Item>
@@ -110,7 +110,7 @@ class RegistrationForm extends React.Component {
                             required: true, message: 'Please input your Phone Number!',
                         }],
                     })(
-                        <Input type='text' placeholder='Please Enter Your Phone Number *'/>
+                        <Input className='browser-default' type='text' placeholder='Please Enter Your Phone Number *'/>
                     )}
                 </Form.Item>
                 <Form.Item>
@@ -121,7 +121,7 @@ class RegistrationForm extends React.Component {
                             validator: this.validateToNextPassword,
                         }],
                     })(
-                        <Input type="password" placeholder='Please Enter Your Password *'/>
+                        <Input className='browser-default' type="password" placeholder='Please Enter Your Password *'/>
                     )}
                 </Form.Item>
                 <Form.Item>
@@ -132,7 +132,7 @@ class RegistrationForm extends React.Component {
                             validator: this.compareToFirstPassword,
                         }],
                     })(
-                        <Input type="password" placeholder='Please Enter Your Confirm Password *'
+                        <Input className='browser-default' type="password" placeholder='Please Enter Your Confirm Password *'
                                onBlur={this.handleConfirmBlur}/>
                     )}
                 </Form.Item>

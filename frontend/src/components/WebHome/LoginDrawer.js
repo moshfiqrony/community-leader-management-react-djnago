@@ -64,7 +64,7 @@ class LoginForm extends React.Component {
                             required: true, message: 'Please input your Phone Number!',
                         }],
                     })(
-                        <Input type='text' placeholder='Please Enter Your Phone Number *'/>
+                        <Input className='browser-default' type='text' placeholder='Please Enter Your Phone Number *'/>
                     )}
                 </Form.Item>
                 <Form.Item>
@@ -75,7 +75,7 @@ class LoginForm extends React.Component {
                             validator: this.validateToNextPassword,
                         }],
                     })(
-                        <Input type="password" placeholder='Please Enter Your Password *'/>
+                        <Input className='browser-default' type="password" placeholder='Please Enter Your Password *'/>
                     )}
                 </Form.Item>
                 <Form.Item>
