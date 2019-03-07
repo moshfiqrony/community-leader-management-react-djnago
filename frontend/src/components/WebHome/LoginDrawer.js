@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {withRouter} from "react-router-dom";
 
 import {Avatar, Button, Form, Input, Select,} from 'antd';
 
@@ -26,7 +27,11 @@ class LoginForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                if(values.role === '1'){
+                    this.props.history.push('/cl');
+                }else if(values.role === '2'){
+                    this.props.history.push('/agent');
+                }
             }
         });
     };
@@ -98,4 +103,4 @@ class LoginForm extends React.Component {
     }
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);
