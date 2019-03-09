@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-import {Button, Icon, Input, Table, Tag} from 'antd';
+import {Button, Icon, Input, Table, Tag, Drawer} from 'antd';
 import Highlighter from 'react-highlight-words';
+import UserDetailsiew from './user-detail-view';
 
 
 class AgentList extends React.Component {
@@ -90,6 +91,20 @@ class AgentList extends React.Component {
                 agents: res.data
             }))
     }
+    handleViewDetails(id) {
+        console.log('I am from handle View Details, with id ', id);
+        this.setState({
+            visible: true,
+            id: id,
+        })
+    }
+
+    onClose = () => {
+        this.setState({
+            visible: false,
+            id: '',
+        });
+    };
 
     render() {
         const columns = [{
@@ -124,11 +139,27 @@ class AgentList extends React.Component {
             width: '10%',
             render: (text, record) => record.active ? <Tag color='#8bc34a'>Activated</Tag> :
                 <Tag color='#e53935'>Deactivated</Tag>,
+        },{
+            title: 'Views',
+            key: 'details',
+            width: '10%',
+            render: (text, record) => <Button onClick={() => this.handleViewDetails(record.id)} type='primary'>View
+                Details</Button>
         }];
         return (
             <div>
                 <Button icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
                 <Table pagination={false} columns={columns} dataSource={this.state.agents}/>
+                <Drawer
+                    title="Profile Information"
+                    width={900}
+                    placement="right"
+                    closable={false}
+                    onClose={this.onClose}
+                    visible={this.state.visible}
+                >
+                    <UserDetailsiew id={this.state.id} role={'agent'}/>
+                </Drawer>
             </div>
         );
     }

@@ -1,8 +1,9 @@
 import React from 'react';
 import AddNewAgent from './add-new-agent';
 import axios from 'axios';
-import {Button, Icon, Input, Table,} from 'antd';
+import {Button, Icon, Input, Table,Drawer} from 'antd';
 import Highlighter from 'react-highlight-words';
+import UserDetailsiew from './user-detail-view';
 
 
 class NewAgentChecklist extends React.Component {
@@ -11,6 +12,7 @@ class NewAgentChecklist extends React.Component {
         IsVisible: false,
         data: [],
         selectedAgents: [],
+        visible: false
     };
 
     componentDidMount() {
@@ -80,6 +82,20 @@ class NewAgentChecklist extends React.Component {
         clearFilters();
         this.setState({searchText: ''});
     };
+    handleViewDetails(id) {
+        console.log('I am from handle View Details, with id ', id);
+        this.setState({
+            visible: true,
+            id: id,
+        })
+    }
+
+    onClose = () => {
+        this.setState({
+            visible: false,
+            id: '',
+        });
+    };
 
     render() {
         const columns = [{
@@ -100,7 +116,13 @@ class NewAgentChecklist extends React.Component {
             key: 'agentId.phone',
             width: '30  %',
             ...this.getColumnSearchProps('agentId.phone'),
-        },
+        },{
+            title: 'Views',
+            key: 'details',
+            width: '10%',
+            render: (text, record) => <Button onClick={() => this.handleViewDetails(record.agentId.id)} type='primary'>View
+                Details</Button>
+        }
         ];
         return (
             <div>
@@ -108,6 +130,16 @@ class NewAgentChecklist extends React.Component {
                     <AddNewAgent/>
                 </div>
                 <Table rowKey="id" pagination={{pageSize: 5}} columns={columns} dataSource={this.state.data}/>
+                <Drawer
+                    title="Profile Information"
+                    width={900}
+                    placement="right"
+                    closable={false}
+                    onClose={this.onClose}
+                    visible={this.state.visible}
+                >
+                    <UserDetailsiew id={this.state.id} role={'agent'}/>
+                </Drawer>
             </div>
 
         );
