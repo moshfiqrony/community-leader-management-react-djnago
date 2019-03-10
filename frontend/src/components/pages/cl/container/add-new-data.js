@@ -1,5 +1,5 @@
 import React from 'react';
-
+import axios from 'axios';
 import {Button, DatePicker, Form, Modal, Select,} from 'antd';
 import Input from "antd/lib/input";
 
@@ -13,10 +13,17 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
         constructor() {
             super();
             this.state = {
-                agents: [],
+                validAgent: [],
                 date: '',
                 location: 'sd',
             }
+        }
+
+        componentDidMount(){
+            axios.get('http://127.0.0.1:8000/api/agent/?district=1')
+            .then(res => this.setState({
+                validAgent: res.data,
+            }))
         }
 
         handleLocationAuto(date) {
@@ -34,7 +41,7 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                 <Modal
                     visible={visible}
                     title="Create a new collection"
-                    okText="Select"
+                    okText="Submit"
                     onCancel={onCancel}
                     onOk={onCreate}
                 >
@@ -46,10 +53,13 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                                 <Select
                                     placeholder="Select a option and change input text above"
                                 >
-                                    <Option key='1' value='1'>Rony1</Option>
-                                    <Option key='2' value='2'>Rony2</Option>
-                                    <Option key='3' value='3'>Rony3</Option>
-                                    <Option key='4' value='4'>Rony4</Option>
+                                    {this.state.validAgent.map(agent => {
+                                        if(agent.asign !== true && agent.active !== false){
+                                            return(<Option key={agent.id} value={agent.id} >{agent.name} {agent.phone}</Option>);
+                                        }else{
+                                            return(null);
+                                        }
+                                    })}
                                 </Select>
                             )}
                         </Form.Item>

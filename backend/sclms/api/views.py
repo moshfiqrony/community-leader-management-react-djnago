@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .serializers import CLSerializers, AgentSerializers, CampaignSerializers, AddCampaignDetailsSerializers, DistrictsSerializers, CampaignDetailsSerializers, CLSerializers2, LocationSerializers, DataCollectionSerializers
+from .serializers import CLSerializers, AgentSerializers, CampaignSerializers, AddCampaignDetailsSerializers, DistrictsSerializers, CampaignDetailsSerializers, CLSerializers2, LocationSerializers, DataCollectionSerializers, DataCollectionViewSerializers, LocationViewSerializers
 from ..models import CL, Agent, Campaign, CampaignDetails, Districts, LocationChecklist, DataCollectionChecklist
 
 
@@ -31,7 +31,7 @@ class AgentViews(viewsets.ModelViewSet):
     queryset = Agent.objects.all().order_by('active', 'asign').reverse()
     serializer_class = AgentSerializers
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('phone',)
+    filter_fields = ('phone','district')
 
 
 class CampaignViews(viewsets.ModelViewSet):
@@ -51,10 +51,21 @@ class CampaignDetailsViews(viewsets.ModelViewSet):
     filter_fields = ('clId', 'campaignId',)
 
 
-class LocationViews(viewsets.ModelViewSet):
+class LocationInsertViews(viewsets.ModelViewSet):
     queryset = LocationChecklist.objects.all()
     serializer_class = LocationSerializers
 
-class DataCollectionViews(viewsets.ModelViewSet):
+
+class LocationViews(viewsets.ModelViewSet):
+    queryset = LocationChecklist.objects.all()
+    serializer_class = LocationViewSerializers
+
+class DataCollectionInsertViews(viewsets.ModelViewSet):
     queryset = DataCollectionChecklist.objects.all()
     serializer_class = DataCollectionSerializers
+
+class DataCollectionViews(viewsets.ModelViewSet):
+    queryset = DataCollectionChecklist.objects.all()
+    serializer_class = DataCollectionViewSerializers
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('campgDetails__campaignId__id',)

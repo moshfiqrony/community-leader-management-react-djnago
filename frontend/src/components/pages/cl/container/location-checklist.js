@@ -14,10 +14,11 @@ class LocationChecklist extends React.Component {
 
     componentDidMount() {
 
-        axios.get('http://127.0.0.1:8000/api/location/')
-            .then(res => this.setState({
+        axios.get('http://127.0.0.1:8000/api/locationView/')
+            .then(res => {this.setState({
                 locations: res.data,
-            }))
+            });
+        })
     }
 
     render() {
@@ -30,6 +31,11 @@ class LocationChecklist extends React.Component {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
+            width: '30%',
+        },{
+            title: 'Name',
+            dataIndex: 'campgDetails.agentId.name',
+            key: 'campgDetails',
             width: '30%',
         }, {
             title: 'Location',

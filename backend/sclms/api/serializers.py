@@ -60,12 +60,26 @@ class CampaignDetailsSerializers(serializers.ModelSerializer):
 
 
 class LocationSerializers(serializers.ModelSerializer):
+    campgDetails = CampaignDetailsSerializers(read_only=True, )
+    class Meta:
+        model = LocationChecklist
+        fields = ('id', 'campgDetails', 'date', 'location',)
+
+class LocationViewSerializers(serializers.ModelSerializer):
+    campgDetails = CampaignDetailsSerializers(read_only=True, )
     class Meta:
         model = LocationChecklist
         fields = ('id', 'campgDetails', 'date', 'location',)
 
 
 class DataCollectionSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = DataCollectionChecklist
+        fields = ('id', 'campgDetails', 'location', 'dataAmount',)
+
+class DataCollectionViewSerializers(serializers.ModelSerializer):
+    campgDetails = CampaignDetailsSerializers(read_only=True, )
+    location = LocationViewSerializers(read_only=True, )
     class Meta:
         model = DataCollectionChecklist
         fields = ('id', 'campgDetails', 'location', 'dataAmount',)

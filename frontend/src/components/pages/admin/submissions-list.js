@@ -20,8 +20,7 @@ class Submissions extends React.Component {
     }
 
     componentDidMount() {
-        // let campaignId = this.props.match.params.campaignId;
-        axios.get('http://127.0.0.1:8000/api/datacollection/')
+        axios.get(`http://127.0.0.1:8000/api/datacollectionView/?campgDetails__campaignId__id=${this.props.match.params.campaignId}`)
             .then(res => this.setState({
                 submissions: res.data,
             }))
@@ -36,7 +35,7 @@ class Submissions extends React.Component {
                         <HeaderMain data={this.state.title}/>
                         <div style={{margin: '24px 16px 0', overflow: 'initial', backgroundColor:'#fff', padding: 10}}>
                             {this.state.submissions.map((submission) => {
-                                return(<p key={submission.id}>{submission.dataAmount}</p>)
+                                return(<p key={submission.id}>{submission.dataAmount}{submission.location.date}</p>)
                             })}
                         </div>
                         <FooterMain/>

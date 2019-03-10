@@ -1,5 +1,5 @@
 import React from 'react';
-
+import axios from 'axios';
 import {Button, DatePicker, Form, Modal, Select,} from 'antd';
 import Input from "antd/lib/input";
 
@@ -13,8 +13,15 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
         constructor() {
             super();
             this.state = {
-                agents: [],
+                validAgent: []
             }
+        }
+        
+        componentDidMount(){
+            axios.get('http://127.0.0.1:8000/api/agent/?district=1')
+            .then(res => this.setState({
+                validAgent: res.data,
+            }))
         }
 
         render() {
@@ -32,16 +39,20 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                 >
                     <Form layout="vertical">
                         <Form.Item label="Select Agent">
-                            {getFieldDecorator('date-picker', {
+                            {getFieldDecorator('agent', {
                                 rules: [{required: true, message: 'Please input the title of Campaign!'}],
                             })(
                                 <Select
                                     placeholder="Select a option and change input text above"
                                 >
-                                    <Option key='1' value='1'>Rony1</Option>
-                                    <Option key='2' value='2'>Rony2</Option>
-                                    <Option key='3' value='3'>Rony3</Option>
-                                    <Option key='4' value='4'>Rony4</Option>
+                                    {this.state.validAgent.map(agent => {
+                                        if(agent.asign !== true && agent.active !== false){
+                                            return(<Option key={agent.id} value={agent.id} >{agent.name} {agent.phone}</Option>);
+                                        }else{
+                                            return(null);
+                                        }
+                                    })}
+                                    {/* <Option key='1' value='1'>Rony1</Option> */}
                                 </Select>
                             )}
                         </Form.Item>
@@ -87,6 +98,7 @@ class AddNewLocation extends React.Component {
             }
 
             console.log(values.date.format('YYYY-MM-DD'));
+            console.log(values)
 
             form.resetFields();
             this.setState({visible: false});
