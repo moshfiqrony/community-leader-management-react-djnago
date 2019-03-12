@@ -7,6 +7,7 @@ import PersonalInfo from './container/personal-info';
 import IdPaymentInfo from './container/id-payment-info';
 
 import {Layout, Tabs} from "antd";
+import {connect} from "react-redux";
 
 const TabPane = Tabs.TabPane;
 
@@ -24,13 +25,15 @@ class AgentProfile extends React.Component {
     }
 
     componentDidMount(){
-        axios.get('http://127.0.0.1:8000/api/agent/1/')
+        console.log(this.props.loggedInUser);
+        axios.get(`http://127.0.0.1:8000/api/agent/${this.props.loggedInUser.id}/`)
         .then(res => this.setState({
             cl: res.data,
         }))
     }
 
     render() {
+        console.log(this.props.loggedInUser);
         return (
             <div>
                 <Layout>
@@ -62,4 +65,10 @@ class AgentProfile extends React.Component {
     }
 }
 
-export default AgentProfile;
+function mapStateToProps(state) {
+    return{
+        loggedInUser: state.users,
+    }
+}
+
+export default connect(mapStateToProps)(AgentProfile);

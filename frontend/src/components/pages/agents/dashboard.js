@@ -3,6 +3,7 @@ import FooterMain from '../../footer/footer-main'
 import SiderMain from '../../sidebar/sidebar-agent'
 import HeaderMain from '../../header/header-main'
 import Dashboard from './container/dashboard';
+import {connect} from "react-redux";
 
 import {Layout,} from "antd";
 
@@ -26,7 +27,7 @@ class AgentDashboard extends React.Component {
                     <Layout style={{marginLeft: 200}}>
                         <HeaderMain data={this.state.title}/>
                         <div style={{margin: '24px 16px 0', overflow: 'initial', backgroundColor: '#fff', padding: 10}}>
-                            <Dashboard data={this.state}/>
+                            <Dashboard data={this.props.loggedInUser}/>
                         </div>
                         <FooterMain/>
                     </Layout>
@@ -36,4 +37,10 @@ class AgentDashboard extends React.Component {
     }
 }
 
-export default AgentDashboard;
+function mapStateToProps(state) {
+    return{
+        loggedInUser: state.users,
+    }
+}
+
+export default connect(mapStateToProps) (AgentDashboard);

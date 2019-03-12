@@ -1,10 +1,10 @@
 import {combineReducers} from "redux";
-import Users from './laod-user'
+import Users from './load-campaigns'
 
 
 
 const allReducers = combineReducers({
-    users: Users
+    users: Users,
 })
 
 export default allReducers

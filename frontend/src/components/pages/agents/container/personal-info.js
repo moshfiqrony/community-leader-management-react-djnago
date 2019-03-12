@@ -14,7 +14,7 @@ export default class PersonalInfo extends React.Component {
 
     render() {
         return (
-            <div style={{overflowY: 'scroll', overflowX: 'hidden'}}>
+            <div>
                 <Row>
                     <Col span={8}>
                         <ProfileCard cl={this.props.cl}/>

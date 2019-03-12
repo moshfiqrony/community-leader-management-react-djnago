@@ -1,9 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import 'antd/dist/antd.css';
 import 'materialize-css/dist/css/materialize.min.css';
 //webview components
 import Home from './components/WebHome/Home'
-import {BrowserRouter, Redirect, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import About from "./components/WebHome/About";
 import Contact from "./components/WebHome/Contact";
 //cl components
@@ -26,28 +27,25 @@ import AgentDashboard from './components/pages/agents/dashboard';
 //extra components
 import ErrorPage from './components/WebHome/404';
 import NotFound from './components/WebHome/not-found';
-import {Switch} from "react-router-dom";
 
 
 // main app
 class MyApp extends React.Component {
     constructor() {
         super();
-        this.state = {
-            user: {
-                isLogin: true,
-                active: true,
-            },
-
+        this.state={
+            isLogin: true,
         }
     }
 
+
     render() {
+        console.log(this.props.loggedInUser);
         return (
             <div>
                 {/* Routing starts */}
                 <BrowserRouter>
-                        <Switch>
+                    <Switch>
                         {/* web view routing */}
                         <Route path='/about' component={About}/>
 
@@ -59,80 +57,80 @@ class MyApp extends React.Component {
 
                         {/* cl routing */}
                         <Route exact path='/cl/'
-                               component={() => this.state.user.isLogin ? <CLDashboard/> : <Redirect to='/error'/>}/>
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='cl' ? <CLDashboard/> : <Redirect to='/error'/>}/>
 
                         <Route path='/cl/dashboard'
-                               component={() => this.state.user.isLogin ? <CLDashboard/> : <Redirect to='/error'/>}/>
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='cl' ? <CLDashboard/> : <Redirect to='/error'/>}/>
 
                         <Route path='/cl/profile'
-                               component={() => this.state.user.isLogin ? <CLProfile/> : <Redirect to='/error'/>}/>
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='cl' ? <CLProfile/> : <Redirect to='/error'/>}/>
 
                         <Route path='/cl/agentslist'
-                               component={() => this.state.user.isLogin && this.state.user.active ? <CLAgentList/> :
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='cl' && this.props.loggedInUser.active ? <CLAgentList/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route exact path='/cl/campaignlist'
-                               component={() => this.state.user.isLogin && this.state.user.active ? <CLCampaignList/> :
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='cl' && this.props.loggedInUser.active ? <CLCampaignList/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route path='/cl/campaignlist/:campaignId'
-                               component={(props) => this.state.user.isLogin && this.state.user.active ?
+                               component={(props) => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='cl'  && this.props.loggedInUser.active ?
                                    <CLCampaignDetails {...props}/> : <Redirect to='/error'/>}/>
                         {/* cl routing end */}
 
 
                         {/* admin routing starts */}
                         <Route path='/admin/campaignlist'
-                               component={() => this.state.user.isLogin && this.state.user.active ?
+                               component={() => this.state.isLogin ?
                                    <AdminCampaignList/> : <Redirect to='/error'/>}/>
 
                         <Route exact path='/admin/'
-                               component={() => this.state.user.isLogin && this.state.user.active ? <AdminDashboard/> :
+                               component={() => this.state.isLogin ? <AdminDashboard/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route path='/admin/dashboard'
-                               component={() => this.state.user.isLogin && this.state.user.active ? <AdminDashboard/> :
+                               component={() => this.state.isLogin ? <AdminDashboard/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route path='/admin/agentslist'
-                               component={() => this.state.user.isLogin && this.state.user.active ? <AdminAgentList/> :
+                               component={() => this.state.isLogin ? <AdminAgentList/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route path='/admin/cllist'
-                               component={() => this.state.user.isLogin && this.state.user.active ? <AdminCLList/> :
+                               component={() => this.state.isLogin ? <AdminCLList/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route exact path='/admin/submissions'
-                               component={() => this.state.user.isLogin && this.state.user.active ? <AdminSubmission/> :
+                               component={() => this.state.isLogin ? <AdminSubmission/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route path='/admin/submissions/campaignlist/:campaignId'
-                               component={(props) => this.state.user.isLogin && this.state.user.active ?
+                               component={(props) => this.state.isLogin ?
                                    <AdminSubmissionList {...props}/> : <Redirect to='/error'/>}/>
                         {/* admin routing end */}
 
 
                         {/* agent routing starts */}
                         <Route exact path='/agent/'
-                               component={() => this.state.user.isLogin && this.state.user.active ?
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='agent' ?
                                    <AgentDashboard/> : <Redirect to='/error'/>}/>
                         <Route path='/agent/campaignlist'
-                               component={() => this.state.user.isLogin && this.state.user.active ?
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='agent' && this.props.loggedInUser.active ?
                                    <AgentCampaignList/> : <Redirect to='/error'/>}/>
 
                         <Route path='/agent/profile'
-                               component={() => this.state.user.isLogin && this.state.user.active ?
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='agent' ?
                                    <AgentProfile/> : <Redirect to='/error'/>}/>
 
                         <Route path='/agent/dashboard'
-                               component={() => this.state.user.isLogin && this.state.user.active ?
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='agent' ?
                                    <AgentDashboard/> : <Redirect to='/error'/>}/>
                         {/* agent routing ends */}
 
                         <Route path='/error' component={ErrorPage}/>
                         <Route exact path='/notfound' component={NotFound}/>
                         <Route component={NotFound}/>
-                        </Switch>
+                    </Switch>
                 </BrowserRouter>
                 {/* routing ends */}
             </div>
@@ -140,4 +138,11 @@ class MyApp extends React.Component {
     }
 }
 
-export default MyApp;
+
+function mapStateToProps(state) {
+    return {
+        loggedInUser: state.users,
+    }
+}
+
+export default connect(mapStateToProps)(MyApp);

@@ -130,8 +130,8 @@ class AgentList extends React.Component {
             dataIndex: 'asign',
             key: 'asign',
             width: '10%',
-            render: (text, record) => record.asign ? <Tag color='#e53935'>Assigned</Tag> :
-                <Tag color='#8bc34a'>Not Assigned</Tag>,
+            render: (text, record) => record.asign ? <Tag color='#8bc34a'>Assigned</Tag> :
+                <Tag color='#e53935'>Not Assigned</Tag>,
         }, {
             title: 'Active',
             dataIndex: 'active',
