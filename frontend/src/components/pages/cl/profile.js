@@ -8,6 +8,7 @@ import PersonalInfo from './container/personal-info';
 import IdPaymentInfo from './container/id-payment-info';
 
 import {Layout, Tabs} from "antd";
+import {connect} from "react-redux";
 
 const TabPane = Tabs.TabPane;
 
@@ -25,7 +26,7 @@ class CLProfile extends React.Component {
     }
 
     componentDidMount(){
-        axios.get('http://127.0.0.1:8000/api/cldetails/1/')
+        axios.get(`http://127.0.0.1:8000/api/cldetails/${this.props.loggedInUser.id}/`)
         .then(res => this.setState({
             cl: res.data,
         }))
@@ -64,4 +65,11 @@ class CLProfile extends React.Component {
     }
 }
 
-export default CLProfile;
+function mapStateToProps(state) {
+    return{
+        loggedInUser: state.users,
+    }
+
+}
+
+export default connect(mapStateToProps) (CLProfile);

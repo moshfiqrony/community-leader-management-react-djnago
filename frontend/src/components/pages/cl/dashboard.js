@@ -5,6 +5,7 @@ import HeaderMain from '../../header/header-main'
 import Content from './container/dashboard'
 
 import {Layout} from "antd";
+import {connect} from "react-redux";
 
 class CLDashboard extends React.Component {
     constructor() {
@@ -25,7 +26,7 @@ class CLDashboard extends React.Component {
                     <SiderMain/>
                     <Layout style={{marginLeft: 200}}>
                         <HeaderMain data={this.state.title}/>
-                        <Content data={this.state}/>
+                        <Content data={this.props.loggedInUser}/>
                         <FooterMain/>
                     </Layout>
                 </Layout>
@@ -34,4 +35,12 @@ class CLDashboard extends React.Component {
     }
 }
 
-export default CLDashboard;
+
+function mapStateToProps(state) {
+    return{
+        loggedInUser: state.users,
+    }
+
+}
+
+export default connect(mapStateToProps) (CLDashboard);

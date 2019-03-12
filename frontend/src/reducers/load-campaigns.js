@@ -3,7 +3,7 @@ const users = {
     phone: '01722667722',
     name: 'Md. Moshfiqur Rahman Rony',
     role: 'cl',
-    active: false,
+    active: true,
 };
 
 
