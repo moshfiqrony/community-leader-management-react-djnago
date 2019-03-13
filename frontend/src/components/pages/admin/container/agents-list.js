@@ -41,7 +41,7 @@ class AgentList extends React.Component {
         filterDropdown: ({
                              setSelectedKeys, selectedKeys, confirm, clearFilters,
                          }) => (
-            <div style={{padding: 8}}>
+            <div className='hideforpdf' style={{padding: 8}}>
                 <Input
                     ref={node => {
                         this.searchInput = node;
@@ -70,7 +70,8 @@ class AgentList extends React.Component {
                 </Button>
             </div>
         ),
-        filterIcon: filtered => <Icon type="search" style={{color: filtered ? '#1890ff' : undefined}}/>,
+        filterIcon: filtered => <Icon className='hideforpdf' type="search"
+                                      style={{color: filtered ? '#1890ff' : undefined}}/>,
         onFilter: (value, record) => record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
         onFilterDropdownVisibleChange: (visible) => {
             if (visible) {
@@ -129,6 +130,7 @@ class AgentList extends React.Component {
                 }
             });
     }
+
     handleViewDetails(id) {
         console.log('I am from handle View Details, with id ', id);
         this.setState({
@@ -143,6 +145,17 @@ class AgentList extends React.Component {
             id: '',
         });
     };
+
+    handlePDF() {
+        var div = "<html><head><style> .hideforpdf{display: none;}td{text-align:center;}table{border: 1px solid black;float: center;}table tr{border: 1px solid black;}table tr td{border: 1px solid black;}table tr th{border: 1px solid black;}</style></head><body>";
+        div += document.getElementById('printArea').innerHTML;
+        div += "</body></html>";
+        var win = window.open("", "", "width=960,height=500");
+        win.document.write("<center><img src='http://getd2.com/img/logo-new.png'/><h1>Agent List</h1></center><br><br>");
+        win.document.write(div);
+        win.document.write("<br><br><center><p>&copy All Rights Reserved By D2</p><p>Developed By D2</p></center>");
+        win.print();
+    }
 
 
     render() {
@@ -181,23 +194,32 @@ class AgentList extends React.Component {
         }, {
             title: 'Action',
             key: 'operation',
+            className: 'hideforpdf',
             width: '10%',
             render: (text, record) => record.active
                 ?
                 <Button onClick={() => this.handleBlock(record.id)} type='danger'>Block</Button>
                 :
                 <Button onClick={() => this.handleActivate(record.id)} type='primary'>Activate</Button>
-        },{
+        }, {
             title: 'Views',
             key: 'details',
+            className: 'hideforpdf',
             width: '10%',
             render: (text, record) => <Button onClick={() => this.handleViewDetails(record.id)} type='primary'>View
                 Details</Button>
         }];
         return (
             <div>
-                <Button htmlType='button' type='primary' icon='reload' onClick={this.handleLoad}>Reload</Button>
-                <Table pagination={false} columns={columns} dataSource={this.state.agents}/>
+                <div style={{paddingBottom: 20}}>
+                    <Button htmlType='button' type='primary' icon='reload' onClick={this.handleLoad}>Reload</Button>
+                    <div style={{float: 'right'}}>
+                        <Button onClick={() => this.handlePDF()}>Download PDF</Button>
+                    </div>
+                </div>
+                <div id='printArea'>
+                    <Table pagination={false} columns={columns} dataSource={this.state.agents}/>
+                </div>
                 <Drawer
                     title="Profile Information"
                     width={900}

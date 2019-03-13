@@ -44,7 +44,7 @@ class CLListContainer extends React.Component {
         filterDropdown: ({
                              setSelectedKeys, selectedKeys, confirm, clearFilters,
                          }) => (
-            <div style={{padding: 8}}>
+            <div className='hideforpdf' style={{padding: 8}}>
                 <Input
                     ref={node => {
                         this.searchInput = node;
@@ -73,7 +73,8 @@ class CLListContainer extends React.Component {
                 </Button>
             </div>
         ),
-        filterIcon: filtered => <Icon type="search" style={{color: filtered ? '#1890ff' : undefined}}/>,
+        filterIcon: filtered => <Icon className='hideforpdf' type="search"
+                                      style={{color: filtered ? '#1890ff' : undefined}}/>,
         onFilter: (value, record) => record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
         onFilterDropdownVisibleChange: (visible) => {
             if (visible) {
@@ -152,6 +153,17 @@ class CLListContainer extends React.Component {
             }))
     }
 
+    handlePDF() {
+        var div = "<html><head><style> .hideforpdf{display: none;}td{text-align:center;}table{border: 1px solid black;float: center;}table tr{border: 1px solid black;}table tr td{border: 1px solid black;}table tr th{border: 1px solid black;}</style></head><body>";
+        div += document.getElementById('printArea').innerHTML;
+        div += "</body></html>";
+        var win = window.open("", "", "width=960,height=500");
+        win.document.write("<center><img src='http://getd2.com/img/logo-new.png'/><h1>Community Leader List</h1></center><br><br>");
+        win.document.write(div);
+        win.document.write("<br><br><center><p>&copy All Rights Reserved By D2</p><p>Developed By D2</p></center>");
+        win.print();
+    }
+
     render() {
         const columns = [{
             title: 'ID',
@@ -181,6 +193,7 @@ class CLListContainer extends React.Component {
         }, {
             title: 'Action',
             key: 'operation',
+            className: 'hideforpdf',
             width: '10%',
             render: (text, record) => record.active
                 ?
@@ -189,6 +202,7 @@ class CLListContainer extends React.Component {
                 <Button onClick={() => this.handleActivate(record.id)} type='primary'>Activate</Button>
         }, {
             title: 'Views',
+            className: 'hideforpdf',
             key: 'details',
             width: '10%',
             render: (text, record) => <Button onClick={() => this.handleViewDetails(record.id)} type='primary'>View
@@ -196,8 +210,15 @@ class CLListContainer extends React.Component {
         }];
         return (
             <div>
-                <Button icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
-                <Table rowKey={'id'} pagination={false} columns={columns} dataSource={this.state.agents}/>
+                <div style={{paddingBottom: 20}}>
+                    <Button icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
+                    <div style={{float: 'right'}}>
+                        <Button onClick={() => this.handlePDF()}>Download PDF</Button>
+                    </div>
+                </div>
+                <div id='printArea'>
+                    <Table rowKey={'id'} pagination={false} columns={columns} dataSource={this.state.agents}/>
+                </div>
                 <Drawer
                     title="Profile Information"
                     width={900}

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Avatar, Tag} from "antd";
+import {Avatar, Button, Tag} from "antd";
 
 class App extends React.Component {
     constructor() {
@@ -44,10 +44,23 @@ class App extends React.Component {
             }
         }
     }
+    handlePDFDetilas(name) {
+        console.log('i am ohjsdfjh');
+        var div = "<html><head><style> img{width: 150px} .hideforpdf{display: none;}</style></head><body><center>";
+        div += document.getElementById('printArea2').innerHTML;
+        div += "</center></body></html>";
+        var win = window.open("", "", "width=960,height=500");
+        win.document.write("<center><img src='http://getd2.com/img/logo-new.png'/><h1>"+name+"'s Personal Infromation</h1></center><br><br>");
+        win.document.write(div);
+        win.document.write("<br><br><center><p>&copy All Rights Reserved By D2</p><p>Developed By D2</p></center>");
+        win.print();
+    }
 
     render() {
         return (
             <div>
+                <Button onClick={() => this.handlePDFDetilas(this.state.data.name)} className='center'>Print PDF</Button>
+                <div id='printArea2'>
                 <table>
                     <tbody>
                     <tr>
@@ -94,6 +107,7 @@ class App extends React.Component {
                     </tr>
                     </tbody>
                 </table>
+                    </div>
             </div>
         );
     }
