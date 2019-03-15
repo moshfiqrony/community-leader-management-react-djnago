@@ -4,24 +4,9 @@ from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework_guardian import filters
 
-from .serializers import CLSerializers, AgentSerializers, CampaignSerializers, AddCampaignDetailsSerializers, \
-    DistrictsSerializers, CampaignDetailsSerializers, CLSerializers2, LocationSerializers, DataCollectionSerializers, \
-    DataCollectionViewSerializers, LocationViewSerializers
-from ..models import CL, Agent, Campaign, CampaignDetails, Districts, LocationChecklist, DataCollectionChecklist
+from .serializers import CLSerializers, AgentSerializers, CampaignSerializers, AddCampaignDetailsSerializers,DistrictsSerializers, CampaignDetailsSerializers, CLSerializers2, LocationSerializers, LocationViewSerializers
+from ..models import CL, Agent, Campaign, CampaignDetails, Districts, LocationChecklist
 
-class CustomObjectPermissions(permissions.DjangoObjectPermissions):
-    """
-    Similar to `DjangoObjectPermissions`, but adding 'view' permissions.
-    """
-    perms_map = {
-        'GET': ['%(app_label)s.view_%(model_name)s'],
-        'OPTIONS': ['%(app_label)s.view_%(model_name)s'],
-        'HEAD': ['%(app_label)s.view_%(model_name)s'],
-        'POST': ['%(app_label)s.add_%(model_name)s'],
-        'PUT': ['%(app_label)s.change_%(model_name)s'],
-        'PATCH': ['%(app_label)s.change_%(model_name)s'],
-        'DELETE': ['%(app_label)s.delete_%(model_name)s'],
-    }
 
 class DistrictsViews(viewsets.ModelViewSet):
     queryset = Districts.objects.all()
@@ -77,15 +62,6 @@ class LocationInsertViews(viewsets.ModelViewSet):
 class LocationViews(viewsets.ModelViewSet):
     queryset = LocationChecklist.objects.all()
     serializer_class = LocationViewSerializers
-
-
-class DataCollectionInsertViews(viewsets.ModelViewSet):
-    queryset = DataCollectionChecklist.objects.all()
-    serializer_class = DataCollectionSerializers
-
-
-class DataCollectionViews(viewsets.ModelViewSet):
-    queryset = DataCollectionChecklist.objects.all()
-    serializer_class = DataCollectionViewSerializers
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('campgDetails__campaignId__id',)
+    filter_fields = ('campgDetails__campaignId__id', 'campgDetails__clId__id', 'campgDetails__id', 'date', 'amount')
+

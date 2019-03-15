@@ -1,7 +1,9 @@
 import React from 'react';
+import {withRouter} from "react-router-dom";
 import axios from 'axios';
 import {Button, DatePicker, Form, Modal, Select,} from 'antd';
 import Input from "antd/lib/input";
+import {connect} from "react-redux";
 
 const {Option} = Select;
 
@@ -19,17 +21,20 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
             }
         }
 
-        componentDidMount(){
-            axios.get('http://127.0.0.1:8000/api/agent/?district=1')
-            .then(res => this.setState({
-                validAgent: res.data,
-            }))
+        componentDidMount() {
+            axios.get(`http://127.0.0.1:8000/api/locationView/?campgDetails__campaignId__id=${this.props.match.params.campaignId}&&campgDetails__clId__id=${this.props.user.id}`)
+                .then(res => this.setState({
+                    validAgent: res.data,
+                }))
         }
 
-        handleLocationAuto(date) {
-            this.props.form.setFieldsValue({
-                location: date.format('YYYY-MM-DD')
-            })
+        componentDidUpdate(prevProps, prevState, snapshot) {
+            if (this.props !== prevProps) {
+                axios.get(`http://127.0.0.1:8000/api/locationView/?campgDetails__campaignId__id=${this.props.match.params.campaignId}&&campgDetails__clId__id=${this.props.user.id}`)
+                    .then(res => this.setState({
+                        validAgent: res.data,
+                    }))
+            }
         }
 
         render() {
@@ -54,27 +59,19 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                                     placeholder="Select a option and change input text above"
                                 >
                                     {this.state.validAgent.map(agent => {
-                                        if(agent.asign !== true && agent.active !== false){
-                                            return(<Option key={agent.id} value={agent.id} >{agent.name} {agent.phone}</Option>);
-                                        }else{
-                                            return(null);
+                                        if (agent.amount === 0) {
+                                            return (<Option key={agent.id}
+                                                            value={agent.id}>{agent.campgDetails.agentId.name} - {agent.campgDetails.agentId.phone} - {agent.date}</Option>)
                                         }
                                     })}
                                 </Select>
                             )}
                         </Form.Item>
                         <Form.Item>
-                            {getFieldDecorator('date', {
-                                rules: [{required: true, message: 'Please select date!'}],
-                            })(
-                                <DatePicker onChange={(date) => this.handleLocationAuto(date)}/>
-                            )}
-                        </Form.Item>
-                        <Form.Item>
-                            {getFieldDecorator('location', {
+                            {getFieldDecorator('amount', {
                                 rules: [{required: true, message: 'Please select date!',}],
                             })(
-                                <Input disabled={true}/>
+                                <Input type='number'/>
                             )}
                         </Form.Item>
                     </Form>
@@ -120,6 +117,7 @@ class AddNewData extends React.Component {
             <div>
                 <Button icon='plus' type="primary" onClick={this.showModal}>Add New</Button>
                 <CollectionCreateForm
+                    {...this.props}
                     agents={this.props.agents}
                     wrappedComponentRef={this.saveFormRef}
                     visible={this.state.visible}
@@ -131,4 +129,10 @@ class AddNewData extends React.Component {
     }
 }
 
-export default AddNewData;
+function mapStateToProps(state) {
+    return {
+        user: state.users,
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(AddNewData));

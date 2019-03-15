@@ -51,11 +51,7 @@ class LocationChecklist(models.Model):
     campgDetails = models.ForeignKey(CampaignDetails, on_delete=models.CASCADE)
     date = models.DateField()
     location = models.CharField(max_length=60)
+    amount = models.IntegerField(default=0)
 
-
-class DataCollectionChecklist(models.Model):
-    campgDetails = models.ForeignKey(CampaignDetails, on_delete=models.CASCADE)
-    location = models.ForeignKey(LocationChecklist, on_delete=models.CASCADE)
-    dataAmount = models.IntegerField()
 
 
