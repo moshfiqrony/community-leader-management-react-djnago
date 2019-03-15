@@ -2,7 +2,6 @@ from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework_guardian import filters
 
 from .serializers import CLSerializers, AgentSerializers, CampaignSerializers, AddCampaignDetailsSerializers,DistrictsSerializers, CampaignDetailsSerializers, CLSerializers2, LocationSerializers, LocationViewSerializers
 from ..models import CL, Agent, Campaign, CampaignDetails, Districts, LocationChecklist

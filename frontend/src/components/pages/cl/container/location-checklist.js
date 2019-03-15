@@ -70,17 +70,17 @@ class LocationChecklist extends React.Component {
             title: 'Name',
             dataIndex: 'campgDetails.agentId.name',
             key: 'campgDetails',
-            width: '40%',
+            width: '25%',
         }, {
             title: 'Phone',
             dataIndex: 'campgDetails.agentId.phone',
             key: 'phone',
-            width: '30%',
+            width: '20%',
         }, {
             title: 'Location',
             dataIndex: 'location',
             key: 'location',
-            width: '15%',
+            width: '20%',
         }, {
             title: 'Action',
             key: 'action',
