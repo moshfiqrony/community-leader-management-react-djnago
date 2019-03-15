@@ -48,7 +48,7 @@ export default class PersonalInfo extends React.Component {
         const {name, value} = e.target;
         console.log(e.target);
         this.setState({
-            ['name']: value,
+            [name]: value,
         })
     }
 

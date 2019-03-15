@@ -43,9 +43,14 @@ class SiderDashboard extends React.Component {
                         <Menu.Item key="4">
 
                             <span className="nav-text"><Link className='SideBarText' to='/admin/submissions'><Icon
-                                type="bar-chart"/>Submissions</Link></span>
+                                type="bar-chart"/>Data Collection</Link></span>
                         </Menu.Item>
                         <Menu.Item key="5">
+
+                            <span className="nav-text"><Link className='SideBarText' to='/admin/submissionsview'><Icon
+                                type="bar-chart"/>Submissions</Link></span>
+                        </Menu.Item>
+                        <Menu.Item key="6">
 
                             <span className="nav-text"><Link className='SideBarText' to='/'><Icon
                                 type="logout"/>Logout</Link></span>

@@ -54,19 +54,19 @@ class CampaignDetails extends React.Component {
                         >
                             <Tabs onChange={callback} type="card">
                                 <TabPane tab="Overview" key="1">
-                                    <Overview data={this.state}/>
+                                    <Overview data={this.state} surveyName={this.state.data.name}/>
                                 </TabPane>
                                 <TabPane tab="New Agent Check List" key="2">
                                     <h5>New Agent Check List for {this.state.data.name}</h5>
-                                    <NewAgentChecklist {...this.props}/>
+                                    <NewAgentChecklist {...this.props} surveyName={this.state.data.name}/>
                                 </TabPane>
                                 <TabPane tab="Location Check List" key="3">
                                     <h5>Location Check List for {this.state.data.name}</h5>
-                                    <LocationChecklist {...this.props}/>
+                                    <LocationChecklist {...this.props} surveyName={this.state.data.name}/>
                                 </TabPane>
                                 <TabPane tab='Data Collection Check List' key='4'>
                                     <h5>Location Check List for {this.state.data.name}</h5>
-                                    <DataCollectionChecklist {...this.props}/>
+                                    <DataCollectionChecklist {...this.props} surveyName={this.state.data.name}/>
                                 </TabPane>
                             </Tabs>
                         </div>

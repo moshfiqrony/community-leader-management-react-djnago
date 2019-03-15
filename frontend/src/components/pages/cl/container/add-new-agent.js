@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-
+import {connect,} from "react-redux";
+import {withRouter} from "react-router-dom";
 import {Button, Form, Modal, Select,} from 'antd';
 
 const {Option} = Select;
@@ -18,10 +19,20 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
         }
 
         componentDidMount() {
-            axios.get('http://127.0.0.1:8000/api/agent/')
+            console.log(this.props.user);
+            axios.get(`http://127.0.0.1:8000/api/agent/?active=true&&asign=false&&district=${this.props.user.district}`)
                 .then(res => this.setState({
                     agents: res.data,
                 }))
+        }
+
+        componentDidUpdate(prevProps, prevState, snapshot) {
+            if (this.props !== prevProps) {
+                axios.get(`http://127.0.0.1:8000/api/agent/?active=true&&asign=false&&district=${this.props.user.district}`)
+                    .then(res => this.setState({
+                        agents: res.data,
+                    }))
+            }
         }
 
         render() {
@@ -50,8 +61,8 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                                         if (!agent.asign && agent.active) {
                                             return (<Option key={agent.id}
                                                             value={agent.id}>{agent.name + ' ' + agent.phone}</Option>)
-                                        }else {
-                                            return(null)
+                                        } else {
+                                            return (null)
                                         }
                                     })}
                                 </Select>
@@ -84,7 +95,27 @@ class AddNewAgent extends React.Component {
                 return;
             }
 
-            console.log(values.agent);
+            let fd = new FormData();
+            fd.append('clId', this.props.user.id);
+            fd.append('agentId', values.agent);
+            fd.append('campaignId', this.props.match.params.campaignId);
+            axios.post('http://127.0.0.1:8000/api/addcampaignDetails/', fd)
+                .then(res => {
+                    if(res.statusText === 'Created'){
+                        let fd2 = new FormData();
+                        fd2.append('asign', true);
+                        axios.patch(`http://127.0.0.1:8000/api/agent/${values.agent}/`, fd2)
+                            .then(res => {
+                                if(res.statusText === 'OK'){
+                                    alert('New Agent Added');
+                                    this.props.history.push(`/cl/campaignlist/${this.props.match.params.campaignId}`)
+                                }
+                            });
+
+                    }else {
+                        alert('Problem To Add');
+                    }
+                });
 
             form.resetFields();
             this.setState({visible: false});
@@ -95,11 +126,13 @@ class AddNewAgent extends React.Component {
         this.formRef = formRef;
     };
 
+
     render() {
         return (
             <div>
                 <Button icon='plus' type="primary" onClick={this.showModal}>Add New</Button>
                 <CollectionCreateForm
+                    user={this.props.user}
                     agents={this.props.agents}
                     wrappedComponentRef={this.saveFormRef}
                     visible={this.state.visible}
@@ -111,4 +144,11 @@ class AddNewAgent extends React.Component {
     }
 }
 
-export default AddNewAgent;
+function mapStateToProps(state) {
+    return {
+        user: state.users,
+    }
+}
+
+
+export default connect(mapStateToProps)(withRouter(AddNewAgent));

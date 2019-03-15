@@ -24,13 +24,13 @@ export default class IdPaymentInfo extends React.Component {
                         <Divider/>
                         <Row align='center'>
                             <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='National ID'>
-                                <img className='responsive-img'  width='650' height='auto' alt='nid' src={this.props.cl.nid}/>
+                                {this.props.cl.nid === null ? 'No NID Uploaded' : <img className='responsive-img'  width='650' height='auto' alt='nid' src={this.props.cl.nid}/>}
                             </Card>
                         </Row>
                         <Divider/>
                         <Row align='center'>
                             <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Birth ID'>
-                                <img className='responsive-img' width='650' height='auto' alt='bid' src={this.props.cl.bid}/>
+                                {this.props.cl.nid === null ? 'No BID Uploaded' : <img className='responsive-img'  width='650' height='auto' alt='nid' src={this.props.cl.bid}/>}
                             </Card>
                         </Row>
                         

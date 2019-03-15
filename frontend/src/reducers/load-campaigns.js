@@ -4,6 +4,7 @@ const users = {
     name: 'Md. Moshfiqur Rahman Rony',
     role: 'cl',
     active: true,
+    district: 1,
 };
 
 

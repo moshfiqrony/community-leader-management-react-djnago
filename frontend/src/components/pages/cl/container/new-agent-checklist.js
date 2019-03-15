@@ -1,9 +1,10 @@
 import React from 'react';
 import AddNewAgent from './add-new-agent';
 import axios from 'axios';
-import {Button, Icon, Input, Table,Drawer} from 'antd';
+import {Button, Icon, Input, Table, Drawer, Tag} from 'antd';
 import Highlighter from 'react-highlight-words';
 import UserDetailsiew from './user-detail-view';
+import {connect} from "react-redux";
 
 
 class NewAgentChecklist extends React.Component {
@@ -16,18 +17,26 @@ class NewAgentChecklist extends React.Component {
     };
 
     componentDidMount() {
-        axios.get(`http://127.0.0.1:8000/api/campaignDetails/?clId=1&campaignId=${this.props.match.params.campaignId}`)
+        axios.get(`http://127.0.0.1:8000/api/campaignDetails/?clId=${this.props.user.id}&campaignId=${this.props.match.params.campaignId}`)
             .then(res => this.setState({
                 data: res.data,
-
             }))
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props !== prevProps) {
+            axios.get(`http://127.0.0.1:8000/api/campaignDetails/?clId=${this.props.user.id}&campaignId=${this.props.match.params.campaignId}`)
+                .then(res => this.setState({
+                    data: res.data,
+                }))
+        }
     }
 
     getColumnSearchProps = (dataIndex) => ({
         filterDropdown: ({
                              setSelectedKeys, selectedKeys, confirm, clearFilters,
                          }) => (
-            <div style={{padding: 8}}>
+            <div className='hideforpdf' style={{padding: 8}}>
                 <Input
                     ref={node => {
                         this.searchInput = node;
@@ -56,7 +65,7 @@ class NewAgentChecklist extends React.Component {
                 </Button>
             </div>
         ),
-        filterIcon: filtered => <Icon type="search" style={{color: filtered ? '#1890ff' : undefined}}/>,
+        filterIcon: filtered => <Icon className='hideforpdf' type="search" style={{color: filtered ? '#1890ff' : undefined}}/>,
         onFilter: (value, record) => record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
         onFilterDropdownVisibleChange: (visible) => {
             if (visible) {
@@ -82,12 +91,33 @@ class NewAgentChecklist extends React.Component {
         clearFilters();
         this.setState({searchText: ''});
     };
+
     handleViewDetails(id) {
         console.log('I am from handle View Details, with id ', id);
         this.setState({
             visible: true,
             id: id,
         })
+    }
+
+    handleRemove(agentId, id) {
+        console.log('I am from handle delete, with id ', id, agentId);
+        axios.delete(`http://127.0.0.1:8000/api/addcampaignDetails/${id}/`)
+            .then(res => {
+                if (res.statusText === 'No Content') {
+                    let fd2 = new FormData();
+                    fd2.append('asign', false);
+                    axios.patch(`http://127.0.0.1:8000/api/agent/${agentId}/`, fd2)
+                        .then(res => {
+                            if (res.statusText === 'OK') {
+                                alert('Agent Removed');
+                            }
+                        });
+
+                }
+            })
+            .then(() => this.reloadData())
+
     }
 
     onClose = () => {
@@ -97,9 +127,32 @@ class NewAgentChecklist extends React.Component {
         });
     };
 
+    reloadData() {
+        console.log('i am on');
+        axios.get(`http://127.0.0.1:8000/api/campaignDetails/?clId=${this.props.user.id}&campaignId=${this.props.match.params.campaignId}`)
+            .then(res => this.setState({
+                data: res.data,
+
+            }))
+    }
+
+    handlePDF(clname) {
+        let date = new Date();
+        var div = "<html><head><style> .hideforpdf{display: none;}td{text-align:center;}table{border: 1px solid black;float: center;}table tr{border: 1px solid black;}table tr td{border: 1px solid black;}table tr th{border: 1px solid black;}</style></head><body>";
+        div += document.getElementById('printArea').innerHTML;
+        div += "</body></html>";
+        var win = window.open("", "", "width=960,height=500");
+        win.document.write("<center><img src='http://getd2.com/img/logo-new.png'/><h1>New Agent Check List For : "+this.props.surveyName+"</h1></center><br><br>");
+        win.document.write("<center><h4>Community Leader: "+clname+"</h4></center><br><br>");
+        win.document.write("<center><h4>Date: "+date+"</h4></center><br><br>");
+        win.document.write(div);
+        win.document.write("<br><br><center><p>&copy All Rights Reserved By D2</p><p>Developed By D2</p></center>");
+        win.print();
+    }
+
     render() {
         const columns = [{
-            title: 'ID',
+            title: 'Agent ID',
             dataIndex: 'agentId.id',
             key: 'agentId.id',
             width: '5%',
@@ -109,16 +162,27 @@ class NewAgentChecklist extends React.Component {
             dataIndex: 'agentId.name',
             key: 'agentId.name',
             width: '30%',
-            ...this.getColumnSearchProps('agentId.name'),
+            render: (text, record) => record.agentId.active ? record.agentId.name :
+                <Tag style={{backgroundColor: 'Red', color: '#fff'}}>{record.agentId.name} Blocked By HR, Contact HR
+                    Now</Tag>,
+            // ...this.getColumnSearchProps('agentId.name'),
         }, {
             title: 'Phone',
             dataIndex: 'agentId.phone',
             key: 'agentId.phone',
             width: '30  %',
             ...this.getColumnSearchProps('agentId.phone'),
-        },{
+        }, {
+            title: 'Action',
+            key: 'action',
+            className: 'hideforpdf',
+            width: '10%',
+            render: (text, record) => <Button onClick={() => this.handleRemove(record.agentId.id, record.id)}
+                                              type='danger'>Remove</Button>
+        }, {
             title: 'Views',
             key: 'details',
+            className: 'hideforpdf',
             width: '10%',
             render: (text, record) => <Button onClick={() => this.handleViewDetails(record.agentId.id)} type='primary'>View
                 Details</Button>
@@ -126,10 +190,19 @@ class NewAgentChecklist extends React.Component {
         ];
         return (
             <div>
+
                 <div style={{padding: 10}}>
-                    <AddNewAgent/>
+                    <AddNewAgent {...this.props}/>
                 </div>
-                <Table rowKey="id" pagination={{pageSize: 5}} columns={columns} dataSource={this.state.data}/>
+                <div style={{paddingBottom: 20}}>
+                    <Button icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
+                    <div style={{float: 'right'}}>
+                        <Button onClick={() => this.handlePDF(this.props.user.name)}>Download PDF</Button>
+                    </div>
+                </div>
+                <div id='printArea'>
+                <Table rowKey="id" pagination={false} columns={columns} dataSource={this.state.data}/>
+                </div>
                 <Drawer
                     title="Profile Information"
                     width={900}
@@ -146,4 +219,11 @@ class NewAgentChecklist extends React.Component {
     }
 }
 
-export default NewAgentChecklist;
+function mapStateToProps(state) {
+    return {
+        user: state.users,
+    }
+}
+
+
+export default connect(mapStateToProps)(NewAgentChecklist);

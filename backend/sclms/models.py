@@ -46,6 +46,7 @@ class CampaignDetails(models.Model):
     agentId = models.ForeignKey(Agent, on_delete=models.CASCADE)
     campaignId = models.ForeignKey(Campaign, on_delete=models.CASCADE)
 
+
 class LocationChecklist(models.Model):
     campgDetails = models.ForeignKey(CampaignDetails, on_delete=models.CASCADE)
     date = models.DateField()

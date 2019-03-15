@@ -20,6 +20,7 @@ import AdminAgentList from './components/pages/admin/agent-list';
 import AdminCLList from './components/pages/admin/cl-list';
 import AdminSubmission from './components/pages/admin/submissions';
 import AdminSubmissionList from './components/pages/admin/submissions-list';
+import AdminSubmissionsView from './components/pages/admin/submission-view';
 //agents routing
 import AgentCampaignList from './components/pages/agents/campaign-list';
 import AgentProfile from "./components/pages/agents/profile";
@@ -33,7 +34,7 @@ import NotFound from './components/WebHome/not-found';
 class MyApp extends React.Component {
     constructor() {
         super();
-        this.state={
+        this.state = {
             isLogin: true,
         }
     }
@@ -57,24 +58,29 @@ class MyApp extends React.Component {
 
                         {/* cl routing */}
                         <Route exact path='/cl/'
-                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='cl' ? <CLDashboard/> : <Redirect to='/error'/>}/>
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'cl' ?
+                                   <CLDashboard/> : <Redirect to='/error'/>}/>
 
                         <Route path='/cl/dashboard'
-                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='cl' ? <CLDashboard/> : <Redirect to='/error'/>}/>
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'cl' ?
+                                   <CLDashboard/> : <Redirect to='/error'/>}/>
 
                         <Route path='/cl/profile'
-                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='cl' ? <CLProfile/> : <Redirect to='/error'/>}/>
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'cl' ?
+                                   <CLProfile/> : <Redirect to='/error'/>}/>
 
                         <Route path='/cl/agentslist'
-                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='cl' && this.props.loggedInUser.active ? <CLAgentList/> :
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'cl' && this.props.loggedInUser.active ?
+                                   <CLAgentList/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route exact path='/cl/campaignlist'
-                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='cl' && this.props.loggedInUser.active ? <CLCampaignList/> :
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'cl' && this.props.loggedInUser.active ?
+                                   <CLCampaignList/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route path='/cl/campaignlist/:campaignId'
-                               component={(props) => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='cl'  && this.props.loggedInUser.active ?
+                               component={(props) => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'cl' && this.props.loggedInUser.active ?
                                    <CLCampaignDetails {...props}/> : <Redirect to='/error'/>}/>
                         {/* cl routing end */}
 
@@ -104,6 +110,10 @@ class MyApp extends React.Component {
                                component={() => this.state.isLogin ? <AdminSubmission/> :
                                    <Redirect to='/error'/>}/>
 
+                        <Route exact path='/admin/submissionsview'
+                               component={() => this.state.isLogin ? <AdminSubmissionsView/> :
+                                   <Redirect to='/error'/>}/>
+
                         <Route path='/admin/submissions/campaignlist/:campaignId'
                                component={(props) => this.state.isLogin ?
                                    <AdminSubmissionList {...props}/> : <Redirect to='/error'/>}/>
@@ -112,18 +122,18 @@ class MyApp extends React.Component {
 
                         {/* agent routing starts */}
                         <Route exact path='/agent/'
-                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='agent' ?
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' ?
                                    <AgentDashboard/> : <Redirect to='/error'/>}/>
                         <Route path='/agent/campaignlist'
-                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='agent' && this.props.loggedInUser.active ?
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' && this.props.loggedInUser.active ?
                                    <AgentCampaignList/> : <Redirect to='/error'/>}/>
 
                         <Route path='/agent/profile'
-                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='agent' ?
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' ?
                                    <AgentProfile/> : <Redirect to='/error'/>}/>
 
                         <Route path='/agent/dashboard'
-                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role==='agent' ?
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' ?
                                    <AgentDashboard/> : <Redirect to='/error'/>}/>
                         {/* agent routing ends */}
 
