@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Button, Drawer, Icon, Input, Table} from 'antd';
 import Highlighter from 'react-highlight-words';
 import CampaignDataDetailView from "./CampaignDataDetailView"
+import data from '../../../../reducers/pabna-survey-data';
 
 
 class CampaignDataTabularView extends React.Component {
@@ -18,12 +19,8 @@ class CampaignDataTabularView extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://192.168.2.198:8000/api/campaigndata/')
-        .then(res => this.setState({
-                agents: res.data,
-            }))
-        .catch(err => {
-            console.log(err);
+        this.setState({
+            agents: data,
         })
     }
 

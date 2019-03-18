@@ -33,7 +33,7 @@ export class CampaignDataDetailView extends React.Component {
             if (i.toString().includes('group')) {
                 const obj = {
                     q: this.state.kqns.questions[i.toString()],
-                    a: this.state.kqns.answers[data[i].toString()]== null ? data[i] : this.state.kqns.answers[data[i].toString()],
+                    a: this.state.kqns.answers[data[i].toString()] == null ? data[i].toString().split(' ') : this.state.kqns.answers[data[i].toString()],
                 };
                 this.state.values.push(obj);
             }
@@ -62,7 +62,7 @@ export class CampaignDataDetailView extends React.Component {
                                 </td>
                                 {/*//eslint-disable-next-line*/}
                                 <td key={val.a} style={{fontSize: 20 ,color: '#000000'}}>
-                                    {val.a}
+                                    {typeof val.a === "object" ? val.a.map(ans => this.state.kqns.answers[ans] == null ? ans+' ' : <p key={ans}>* {this.state.kqns.answers[ans]}</p>) : val.a}
                                 </td>
                             </tr>)
                         })}
