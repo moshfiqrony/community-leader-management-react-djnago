@@ -1,6 +1,6 @@
 import React from 'react';
 import {GoogleApiWrapper, Map, Marker} from 'google-maps-react';
-import axios from 'axios';
+import data from '../../../../reducers/QNS';
 import {Card, Tag} from "antd";
 
 const mapStyles = {
@@ -19,13 +19,9 @@ export class CampaignDataDetailView extends React.Component {
     }
 
     async componentDidMount() {
-        await axios.get('http://192.168.2.170:8001/surveys/506/')
-            .then(response => {
-                this.setState({
-                    kqns: response.data,
-                    values: []
-                })
-            })
+        this.setState({
+            kqns: data,
+        })
     }
 
     loadSurvey(data) {

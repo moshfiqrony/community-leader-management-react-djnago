@@ -1,4 +1,4 @@
-{
+const data = {
     "survey_id": 506,
     "survey_name": "Pabna Youth Survey",
     "questions": {
@@ -115,3 +115,5 @@
         "healthcare": "স্বাস্থ্য এবং চিকিৎসা"
     }
 }
+
+export default data;

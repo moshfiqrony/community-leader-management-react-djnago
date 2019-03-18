@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import {Button, Drawer, Icon, Input, Table} from 'antd';
 import Highlighter from 'react-highlight-words';
 import CampaignDataDetailView from "./CampaignDataDetailView"
