@@ -108,25 +108,33 @@ class CampaignDataTabularView extends React.Component {
     render() {
         const columns = [
             {
-                title: 'UUID',
-                dataIndex: 'meta/instanceID',
-                key: 'meta/instanceID',
-                width: '35%',
-                ...this.getColumnSearchProps('meta/instanceID'),
+                title: 'Survey Location',
+                dataIndex: '_xform_id_string',
+                key: '_xform_id_string',
+                width: '20%',
+                ...this.getColumnSearchProps('_xform_id_string'),
+            },
+
+            {
+                title: 'Submitted by',
+                dataIndex: '_submitted_by',
+                key: '_submitted_by',
+                width: '20%',
+                ...this.getColumnSearchProps('_submitted_by'),
             },
             {
                 title: 'Start',
                 dataIndex: 'start',
                 key: 'start',
                 width: '20%',
-                ...this.getColumnSearchProps('start'),
+                // ...this.getColumnSearchProps('start'),
             },
             {
                 title: 'End',
                 dataIndex: 'end',
                 key: 'end',
                 width: '20%',
-                ...this.getColumnSearchProps('end'),
+                // ...this.getColumnSearchProps('end'),
             },
             {
                 title: 'Submission Time',
@@ -135,7 +143,7 @@ class CampaignDataTabularView extends React.Component {
                 width: '25%',
                 defaultSortOrder: 'descend',
                 sorter: (a, b) => new Date(a._submission_time) - new Date(b._submission_time),
-                ...this.getColumnSearchProps('_submission_time'),
+                // ...this.getColumnSearchProps('_submission_time'),
             }
             ,{
                 title: 'Action',
@@ -147,8 +155,9 @@ class CampaignDataTabularView extends React.Component {
 
         return (
             <div>
-                {/* <Button htmlType='button' type='primary' icon='reload' onClick={this.handleLoad}>Reload</Button> */}
-                    {/*eslint-disable*/}
+                <div>
+                    <h1>Total Submissions : {this.state.agents.length}</h1>
+                </div>
                 <Table rowKey={'meta/instanceID'} pagination={{pageSize: 7}} columns={columns} dataSource={this.state.agents}/>
                 <Drawer
                     title={'Submission : '+this.state.singleRecord['meta/instanceID']}
