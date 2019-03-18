@@ -40,6 +40,7 @@ class LocationChecklist extends React.Component {
             .then(res => {
                 if (res.statusText === 'No Content') {
                     alert('Agent Removed');
+		    this.props.history.push(`/cl/campaignlist/${this.props.match.params.campaignId}`);
                 }
             })
             .then(() => this.reloadData())
