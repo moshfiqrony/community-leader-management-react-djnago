@@ -41,9 +41,9 @@ class AgentList extends React.Component {
                     agents: res.data,
                 }));
             axios.get('http://127.0.0.1:8000/api/districts/')
-            .then(res => this.setState({
-                dists: res.data,
-            }));
+                .then(res => this.setState({
+                    dists: res.data,
+                }));
         }
         console.log('I am from Component did update');
     }
@@ -158,12 +158,12 @@ class AgentList extends React.Component {
     };
 
     handleChange(district) {
-        if(district !== 'all'){
+        if (district !== 'all') {
             axios.get(`http://127.0.0.1:8000/api/agent/?district=${district}`)
                 .then(res => this.setState({
                     agents: res.data,
                 }));
-        }else{
+        } else {
             axios.get('http://127.0.0.1:8000/api/agent/')
                 .then(res => this.setState({
                     agents: res.data,

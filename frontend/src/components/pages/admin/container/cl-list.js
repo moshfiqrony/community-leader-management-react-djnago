@@ -3,10 +3,12 @@ import axios from 'axios';
 import {withRouter} from "react-router-dom";
 import UserDetailsiew from './user-detail-view';
 
-import {Button, Drawer, Icon, Input, Table, Tag} from 'antd';
+import {Button, Drawer, Form, Icon, Input, Select, Table, Tag} from 'antd';
 
 import Highlighter from 'react-highlight-words';
 
+
+const {Option} = Select;
 
 class CLListContainer extends React.Component {
     constructor() {
@@ -17,15 +19,21 @@ class CLListContainer extends React.Component {
             shouldLoad: false,
             visible: false,
             id: '',
+            dists: [],
         }
         // this.handleLoad = this.handleLoad.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
         axios.get('http://127.0.0.1:8000/api/cldetails/')
             .then(res => this.setState({
                 agents: res.data,
-            }))
+            }));
+        axios.get('http://127.0.0.1:8000/api/districts/')
+            .then(res => this.setState({
+                dists: res.data,
+            }));
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -37,6 +45,10 @@ class CLListContainer extends React.Component {
             this.setState({
                 shouldLoad: false,
             });
+            axios.get('http://127.0.0.1:8000/api/districts/')
+                .then(res => this.setState({
+                    dists: res.data,
+                }));
         }
     }
 
@@ -153,6 +165,21 @@ class CLListContainer extends React.Component {
             }))
     }
 
+    handleChange(district) {
+        if (district !== 'all') {
+            axios.get(`http://127.0.0.1:8000/api/cldetails/?district=${district}`)
+                .then(res => this.setState({
+                    agents: res.data,
+                }));
+        } else {
+            axios.get(`http://127.0.0.1:8000/api/cldetails/`)
+                .then(res => this.setState({
+                    agents: res.data,
+                }));
+        }
+    }
+
+
     handlePDF() {
         var div = "<html><head><style> .hideforpdf{display: none;}td{text-align:center;}table{border: 1px solid black;float: center;}table tr{border: 1px solid black;}table tr td{border: 1px solid black;}table tr th{border: 1px solid black;}</style></head><body>";
         div += document.getElementById('printArea').innerHTML;
@@ -216,6 +243,16 @@ class CLListContainer extends React.Component {
                         <Button onClick={() => this.handlePDF()}>Download PDF</Button>
                     </div>
                 </div>
+                <Form style={{width: 300}}>
+                    <Form.Item>
+                        <Select placeholder='Select District' onChange={this.handleChange}>
+                            <Option key={'all'} value={'all'}>All</Option>
+                            {this.state.dists.map(dist => {
+                                return (<Option key={dist.id} value={dist.id}>{dist.name}</Option>)
+                            })}
+                        </Select>
+                    </Form.Item>
+                </Form>
                 <div id='printArea'>
                     <Table rowKey={'id'} pagination={false} columns={columns} dataSource={this.state.agents}/>
                 </div>
