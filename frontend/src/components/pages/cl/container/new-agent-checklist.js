@@ -2,7 +2,7 @@ import React from 'react';
 import {withRouter} from "react-router-dom";
 import AddNewAgent from './add-new-agent';
 import axios from 'axios';
-import {Button, Icon, Input, Table, Drawer, Tag} from 'antd';
+import {Button, Drawer, Icon, Input, Table, Tag} from 'antd';
 import Highlighter from 'react-highlight-words';
 import UserDetailsiew from './user-detail-view';
 import {connect} from "react-redux";
@@ -135,7 +135,6 @@ class NewAgentChecklist extends React.Component {
         axios.get(`http://127.0.0.1:8000/api/campaignDetails/?clId=${this.props.user.id}&campaignId=${this.props.match.params.campaignId}`)
             .then(res => this.setState({
                 data: res.data,
-
             }))
     }
 
@@ -193,11 +192,8 @@ class NewAgentChecklist extends React.Component {
         ];
         return (
             <div>
-
-                <div style={{padding: 10}}>
-                    <AddNewAgent {...this.props}/>
-                </div>
-                <div style={{paddingBottom: 20}}>
+                <AddNewAgent {...this.props}/>
+                <div style={{paddingBottom: 20, paddingTop: 20}}>
                     <Button icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
                     <div style={{float: 'right'}}>
                         <Button onClick={() => this.handlePDF(this.props.user.name)}>Download PDF</Button>
