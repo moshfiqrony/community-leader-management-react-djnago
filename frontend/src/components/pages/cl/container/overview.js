@@ -1,27 +1,73 @@
 import React from 'react';
+import axios from 'axios';
 import {Card} from 'antd';
+import {connect} from "react-redux";
 
 
 class Overview extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            data: [],
+            agents: [],
+        }
+    }
+
+
+    componentDidMount() {
+        axios.get(`http://127.0.0.1:8000/api/locationView/?campgDetails__campaignId__id=${this.props.match.params.campaignId}&&campgDetails__clId__id=${this.props.user.id}`)
+            .then(res => this.setState({data: res.data}));
+        axios.get(`http://127.0.0.1:8000/api/campaignDetails/?clId=${this.props.user.id}&campaignId=${this.props.match.params.campaignId}`)
+            .then(res => this.setState({
+                agents: res.data
+            }));
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps !== this.props) {
+            axios.get(`http://127.0.0.1:8000/api/locationView/?campgDetails__campaignId__id=${this.props.match.params.campaignId}&&campgDetails__clId__id=${this.props.user.id}`)
+                .then(res => this.setState({data: res.data}));
+
+            axios.get(`http://127.0.0.1:8000/api/campaignDetails/?clId=${this.props.user.id}&campaignId=${this.props.match.params.campaignId}`)
+                .then(res => this.setState({
+                    agents: res.data
+                }));
+        }
+    }
+
     render() {
+        let Amount = 0;
         return (
             <div>
                 <h2 className='center'>Welcome to {this.props.data.data.name} Overview</h2>
-                <div style={{width: 450, margin: '0 auto'}}>
+                <div style={{width: 650, margin: '0 auto'}}>
                     <div style={{width: 200, float: 'left'}}>
                         <Card
-                            title="Total Agents"
+                            title="Agents"
                             style={{width: 200,}}
                         >
-                            <h1>{this.props.data.campCnt}</h1>
+                            <h1>{this.state.agents.length}</h1>
+                        </Card>
+                    </div>
+                    <div style={{width: 200, marginLeft: 25, float: 'left'}}>
+                        <Card
+                            title="Location Checklist"
+                            style={{width: 200,}}
+                        >
+                            <h1>{this.state.data.length}</h1>
                         </Card>
                     </div>
                     <div style={{width: 200, float: 'right'}}>
                         <Card
-                            title="Total Submissions"
+                            title="Submissions"
                             style={{width: 200,}}
                         >
-                            <h1>{this.props.data.agentCnt}</h1>
+                            {/*{console.log(this.state.data)}*/}
+                            <h1>{this.state.data.map(amount => {
+                                Amount += amount.amount
+                            })}
+                                {Amount}
+                            </h1>
                         </Card>
                     </div>
                 </div>
@@ -30,5 +76,10 @@ class Overview extends React.Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        user: state.users,
+    }
+}
 
-export default Overview;
+export default connect(mapStateToProps)(Overview);

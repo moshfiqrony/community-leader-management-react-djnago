@@ -39,8 +39,8 @@ class LocationChecklist extends React.Component {
         axios.delete(`http://127.0.0.1:8000/api/location/${id}/`)
             .then(res => {
                 if (res.statusText === 'No Content') {
-                    alert('Agent Removed');
-		    this.props.history.push(`/cl/campaignlist/${this.props.match.params.campaignId}`);
+                    // alert('Agent Removed');
+                    this.props.history.push(`/cl/campaignlist/${this.props.match.params.campaignId}`);
                 }
             })
             .then(() => this.reloadData())

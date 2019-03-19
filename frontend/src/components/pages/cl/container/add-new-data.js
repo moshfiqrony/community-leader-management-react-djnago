@@ -1,7 +1,7 @@
 import React from 'react';
 import {withRouter} from "react-router-dom";
 import axios from 'axios';
-import {Button, DatePicker, Form, Modal, Select,} from 'antd';
+import {Button, Form, Modal, Select,} from 'antd';
 import Input from "antd/lib/input";
 import {connect} from "react-redux";
 
@@ -58,6 +58,7 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                                 <Select
                                     placeholder="Select a option and change input text above"
                                 >
+                                    {/*eslint-disable-next-line*/}
                                     {this.state.validAgent.map(agent => {
                                         if (agent.amount === 0) {
                                             return (<Option key={agent.id}

@@ -107,7 +107,7 @@ class AddNewAgent extends React.Component {
                         axios.patch(`http://127.0.0.1:8000/api/agent/${values.agent}/`, fd2)
                             .then(res => {
                                 if(res.statusText === 'OK'){
-                                    alert('New Agent Added');
+                                    // alert('New Agent Added');
                                     this.props.history.push(`/cl/campaignlist/${this.props.match.params.campaignId}`)
                                 }
                             });

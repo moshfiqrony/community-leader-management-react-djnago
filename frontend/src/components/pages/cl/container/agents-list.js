@@ -4,6 +4,7 @@ import axios from 'axios';
 import {Button, Icon, Input, Table, Tag, Drawer} from 'antd';
 import Highlighter from 'react-highlight-words';
 import UserDetailsiew from './user-detail-view';
+import {connect} from "react-redux";
 
 
 class AgentList extends React.Component {
@@ -16,7 +17,7 @@ class AgentList extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://127.0.0.1:8000/api/agent/')
+        axios.get(`http://127.0.0.1:8000/api/agent/?district=${this.props.user.district}`)
             .then((res) => {
                 this.setState({
                     agents: res.data,
@@ -165,4 +166,13 @@ class AgentList extends React.Component {
     }
 }
 
-export default AgentList;
+
+function mapStateToProps(state) {
+    return {
+        user: state.users,
+    }
+}
+
+
+
+export default connect(mapStateToProps)(AgentList);

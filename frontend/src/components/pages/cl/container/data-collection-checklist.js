@@ -35,11 +35,11 @@ class LocationChecklist extends React.Component {
         fd.append('amount', 0);
         axios.patch(`http://127.0.0.1:8000/api/location/${id}/`, fd)
             .then(res => {
-                if (res.statusText === 'No Content') {
-                    alert('Agent Removed');
+                console.log(res);
+                if (res.statusText === 'OK') {
+                    this.props.history.push(`/cl/campaignlist/${this.props.match.params.campaignId}`);
                 }
             })
-            .then(() => this.reloadData())
 
     }
 
@@ -65,6 +65,11 @@ class LocationChecklist extends React.Component {
             title: 'Name',
             dataIndex: 'campgDetails.agentId.name',
             key: 'name',
+            width: '20%',
+        },{
+            title: 'Location',
+            dataIndex: 'location',
+            key: 'location',
             width: '20%',
         }, {
             title: 'Data Collected',

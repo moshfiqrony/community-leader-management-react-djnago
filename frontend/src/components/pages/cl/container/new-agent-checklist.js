@@ -1,4 +1,5 @@
 import React from 'react';
+import {withRouter} from "react-router-dom";
 import AddNewAgent from './add-new-agent';
 import axios from 'axios';
 import {Button, Icon, Input, Table, Drawer, Tag} from 'antd';
@@ -65,7 +66,8 @@ class NewAgentChecklist extends React.Component {
                 </Button>
             </div>
         ),
-        filterIcon: filtered => <Icon className='hideforpdf' type="search" style={{color: filtered ? '#1890ff' : undefined}}/>,
+        filterIcon: filtered => <Icon className='hideforpdf' type="search"
+                                      style={{color: filtered ? '#1890ff' : undefined}}/>,
         onFilter: (value, record) => record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
         onFilterDropdownVisibleChange: (visible) => {
             if (visible) {
@@ -110,7 +112,8 @@ class NewAgentChecklist extends React.Component {
                     axios.patch(`http://127.0.0.1:8000/api/agent/${agentId}/`, fd2)
                         .then(res => {
                             if (res.statusText === 'OK') {
-                                alert('Agent Removed');
+                                // alert('Agent Removed');
+                                this.props.history.push(`/cl/campaignlist/${this.props.match.params.campaignId}`)
                             }
                         });
 
@@ -142,9 +145,9 @@ class NewAgentChecklist extends React.Component {
         div += document.getElementById('printArea').innerHTML;
         div += "</body></html>";
         var win = window.open("", "", "width=960,height=500");
-        win.document.write("<center><img src='http://getd2.com/img/logo-new.png'/><h1>New Agent Check List For : "+this.props.surveyName+"</h1></center><br><br>");
-        win.document.write("<center><h4>Community Leader: "+clname+"</h4></center><br><br>");
-        win.document.write("<center><h4>Date: "+date+"</h4></center><br><br>");
+        win.document.write("<center><img src='http://getd2.com/img/logo-new.png'/><h1>New Agent Check List For : " + this.props.surveyName + "</h1></center><br><br>");
+        win.document.write("<center><h4>Community Leader: " + clname + "</h4></center><br><br>");
+        win.document.write("<center><h4>Date: " + date + "</h4></center><br><br>");
         win.document.write(div);
         win.document.write("<br><br><center><p>&copy All Rights Reserved By D2</p><p>Developed By D2</p></center>");
         win.print();
@@ -201,7 +204,7 @@ class NewAgentChecklist extends React.Component {
                     </div>
                 </div>
                 <div id='printArea'>
-                <Table rowKey="id" pagination={false} columns={columns} dataSource={this.state.data}/>
+                    <Table rowKey="id" pagination={false} columns={columns} dataSource={this.state.data}/>
                 </div>
                 <Drawer
                     title="Profile Information"
@@ -226,4 +229,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps)(NewAgentChecklist);
+export default connect(mapStateToProps)(withRouter(NewAgentChecklist));

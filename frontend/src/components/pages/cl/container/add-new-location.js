@@ -119,7 +119,7 @@ class AddNewLocation extends React.Component {
                         axios.post('http://127.0.0.1:8000/api/location/', fd)
                             .then(res => {
                                 if (res.statusText === 'Created') {
-                                    alert('Location Checklist Added');
+                                    // alert('Location Checklist Added');
                                     this.props.history.push(`/cl/campaignlist/${this.props.match.params.campaignId}`);
                                 } else {
                                     alert('Problem To Save');
