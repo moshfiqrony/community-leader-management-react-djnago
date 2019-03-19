@@ -176,13 +176,13 @@ class CLListContainer extends React.Component {
             dataIndex: 'name',
             key: 'name',
             width: '30%',
-            ...this.getColumnSearchProps('phone'),
+            ...this.getColumnSearchProps('name'),
         }, {
             title: 'Phone',
             dataIndex: 'phone',
             key: 'phone',
             width: '10%',
-            ...this.getColumnSearchProps('name'),
+            ...this.getColumnSearchProps('phone'),
         }, {
             title: 'Active',
             dataIndex: 'active',
