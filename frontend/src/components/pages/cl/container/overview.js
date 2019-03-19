@@ -44,8 +44,8 @@ class Overview extends React.Component {
                     <div style={{width: 200, float: 'left'}}>
                         <Card
                             title="Agents"
-                            style={{width: 200, backgroundColor: '#00C0EF', border: 1, borderRadius: 10}}
-                            headStyle={{backgroundColor: '#0194bf',borderBottom: '1px solid #fff', borderRadius: 10, color: '#ffff'}}
+                            style={{width: 200, backgroundColor: '#00A65A', border: 1, borderRadius: 10}}
+                            headStyle={{backgroundColor: '#008a42',borderBottom: '1px solid #fff', borderRadius: 10, color: '#ffff'}}
                         >
                             <h1 style={{color: '#ffff'}}>{this.state.agents.length}</h1>
                         </Card>
