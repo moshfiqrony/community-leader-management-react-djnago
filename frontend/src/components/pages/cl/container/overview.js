@@ -44,26 +44,30 @@ class Overview extends React.Component {
                     <div style={{width: 200, float: 'left'}}>
                         <Card
                             title="Agents"
-                            style={{width: 200,}}
+                            style={{width: 200, backgroundColor: '#00C0EF', border: 1, borderRadius: 10}}
+                            headStyle={{backgroundColor: '#0194bf',borderBottom: '1px solid #fff', borderRadius: 10, color: '#ffff'}}
                         >
-                            <h1>{this.state.agents.length}</h1>
+                            <h1 style={{color: '#ffff'}}>{this.state.agents.length}</h1>
                         </Card>
                     </div>
                     <div style={{width: 200, marginLeft: 25, float: 'left'}}>
                         <Card
                             title="Location Checklist"
-                            style={{width: 200,}}
+                            style={{width: 200, backgroundColor: '#0073B6', border: 1, borderRadius: 10}}
+                            headStyle={{backgroundColor: '#005e9c',borderBottom: '1px solid #fff', borderRadius: 10, color: '#ffff'}}
+
                         >
-                            <h1>{this.state.data.length}</h1>
+                            <h1 style={{color: '#ffff'}}>{this.state.data.length}</h1>
                         </Card>
                     </div>
                     <div style={{width: 200, float: 'right'}}>
                         <Card
                             title="Submissions"
-                            style={{width: 200,}}
+                            style={{width: 200, backgroundColor: '#DC4B38', border: 1, borderRadius: 10}}
+                            headStyle={{backgroundColor: '#ac2200',borderBottom: '1px solid #fff', borderRadius: 10, color: '#ffff'}}
                         >
                             {/*{console.log(this.state.data)}*/}
-                            <h1>{this.state.data.map(amount => {
+                            <h1 style={{color: '#ffff'}}>{this.state.data.map(amount => {
                                 Amount += amount.amount
                             })}
                                 {Amount}
