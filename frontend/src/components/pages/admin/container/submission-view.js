@@ -126,6 +126,8 @@ class CampaignDataTabularView extends React.Component {
                 dataIndex: 'start',
                 key: 'start',
                 width: '20%',
+		render: (text, record) =>
+                    <p>{(new Date(record.start+'00')).toLocaleString('en-US', {timeZone: 'Asia/Dhaka', weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})}</p>
                 // ...this.getColumnSearchProps('start'),
             },
             {
@@ -134,6 +136,14 @@ class CampaignDataTabularView extends React.Component {
                 key: 'end',
                 width: '20%',
                 // ...this.getColumnSearchProps('end'),
+		render: (text, record) =>
+                    <p>{(new Date(record.end+'00')).toLocaleString('en-US', {timeZone: 'Asia/Dhaka', weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})}</p>,
+            },
+{
+                title: 'Duration',
+                key: 'duration',
+                width: '5%',
+                render: (text, record) => <p>{((new Date(record.end+'00').getTime() - new Date(record.start+'00').getTime())/1000/60).toFixed(2)} Min</p>,
             },
             {
                 title: 'Submission Time',
@@ -143,6 +153,8 @@ class CampaignDataTabularView extends React.Component {
                 defaultSortOrder: 'descend',
                 sorter: (a, b) => new Date(a._submission_time) - new Date(b._submission_time),
                 // ...this.getColumnSearchProps('_submission_time'),
+		render: (text, record) =>
+                    <p>{(new Date(record._submission_time+'+0000')).toLocaleString('en-US', {timeZone: 'Asia/Dhaka', weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})}</p>
             }
             ,{
                 title: 'Action',
@@ -159,7 +171,7 @@ class CampaignDataTabularView extends React.Component {
                 </div>
                 <Table rowKey={'meta/instanceID'} pagination={{pageSize: 7}} columns={columns} dataSource={this.state.agents}/>
                 <Drawer
-                    title={'Submission : '+this.state.singleRecord['meta/instanceID']}
+                    title={this.state.singleRecord['_submitted_by'] + " | " + new Date(this.state.singleRecord['_submission_time']).toDateString() + " | " + new Date(this.state.singleRecord['_submission_time']).toLocaleTimeString()}
                     width={700}
                     placement="right"
                     closable={true}

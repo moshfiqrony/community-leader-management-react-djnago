@@ -1,6 +1,6 @@
 import React from 'react';
 import {GoogleApiWrapper, Map, Marker} from 'google-maps-react';
-import data from '../../../../reducers/QNS';
+import axios from 'axios';
 import {Card, Tag} from "antd";
 
 const mapStyles = {
@@ -19,9 +19,13 @@ export class CampaignDataDetailView extends React.Component {
     }
 
     async componentDidMount() {
-        this.setState({
-            kqns: data,
-        })
+        await axios.get('http://192.168.2.170:8001/surveys/506/')
+            .then(response => {
+                this.setState({
+                    kqns: response.data,
+                    values: []
+                })
+            })
     }
 
     loadSurvey(data) {
@@ -37,38 +41,39 @@ export class CampaignDataDetailView extends React.Component {
     }
 
     render() {
+        let cnt = 1;
         if (Object.keys(this.state.kqns).length === 0) {
             return (<h1>Loading...</h1>)
         } else if (Object.keys(this.props.data).length !== 0) {
             return (
-                <div>
-                    <table>
-                        <tbody>
-                            <tr key='def'>
-                                {new Date(this.props.data.end.toString()+'00')-new Date(this.props.data.start.toString()+'00') > 508728 ? <Tag style={{backgroundColor: 'red', color: 'white'}}>Seems To Be Fraud</Tag> : null}
-                            </tr>
+                <div className='browser-default'>
+                    <table className='browser-default'>
+                        <tbody className='browser-default'>
+                        <tr key='def'>
+                            {new Date(this.props.data.end.toString() + '00') - new Date(this.props.data.start.toString() + '00') > 508728 ?
+                                <Tag style={{backgroundColor: 'red', color: 'white'}}>Seems To Be Fraud</Tag> : null}
+                        </tr>
                         {
                             this.props.data !== null ? this.loadSurvey(this.props.data) : null
                         }
                         {this.state.values.map(val => {
                             return (<tr>
                                 {/*//eslint-disable-next-line*/}
-                                <td key={val.q} style={{fontSize: 20 ,color: '#000000', backgroundColor: '#eee'}}>
-                                    {val.q}
-                                </td>
-                                {/*//eslint-disable-next-line*/}
-                                <td key={val.a} style={{fontSize: 20 ,color: '#000000'}}>
-                                    {typeof val.a === "object" ? val.a.map(ans => this.state.kqns.answers[ans] == null ? ans+' ' : <p key={ans}>* {this.state.kqns.answers[ans]}</p>) : val.a}
+                                <td key={val.q} style={{fontSize: 20, color: '#000000',}}>
+                                    {cnt++ + '. '} {val.q} –<br/>&emsp;&emsp;
+                                    {/*//eslint-disable-next-line*/}
+                                    {typeof val.a === "object" ? val.a.map(ans => this.state.kqns.answers[ans] == null ?
+                                        <p>&emsp;&emsp;* {ans}</p> :
+                                        <p key={ans}>&emsp;&emsp;* {this.state.kqns.answers[ans]}</p>) :
+                                        <p>&emsp;&emsp;* {val.a}</p>}
                                 </td>
                             </tr>)
                         })}
-                        <tr>
+                        <tr key={this.props.data._geolocation[0]}>
                             {/*//eslint-disable-next-line*/}
-                            <td key='loc' style={{fontSize: 20 ,color: '#000000', backgroundColor: '#eee'}}>Location</td>
-                            {/*//eslint-disable-next-line*/}
-                            <td key='locdata'>
+                            <td style={{fontSize: 20, color: '#000000',}}>Location
                                 <Card
-                                    style={{height: 300, width: 300}}
+                                    style={{height: 500, width: 625}}
                                 >
                                     <Map
                                         google={this.props.google}
@@ -93,14 +98,55 @@ export class CampaignDataDetailView extends React.Component {
                                 </Card>
                             </td>
                         </tr>
+                        <tr style={{fontSize: 20, color: '#000000',}}>
+                            <td>
+                                <h5>Meta Data Of Submission:</h5>
+                            </td>
+                        </tr>
+                        <tr style={{fontSize: 20, color: '#000000',}}>
+                            <td>
+                                Submitted by – <br/>&emsp;&emsp;* {this.props.data._submitted_by}
+                            </td>
+                        </tr>
+                        <tr style={{fontSize: 20, color: '#000000',}}>
+                            <td>
+                                Submitted In – <br/>&emsp;&emsp;* {(new Date(this.props.data._submission_time+'+0000')).toLocaleString('en-US', {timeZone: 'Asia/Dhaka', weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})}
+                            </td>
+                        </tr>
+                        <tr style={{fontSize: 20, color: '#000000',}}>
+                            <td>
+                                Form Name – <br/>&emsp;&emsp;* {this.props.data._xform_id_string}
+                            </td>
+                        </tr>
+                        <tr style={{fontSize: 20, color: '#000000',}}>
+                            <td>
+                                Survey Start Time – <br/>&emsp;&emsp;* {(new Date(this.props.data.start+'00')).toLocaleString('en-US', {timeZone: 'Asia/Dhaka', weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})}
+                            </td>
+                        </tr>
+                        <tr style={{fontSize: 20, color: '#000000',}}>
+                            <td>
+                                Survey End Time – <br/>&emsp;&emsp;* {(new Date(this.props.data.end+'00')).toLocaleString('en-US', {timeZone: 'Asia/Dhaka', weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})}
+                            </td>
+                        </tr>
+
+                        <tr style={{fontSize: 20, color: '#000000',}}>
+                            <td>
+                                Duration – <br/>&emsp;&emsp;* {((new Date(this.props.data.end+'00').getTime() - new Date(this.props.data.start+'00').getTime())/1000/60).toFixed(2)} Min
+                            </td>
+                        </tr>
+                        <tr style={{fontSize: 20, color: '#000000',}}>
+                            <td>
+                                Submission ID – <br/>&emsp;&emsp;* {this.props.data._uuid}
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
             );
-        }else{
-             //eslint-disable-next-line
+        } else {
+            //eslint-disable-next-line
             this.state.values = [];
-            return(null)
+            return (null)
         }
     }
 }
