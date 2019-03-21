@@ -1,6 +1,8 @@
 import React from 'react';
 import {GoogleApiWrapper, Map, Marker} from 'google-maps-react';
 import axios from 'axios';
+import data from '../../../../reducers/QNS';
+import users from '../../../../reducers/d2-users';
 import {Card, Tag} from "antd";
 
 const mapStyles = {
@@ -14,18 +16,16 @@ export class CampaignDataDetailView extends React.Component {
         this.state = {
             kqns: {},
             values: [],
+            users: []
         }
 
     }
 
-    async componentDidMount() {
-        await axios.get('http://192.168.2.170:8001/surveys/506/')
-            .then(response => {
-                this.setState({
-                    kqns: response.data,
-                    values: []
-                })
-            })
+    componentDidMount() {
+        this.setState({
+            kqns: data,
+            users: users,
+        })
     }
 
     loadSurvey(data) {
@@ -42,7 +42,7 @@ export class CampaignDataDetailView extends React.Component {
 
     render() {
         let cnt = 1;
-        if (Object.keys(this.state.kqns).length === 0) {
+        if (Object.keys(this.state.kqns && this.state.users).length === 0) {
             return (<h1>Loading...</h1>)
         } else if (Object.keys(this.props.data).length !== 0) {
             return (
@@ -105,7 +105,11 @@ export class CampaignDataDetailView extends React.Component {
                         </tr>
                         <tr style={{fontSize: 20, color: '#000000',}}>
                             <td>
-                                Submitted by – <br/>&emsp;&emsp;* {this.props.data._submitted_by}
+                                Submitted by – <br/>&emsp;&emsp;* {this.state.users.map(user => {
+                                    if(user.username===this.props.data._submitted_by){
+                                        return(user.first_name + ' ' + user.last_name);
+                                    }
+                            })}
                             </td>
                         </tr>
                         <tr style={{fontSize: 20, color: '#000000',}}>
