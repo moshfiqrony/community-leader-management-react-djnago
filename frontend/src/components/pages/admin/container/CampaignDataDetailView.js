@@ -1,6 +1,5 @@
 import React from 'react';
 import {GoogleApiWrapper, Map, Marker} from 'google-maps-react';
-import axios from 'axios';
 import data from '../../../../reducers/QNS';
 import users from '../../../../reducers/d2-users';
 import {Card, Tag} from "antd";
@@ -106,15 +105,25 @@ export class CampaignDataDetailView extends React.Component {
                         <tr style={{fontSize: 20, color: '#000000',}}>
                             <td>
                                 Submitted by – <br/>&emsp;&emsp;* {this.state.users.map(user => {
-                                    if(user.username===this.props.data._submitted_by){
-                                        return(user.first_name + ' ' + user.last_name);
-                                    }
+                                if (user.username === this.props.data._submitted_by) {
+                                    return (user.first_name + ' ' + user.last_name);
+                                }
                             })}
                             </td>
                         </tr>
                         <tr style={{fontSize: 20, color: '#000000',}}>
                             <td>
-                                Submitted In – <br/>&emsp;&emsp;* {(new Date(this.props.data._submission_time+'+0000')).toLocaleString('en-US', {timeZone: 'Asia/Dhaka', weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})}
+                                Submitted In
+                                – <br/>&emsp;&emsp;* {(new Date(this.props.data._submission_time + '+0000')).toLocaleString('en-US', {
+                                timeZone: 'Asia/Dhaka',
+                                weekday: 'short',
+                                year: 'numeric',
+                                month: 'short',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                second: '2-digit'
+                            })}
                             </td>
                         </tr>
                         <tr style={{fontSize: 20, color: '#000000',}}>
@@ -124,18 +133,39 @@ export class CampaignDataDetailView extends React.Component {
                         </tr>
                         <tr style={{fontSize: 20, color: '#000000',}}>
                             <td>
-                                Survey Start Time – <br/>&emsp;&emsp;* {(new Date(this.props.data.start+'00')).toLocaleString('en-US', {timeZone: 'Asia/Dhaka', weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})}
+                                Survey Start Time
+                                – <br/>&emsp;&emsp;* {(new Date(this.props.data.start + '00')).toLocaleString('en-US', {
+                                timeZone: 'Asia/Dhaka',
+                                weekday: 'short',
+                                year: 'numeric',
+                                month: 'short',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                second: '2-digit'
+                            })}
                             </td>
                         </tr>
                         <tr style={{fontSize: 20, color: '#000000',}}>
                             <td>
-                                Survey End Time – <br/>&emsp;&emsp;* {(new Date(this.props.data.end+'00')).toLocaleString('en-US', {timeZone: 'Asia/Dhaka', weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})}
+                                Survey End Time
+                                – <br/>&emsp;&emsp;* {(new Date(this.props.data.end + '00')).toLocaleString('en-US', {
+                                timeZone: 'Asia/Dhaka',
+                                weekday: 'short',
+                                year: 'numeric',
+                                month: 'short',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                second: '2-digit'
+                            })}
                             </td>
                         </tr>
 
                         <tr style={{fontSize: 20, color: '#000000',}}>
                             <td>
-                                Duration – <br/>&emsp;&emsp;* {((new Date(this.props.data.end+'00').getTime() - new Date(this.props.data.start+'00').getTime())/1000/60).toFixed(2)} Min
+                                Duration
+                                – <br/>&emsp;&emsp;* {((new Date(this.props.data.end + '00').getTime() - new Date(this.props.data.start + '00').getTime()) / 1000 / 60).toFixed(2)} Min
                             </td>
                         </tr>
                         <tr style={{fontSize: 20, color: '#000000',}}>

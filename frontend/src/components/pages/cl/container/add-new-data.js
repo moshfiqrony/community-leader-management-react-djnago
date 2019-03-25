@@ -4,6 +4,7 @@ import axios from 'axios';
 import {Button, Form, Modal, Select,} from 'antd';
 import Input from "antd/lib/input";
 import {connect} from "react-redux";
+import {baseurl} from '../../../config'
 
 const {Option} = Select;
 
@@ -22,7 +23,7 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
         }
 
         componentDidMount() {
-            axios.get(`http://127.0.0.1:8000/api/locationView/?campgDetails__campaignId__id=${this.props.match.params.campaignId}&&campgDetails__clId__id=${this.props.user.id}`)
+            axios.get(baseurl+`/api/locationView/?campgDetails__campaignId__id=${this.props.match.params.campaignId}&&campgDetails__clId__id=${this.props.user.id}`)
                 .then(res => this.setState({
                     validAgent: res.data,
                 }))
@@ -30,7 +31,7 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
 
         componentDidUpdate(prevProps, prevState, snapshot) {
             if (this.props !== prevProps) {
-                axios.get(`http://127.0.0.1:8000/api/locationView/?campgDetails__campaignId__id=${this.props.match.params.campaignId}&&campgDetails__clId__id=${this.props.user.id}`)
+                axios.get(baseurl+`/api/locationView/?campgDetails__campaignId__id=${this.props.match.params.campaignId}&&campgDetails__clId__id=${this.props.user.id}`)
                     .then(res => this.setState({
                         validAgent: res.data,
                     }))
@@ -46,13 +47,13 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                 <Modal
                     visible={visible}
                     title="Create a new collection"
-                    okText="Submit"
+                    okText="Save"
                     onCancel={onCancel}
                     onOk={onCreate}
                 >
                     <Form layout="vertical">
                         <Form.Item label="Select Agent">
-                            {getFieldDecorator('date-picker', {
+                            {getFieldDecorator('id', {
                                 rules: [{required: true, message: 'Please input the title of Campaign!'}],
                             })(
                                 <Select
@@ -62,7 +63,7 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                                     {this.state.validAgent.map(agent => {
                                         if (agent.amount === 0) {
                                             return (<Option key={agent.id}
-                                                            value={agent.id}>{agent.campgDetails.agentId.name} - {agent.campgDetails.agentId.phone} - {agent.date}</Option>)
+                                                            value={agent.id}>{agent.campgDetails.agentId.name} - {agent.campgDetails.agentId.phone} - {agent.date} - {agent.location}</Option>)
                                         }
                                     })}
                                 </Select>
@@ -72,7 +73,7 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
                             {getFieldDecorator('amount', {
                                 rules: [{required: true, message: 'Please select date!',}],
                             })(
-                                <Input type='number'/>
+                                <Input className={'browser-default'} type='number'/>
                             )}
                         </Form.Item>
                     </Form>
@@ -101,11 +102,19 @@ class AddNewData extends React.Component {
             if (err) {
                 return;
             }
-
-            console.log(values.date.format('YYYY-MM-DD'));
-
+            let fd = new FormData();
+            fd.append('amount', values.amount);
+            axios.patch(baseurl+`/api/location/${values.id}/`, fd)
+                .then(res => {
+                    if(res.statusText === 'OK'){
+                        this.props.history.push(`/cl/campaignlist/${this.props.match.params.campaignId}`);
+                    }else {
+                        alert("Problem To Save");
+                    }
+                });
             form.resetFields();
             this.setState({visible: false});
+
         });
     };
 
