@@ -110,7 +110,7 @@ class CampaignDataTabularView extends React.Component {
                 title: 'Survey Location',
                 dataIndex: '_xform_id_string',
                 key: '_xform_id_string',
-                width: '20%',
+                width: '10%',
                 ...this.getColumnSearchProps('_xform_id_string'),
             },
 
@@ -118,32 +118,51 @@ class CampaignDataTabularView extends React.Component {
                 title: 'Submitted by',
                 dataIndex: '_submitted_by',
                 key: '_submitted_by',
-                width: '20%',
+                width: '10%',
                 ...this.getColumnSearchProps('_submitted_by'),
             },
             {
                 title: 'Start',
                 dataIndex: 'start',
                 key: 'start',
-                width: '20%',
-		render: (text, record) =>
-                    <p>{(new Date(record.start+'00')).toLocaleString('en-US', {timeZone: 'Asia/Dhaka', weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})}</p>
+                width: '25%',
+                render: (text, record) =>
+                    <div>{(new Date(record.start + '00')).toLocaleString('en-US', {
+                        timeZone: 'Asia/Dhaka',
+                        weekday: 'short',
+                        year: 'numeric',
+                        month: 'short',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    })}</div>
                 // ...this.getColumnSearchProps('start'),
             },
             {
                 title: 'End',
                 dataIndex: 'end',
                 key: 'end',
-                width: '20%',
+                width: '25%',
                 // ...this.getColumnSearchProps('end'),
-		render: (text, record) =>
-                    <p>{(new Date(record.end+'00')).toLocaleString('en-US', {timeZone: 'Asia/Dhaka', weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})}</p>,
+                render: (text, record) =>
+                    <div>{(new Date(record.end + '00')).toLocaleString('en-US', {
+                        timeZone: 'Asia/Dhaka',
+                        weekday: 'short',
+                        year: 'numeric',
+                        month: 'short',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    })}</div>,
             },
-{
+            {
                 title: 'Duration',
                 key: 'duration',
-                width: '5%',
-                render: (text, record) => <p>{((new Date(record.end+'00').getTime() - new Date(record.start+'00').getTime())/1000/60).toFixed(2)} Min</p>,
+                width: '8%',
+                render: (text, record) =>
+                    <p>{((new Date(record.end + '00').getTime() - new Date(record.start + '00').getTime()) / 1000 / 60).toFixed(2)} Min</p>,
             },
             {
                 title: 'Submission Time',
@@ -153,23 +172,36 @@ class CampaignDataTabularView extends React.Component {
                 defaultSortOrder: 'descend',
                 sorter: (a, b) => new Date(a._submission_time) - new Date(b._submission_time),
                 // ...this.getColumnSearchProps('_submission_time'),
-		render: (text, record) =>
-                    <p>{(new Date(record._submission_time+'+0000')).toLocaleString('en-US', {timeZone: 'Asia/Dhaka', weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})}</p>
-            }
-            ,{
-                title: 'Action',
-                key: 'details',
-                width: '10%',
-                render: (text, record) => <Button type='primary' onClick={() => this.handleViewDetails(record)}>View Details</Button>
+                render: (text, record) =>
+                    <p>{(new Date(record._submission_time + '+0000')).toLocaleString('en-US', {
+                        timeZone: 'Asia/Dhaka',
+                        weekday: 'short',
+                        year: 'numeric',
+                        month: 'short',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    })}</p>
             }
         ];
 
         return (
             <div>
                 <div>
-                    <h1>Total Submissions : {this.state.agents.length}</h1>
+                    <h4>Total Submissions : {this.state.agents.length}</h4>
                 </div>
-                <Table rowKey={'meta/instanceID'} pagination={{pageSize: 7}} columns={columns} dataSource={this.state.agents}/>
+                <Table
+                    rowKey={'meta/instanceID'}
+                    style={{cursor: 'pointer'}}
+                    expandRowByClick={true}
+                    onRowClick={record => this.setState({
+                        singleRecord: record,
+                        visible: true
+                    })}
+                    pagination={{pageSize: 20}}
+                    columns={columns}
+                    dataSource={this.state.agents}/>
                 <Drawer
                     title={this.state.singleRecord['_submitted_by'] + " | " + new Date(this.state.singleRecord['_submission_time']).toDateString() + " | " + new Date(this.state.singleRecord['_submission_time']).toLocaleTimeString()}
                     width={700}
@@ -178,7 +210,7 @@ class CampaignDataTabularView extends React.Component {
                     onClose={this.onClose}
                     visible={this.state.visible}
                 >
-                <CampaignDataDetailView data={this.state.singleRecord}/>
+                    <CampaignDataDetailView data={this.state.singleRecord}/>
                 </Drawer>
             </div>
         );
