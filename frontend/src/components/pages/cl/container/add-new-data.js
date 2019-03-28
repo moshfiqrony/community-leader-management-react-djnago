@@ -123,6 +123,7 @@ class AddNewData extends React.Component {
     };
 
     render() {
+        console.log(this.props);
         return (
             <div>
                 <Button icon='plus' type="primary" onClick={this.showModal}>Add New</Button>
