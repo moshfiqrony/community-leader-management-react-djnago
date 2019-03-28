@@ -90,7 +90,7 @@ class Submissions extends React.Component {
             dataIndex: 'amount',
             key: 'dataAmount',
             width: '5%',
-            render: (text, record) => record.amount == 0 ? null : record.amount
+            render: (text, record) => record.amount === 0 ? null : record.amount
         }
         ];
         return (
