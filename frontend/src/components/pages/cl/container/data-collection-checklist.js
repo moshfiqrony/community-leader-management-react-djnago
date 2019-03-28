@@ -91,7 +91,7 @@ class LocationChecklist extends React.Component {
             dataIndex: 'amount',
             key: 'dataAmount',
             width: '10%',
-            render: (text, record) => record.amount == 0 ? null : record.amount
+            render: (text, record) => record.amount === 0 ? null : record.amount
         }, {
             title: 'Action',
             key: 'action',
