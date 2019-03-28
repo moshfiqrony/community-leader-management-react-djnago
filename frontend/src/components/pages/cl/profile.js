@@ -25,14 +25,25 @@ class CLProfile extends React.Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         axios.get(`http://127.0.0.1:8000/api/cldetails/${this.props.loggedInUser.id}/`)
-        .then(res => this.setState({
-            cl: res.data,
-        }))
+            .then(res => this.setState({
+                cl: res.data,
+            }))
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps !== this.props) {
+            axios.get(`http://127.0.0.1:8000/api/cldetails/${this.props.loggedInUser.id}/`)
+                .then(res => this.setState({
+                    cl: res.data,
+                }))
+
+        }
     }
 
     render() {
+        console.log(this.props);
         return (
             <div>
                 <Layout>
@@ -40,21 +51,20 @@ class CLProfile extends React.Component {
                     <Layout style={{marginLeft: 200}}>
                         <HeaderMain data={this.state.title}/>
                         <div style={{
-                                margin: '24px 16px 0',
-                                overflow: 'initial',
-                                backgroundColor: '#fff',
-                                padding: 10
-                            }}>
-                        <Tabs type="card">
+                            margin: '24px 16px 0',
+                            overflow: 'initial',
+                            backgroundColor: '#fff',
+                            padding: 10
+                        }}>
+                            <Tabs type="card">
                                 <TabPane tab="Personal Information" key="1">
                                     <h5>Personal Information</h5>
-                                    <PersonalInfo {...this.state}/>
+                                    <PersonalInfo {...this.props} {...this.state}/>
                                 </TabPane>
                                 <TabPane tab="Identity and Payment Information" key="2">
                                     <h5>Identity and Payment Information</h5>
-                                    <IdPaymentInfo {...this.state}/>
+                                    <IdPaymentInfo {...this.props} {...this.state}/>
                                 </TabPane>
-                                
                             </Tabs>
                         </div>
                         <FooterMain/>
@@ -66,10 +76,10 @@ class CLProfile extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return{
+    return {
         loggedInUser: state.users,
     }
 
 }
 
-export default connect(mapStateToProps) (CLProfile);
+export default connect(mapStateToProps)(CLProfile);
