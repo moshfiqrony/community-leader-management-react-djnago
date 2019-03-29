@@ -4,7 +4,7 @@ import axios from 'axios';
 import {Button, Form, Modal, Select,} from 'antd';
 import Input from "antd/lib/input";
 import {connect} from "react-redux";
-import {baseurl} from '../../../config'
+import {baseurl} from '../../../config';
 
 const {Option} = Select;
 
