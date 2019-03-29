@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import {withRouter} from "react-router-dom";
 import FooterMain from '../../footer/footer-main';
 import SiderMain from '../../sidebar/sidebar-dashboard';
 import HeaderMain from '../../header/header-main';
@@ -29,16 +29,16 @@ class CLProfile extends React.Component {
         axios.get(`http://127.0.0.1:8000/api/cldetails/${this.props.loggedInUser.id}/`)
             .then(res => this.setState({
                 cl: res.data,
-            }))
+            }));
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps !== this.props) {
+            console.log('i am updating');
             axios.get(`http://127.0.0.1:8000/api/cldetails/${this.props.loggedInUser.id}/`)
                 .then(res => this.setState({
                     cl: res.data,
-                }))
-
+                }));
         }
     }
 
@@ -82,4 +82,4 @@ function mapStateToProps(state) {
 
 }
 
-export default connect(mapStateToProps)(CLProfile);
+export default connect(mapStateToProps)(withRouter(CLProfile));

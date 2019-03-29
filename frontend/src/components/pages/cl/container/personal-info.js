@@ -1,13 +1,13 @@
 import React from 'react';
 import ProfileCard from './profile-card';
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import axios from 'axios';
-import {Card, Col, Divider, Modal, Row, Select} from "antd";
+import {Card, Col, Divider, Icon, Modal, Row, Select} from "antd";
 import {baseurl} from '../../../config'
 
 const Option = Select.Option;
 
-const cardHeadStyle = {backgroundColor: '#5542'};
+const cardHeadStyle = {backgroundColor: '#99CCFF', border: 1, borderRadius: 5};
 const cardStyle = {border: '1px solid #e539'};
 
 class PersonalInfo extends React.Component {
@@ -26,25 +26,13 @@ class PersonalInfo extends React.Component {
         this.handleOk = this.handleOk.bind(this);
     }
 
-    componentDidMount() {
-        console.log('i am from pf');
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps !== this.props){
-            console.log('i am pf up');
-        }
-    }
-
     handleEdit(field, value, id, type) {
-        console.log(field, value, id, type);
         this.setState({
             visible: true,
             data: value,
             title: field,
             type: type,
         });
-        console.log(this.state.type);
     }
 
 
@@ -57,12 +45,13 @@ class PersonalInfo extends React.Component {
             .then(res => {
                 if (res.statusText === 'OK') {
                     this.props.history.push('/cl/profile');
+                    this.setState({
+                        visible: false,
+                    });
+                } else {
+                    alert('Problem To Update');
                 }
             });
-        this.setState({
-            visible: false,
-        });
-        console.log(this.props);
     }
 
     handleCancel = (e) => {
@@ -72,7 +61,6 @@ class PersonalInfo extends React.Component {
     };
 
     handleChange(e) {
-        console.log(e);
         this.setState({
             data: e,
         })
@@ -80,7 +68,6 @@ class PersonalInfo extends React.Component {
 
     loadOptions() {
         if (this.state.title === 'Marital Status') {
-            console.log(this.state.title);
             return (
                 <div>
                     <Select style={{width: 400}} name={'data'} value={this.state.data} onChange={this.handleChange}>
@@ -102,19 +89,21 @@ class PersonalInfo extends React.Component {
                     </Col>
                     <Col span={16}>
                         <Row>
+                            <Link to={'/cl/profile/edit'}><h5 className={'card-panel hoverable'} style={{
+                                cursor: "pointer",
+                                border: '1px',
+                                borderRadius: 10,
+                                padding: 10,
+                                width: 165,
+                                backgroundColor: '#4A154B',
+                                 color: '#fff'
+                            }}><Icon type={'edit'}/>Edit Profile</h5></Link>
                             <Card
                                 hoverable='true'
+                                className={'card-panel hoverable'}
                                 headStyle={cardHeadStyle}
                                 style={cardStyle}
-                                title='Full Name'
-                                // eslint-disable-next-line
-                                extra={<a
-                                    onClick={() => this.handleEdit(
-                                        'Fullname',
-                                        `${this.props.cl.name}`,
-                                        `${this.props.cl.id}`
-                                    )}>Edit</a>
-                                }>
+                                title='Full Name'>
                                 <h6>{this.props.cl.name}</h6>
                             </Card>
                         </Row>
@@ -122,17 +111,10 @@ class PersonalInfo extends React.Component {
                         <Row>
                             <Card
                                 hoverable='true'
+                                className={'card-panel hoverable'}
                                 headStyle={cardHeadStyle}
                                 style={cardStyle}
-                                title='Gender'
-                                // eslint-disable-next-line
-                                extra={<a
-                                    onClick={() => this.handleEdit(
-                                        'Gender',
-                                        `${this.props.cl.gender}`,
-                                        `${this.props.cl.id}`
-                                    )}>Edit</a>
-                                }>
+                                title='Gender'>
                                 <h6>{this.props.cl.gender}</h6>
                             </Card>
                         </Row>
@@ -140,17 +122,10 @@ class PersonalInfo extends React.Component {
                         <Row>
                             <Card
                                 hoverable='true'
+                                className={'card-panel hoverable'}
                                 headStyle={cardHeadStyle}
                                 style={cardStyle}
-                                title='Present Address'
-                                // eslint-disable-next-line
-                                extra={<a
-                                    onClick={() => this.handleEdit(
-                                        'Present Address',
-                                        `${this.props.cl.address}`,
-                                        `${this.props.cl.id}`
-                                    )}>Edit</a>
-                                }>
+                                title='Present Address'>
                                 <h6>{this.props.cl.address}</h6>
                             </Card>
                         </Row>
@@ -158,18 +133,10 @@ class PersonalInfo extends React.Component {
                         <Row>
                             <Card
                                 hoverable='true'
+                                className={'card-panel hoverable'}
                                 headStyle={cardHeadStyle}
                                 style={cardStyle}
-                                title='Marital Status'
-                                // eslint-disable-next-line
-                                extra={<a
-                                    onClick={() => this.handleEdit(
-                                        'Marital Status',
-                                        `${this.props.cl.mar_status}`,
-                                        `${this.props.cl.id}`,
-                                        'select'
-                                    )}>Edit</a>
-                                }>
+                                title='Marital Status'>
                                 <h6>{this.props.cl.mar_status}</h6>
                             </Card>
                         </Row>
@@ -177,17 +144,10 @@ class PersonalInfo extends React.Component {
                         <Row>
                             <Card
                                 hoverable='true'
+                                className={'card-panel hoverable'}
                                 headStyle={cardHeadStyle}
                                 style={cardStyle}
-                                title='Employement Status'
-                                // eslint-disable-next-line
-                                extra={<a
-                                    onClick={() => this.handleEdit(
-                                        'Fullname',
-                                        `${this.props.cl.empl_status}`,
-                                        `${this.props.cl.id}`
-                                    )}>Edit</a>
-                                }>
+                                title='Employement Status'>
                                 <h6>{this.props.cl.empl_status}</h6>
                             </Card>
                         </Row>
