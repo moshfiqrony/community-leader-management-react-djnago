@@ -13,6 +13,7 @@ import CLAgentList from "./components/pages/cl/agents-list";
 import CLCampaignList from './components/pages/cl/campaign-list';
 import CLProfile from './components/pages/cl/profile';
 import CLCampaignDetails from './components/pages/cl/campaign-details';
+import CLProfileEdit from './components/pages/cl/container/profile-edit'
 //admin components
 import AdminCampaignList from './components/pages/admin/campaign-list';
 import AdminDashboard from './components/pages/admin/dashboard';
@@ -65,9 +66,12 @@ class MyApp extends React.Component {
                                component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'cl' ?
                                    <CLDashboard/> : <Redirect to='/error'/>}/>
 
-                        <Route path='/cl/profile'
+                        <Route exact path='/cl/profile'
                                component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'cl' ?
                                    <CLProfile/> : <Redirect to='/error'/>}/>
+                        <Route path='/cl/profile/edit'
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'cl' ?
+                                   <CLProfileEdit/> : <Redirect to='/error'/>}/>
 
                         <Route path='/cl/agentslist'
                                component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'cl' && this.props.loggedInUser.active ?
