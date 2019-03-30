@@ -1,16 +1,26 @@
 import React from 'react';
 import ProfileCard from './profile-card';
-import {Card, Col, Row, Divider} from "antd";
+import {Link, withRouter} from "react-router-dom";
+import axios from 'axios';
+import {Card, Col, Divider, Icon, Modal, Row, Select} from "antd";
+import {baseurl} from '../../../config'
 
-const cardHeadStyle = {backgroundColor: '#5542'};
-const cardStyle = {border: '1px solid #e539'}
+const Option = Select.Option;
 
-export default class PersonalInfo extends React.Component {
+const cardHeadStyle = {backgroundColor: '#99CCFF', border: 1, borderRadius: 5};
+const cardStyle = {border: '1px solid #e539'};
 
-    handleEdit(){
-        console.log('I am from edit Actions');
+class PersonalInfo extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            id: '',
+            title: '',
+            data: '',
+            visible: false,
+            type: '',
+        };
     }
-
 
     render() {
         return (
@@ -21,34 +31,66 @@ export default class PersonalInfo extends React.Component {
                     </Col>
                     <Col span={16}>
                         <Row>
-                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Full Name'>
+                            <Link to={'/agent/profile/edit'}><h5 className={'card-panel hoverable'} style={{
+                                cursor: "pointer",
+                                border: '1px',
+                                borderRadius: 10,
+                                padding: 10,
+                                width: 165,
+                                backgroundColor: '#4A154B',
+                                 color: '#fff'
+                            }}><Icon type={'edit'}/>Edit Profile</h5></Link>
+                            <Card
+                                hoverable='true'
+                                className={'card-panel hoverable'}
+                                headStyle={cardHeadStyle}
+                                style={cardStyle}
+                                title='Full Name'>
                                 <h6>{this.props.cl.name}</h6>
                             </Card>
                         </Row>
                         <Divider/>
                         <Row>
-                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Gender'
-                            // eslint-disable-next-line
-                            >
+                            <Card
+                                hoverable='true'
+                                className={'card-panel hoverable'}
+                                headStyle={cardHeadStyle}
+                                style={cardStyle}
+                                title='Gender'>
                                 <h6>{this.props.cl.gender}</h6>
                             </Card>
                         </Row>
                         <Divider/>
                         <Row>
-                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Present Address'>
-                            <h6>{this.props.cl.address}</h6>
+                            <Card
+                                hoverable='true'
+                                className={'card-panel hoverable'}
+                                headStyle={cardHeadStyle}
+                                style={cardStyle}
+                                title='Present Address'>
+                                <h6>{this.props.cl.address}</h6>
                             </Card>
                         </Row>
                         <Divider/>
                         <Row>
-                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Marital Status'>
-                            <h6>{this.props.cl.mar_status}</h6>
+                            <Card
+                                hoverable='true'
+                                className={'card-panel hoverable'}
+                                headStyle={cardHeadStyle}
+                                style={cardStyle}
+                                title='Marital Status'>
+                                <h6>{this.props.cl.mar_status}</h6>
                             </Card>
                         </Row>
                         <Divider/>
                         <Row>
-                            <Card hoverable='true' headStyle={cardHeadStyle} style={cardStyle} title='Employement Status'>
-                            <h6>{this.props.cl.empl_status}</h6>
+                            <Card
+                                hoverable='true'
+                                className={'card-panel hoverable'}
+                                headStyle={cardHeadStyle}
+                                style={cardStyle}
+                                title='Employement Status'>
+                                <h6>{this.props.cl.empl_status}</h6>
                             </Card>
                         </Row>
                     </Col>
@@ -57,3 +99,6 @@ export default class PersonalInfo extends React.Component {
         );
     }
 }
+
+
+export default withRouter(PersonalInfo);

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
 import {Button, Form, Layout, Select} from 'antd';
-import SiderMain from "../../../sidebar/sidebar-dashboard";
+import SiderMain from "../../../sidebar/sidebar-agent";
 import HeaderMain from "../../../header/header-main";
 import FooterMain from "../../../footer/footer-main";
 import {connect} from "react-redux";
@@ -21,7 +21,7 @@ class RegistrationForm extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(baseurl + `/api/cl/${this.props.loggedInUser.id}/`)
+        axios.get(baseurl + `/api/agent/${this.props.loggedInUser.id}/`)
             .then(res => this.setState({
                 cl: res.data,
             }))
@@ -29,7 +29,7 @@ class RegistrationForm extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps !== this.props) {
-            axios.get(baseurl + `/api/cl/${this.props.loggedInUser.id}/`)
+            axios.get(baseurl + `/api/agent/${this.props.loggedInUser.id}/`)
                 .then(res => this.setState({
                     cl: res.data,
                 }))
@@ -63,10 +63,10 @@ class RegistrationForm extends React.Component {
         if(bid !== undefined){
            fd.append('bid', bid);
         }
-        axios.patch(baseurl + `/api/cl/${this.props.loggedInUser.id}/`, fd)
+        axios.patch(baseurl + `/api/agent/${this.props.loggedInUser.id}/`, fd)
             .then(res => {
                 if (res.statusText === 'OK') {
-                    this.props.history.push('/cl/profile');
+                    this.props.history.push('/agent/profile');
                 }
             })
     };

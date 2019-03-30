@@ -26,6 +26,7 @@ import AdminSubmissionsView from './components/pages/admin/submission-view';
 import AgentCampaignList from './components/pages/agents/campaign-list';
 import AgentProfile from "./components/pages/agents/profile";
 import AgentDashboard from './components/pages/agents/dashboard';
+import AgentProfileEdit from './components/pages/agents/container/profile-edit';
 //extra components
 import ErrorPage from './components/WebHome/404';
 import NotFound from './components/WebHome/not-found';
@@ -132,9 +133,12 @@ class MyApp extends React.Component {
                                component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' && this.props.loggedInUser.active ?
                                    <AgentCampaignList/> : <Redirect to='/error'/>}/>
 
-                        <Route path='/agent/profile'
+                        <Route exact path='/agent/profile'
                                component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' ?
                                    <AgentProfile/> : <Redirect to='/error'/>}/>
+                        <Route path='/agent/profile/edit'
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' ?
+                                   <AgentProfileEdit/> : <Redirect to='/error'/>}/>
 
                         <Route path='/agent/dashboard'
                                component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' ?
