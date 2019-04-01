@@ -38,23 +38,29 @@ class MyApp extends React.Component {
         super();
         this.state = {
             isLogin: true,
+            url: '',
         }
     }
 
 
     render() {
         console.log(this.props.loggedInUser);
+        if(this.props.loggedInUser.isLogin === true && this.props.loggedInUser.role==='cl'){
+            this.state.url = '/cl';
+        }else if(this.props.loggedInUser.isLogin === true && this.props.loggedInUser.role==='agent'){
+            this.state.url = '/agent';
+        }
         return (
             <div>
                 {/* Routing starts */}
                 <BrowserRouter>
                     <Switch>
                         {/* web view routing */}
-                        <Route path='/about' component={About}/>
+                        <Route path='/about' component={() => this.props.loggedInUser.isLogin ? <Redirect to={this.state.url}/> : <About/>}/>
 
-                        <Route exact path='/' component={Home}/>
+                        <Route exact path='/' component={() => this.props.loggedInUser.isLogin ? <Redirect to={this.state.url}/> : <Home/>}/>
 
-                        <Route path='/contact' component={Contact}/>
+                        <Route path='/contact' component={() => this.props.loggedInUser.isLogin ? <Redirect to={this.state.url}/> : <Contact/>}/>
                         {/* webview routing end */}
 
 
