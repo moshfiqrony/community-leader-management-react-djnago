@@ -87,7 +87,7 @@ class AgentList extends React.Component {
 
     reloadData() {
         console.log('i am on');
-        axios.get('http://127.0.0.1:8000/api/agent/')
+        axios.get(`http://127.0.0.1:8000/api/agent/?district=${this.props.user.district}`)
             .then(res => this.setState({
                 agents: res.data
             }))
