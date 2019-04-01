@@ -2,6 +2,9 @@ import React from 'react'
 import {Icon, Layout, Menu} from 'antd';
 import {Link} from "react-router-dom";
 import '../style.css'
+import {loadUsers} from "../../actions";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 //constant for SiderDashboard from antd
 
 const {
@@ -43,4 +46,8 @@ class SiderDashboard extends React.Component {
     }
 }
 
-export default SiderDashboard;
+function mapDispatchToProps(dispatch){
+    return(bindActionCreators({loadUsers: loadUsers}, dispatch))
+}
+
+export default connect(null, mapDispatchToProps) (SiderDashboard);
