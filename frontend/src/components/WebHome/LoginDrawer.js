@@ -1,8 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
+import {loadUsers} from "../../actions";
 
 import {Avatar, Button, Form, Input, Select,} from 'antd';
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 
 const {Option} = Select;
 
@@ -36,7 +39,8 @@ class LoginForm extends React.Component {
                                 if(res.data[0].password !== values.password){
                                     alert('Incorect Password');
                                 }else {
-                                    this.props.history.push('/cl');
+                                    this.props.loadUsers(res.data, 'cl', this.props.history);
+                                    // this.props.history.push('/cl');
                                 }
                             }
                         })
@@ -54,7 +58,7 @@ class LoginForm extends React.Component {
 
                                     alert('Incorect Password');
                                 }else {
-                                    this.props.history.push('/agent');
+                                    this.props.loadUsers(res.data, 'agent', this.props.history);
                                 }
                             }
                         })
@@ -134,4 +138,7 @@ class LoginForm extends React.Component {
     }
 }
 
-export default withRouter(LoginForm);
+function mapDispatchToProps(dispatch){
+    return(bindActionCreators({loadUsers: loadUsers}, dispatch))
+}
+export default connect(null, mapDispatchToProps) (withRouter(LoginForm));
