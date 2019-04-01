@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import Users from './load-campaigns'
+import Users from './load-user';
 
 
 
