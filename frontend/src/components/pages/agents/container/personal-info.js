@@ -1,11 +1,8 @@
 import React from 'react';
 import ProfileCard from './profile-card';
 import {Link, withRouter} from "react-router-dom";
-import axios from 'axios';
-import {Card, Col, Divider, Icon, Modal, Row, Select} from "antd";
-import {baseurl} from '../../../config'
+import {Card, Col, Divider, Icon, Row} from "antd";
 
-const Option = Select.Option;
 
 const cardHeadStyle = {backgroundColor: '#99CCFF', border: 1, borderRadius: 5};
 const cardStyle = {border: '1px solid #e539'};
@@ -38,7 +35,7 @@ class PersonalInfo extends React.Component {
                                 padding: 10,
                                 width: 165,
                                 backgroundColor: '#4A154B',
-                                 color: '#fff'
+                                color: '#fff'
                             }}><Icon type={'edit'}/>Edit Profile</h5></Link>
                             <Card
                                 hoverable='true'
