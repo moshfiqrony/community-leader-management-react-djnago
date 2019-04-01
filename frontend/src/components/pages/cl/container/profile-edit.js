@@ -7,6 +7,8 @@ import HeaderMain from "../../../header/header-main";
 import FooterMain from "../../../footer/footer-main";
 import {connect} from "react-redux";
 import {baseurl} from '../../../config'
+import {loadUsers} from "../../../../actions";
+import {bindActionCreators} from "redux";
 
 
 const {Option} = Select;
@@ -198,4 +200,8 @@ function mapStateToProps(state) {
 
 }
 
-export default connect(mapStateToProps)(withRouter(WrappedRegistrationForm));
+function mapDispatchToProps(dispatch){
+    return(bindActionCreators({loadUsers: loadUsers}, dispatch))
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(WrappedRegistrationForm));
