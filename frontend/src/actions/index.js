@@ -6,6 +6,24 @@ export function loadUsers(data, role, history) {
     }
 }
 
+export function logout(history) {
+    return(dispatch) => {
+        history.push('/');
+        return dispatch(logoutData());
+    }
+}
+
+export function logoutData() {
+    let activeUser = {
+        isLogin: false
+    }
+    return{
+        type: 'logout_users',
+        payload: activeUser
+    }
+
+}
+
 export function getData(data, role, history) {
     let activeUser = {
         ...data[0],
