@@ -9,12 +9,10 @@ const Contact = () => {
             <Header/>
             <div style={{minHeight: '79vh'}} className='center'>
                 <div>
-                    <Divider orientation="left">Left Text</Divider>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-                        probare, quae sunt a te dicta? Refert tamen, quo modo.</p>
-                    <Divider orientation="right">Right Text</Divider>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-                        probare, quae sunt a te dicta? Refert tamen, quo modo.</p>
+                    <Divider orientation="left">Official Contact</Divider>
+                    <h4>Email: support@getd2.com</h4>
+                    <h4>Phone: 01996642272</h4>
+                    <h4>Facebook Page: <a>https://www.facebook.com/dignityanddata</a></h4>
                 </div>
             </div>
             <FooterWeb/>
