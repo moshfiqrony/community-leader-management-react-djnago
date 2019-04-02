@@ -58,7 +58,7 @@ class Header extends React.Component {
 
                         </ul>
                         <Drawer
-                            title="Agent Login Panel"
+                            title="Login Panel"
                             placement="right"
                             closable={false}
                             width={350}
@@ -68,7 +68,7 @@ class Header extends React.Component {
                             <Login/>
                         </Drawer>
                         <Drawer
-                            title="Agent Registration Panel"
+                            title="Registration Panel"
                             placement="right"
                             closable={false}
                             width={350}
