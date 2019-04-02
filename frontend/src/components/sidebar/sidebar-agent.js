@@ -1,8 +1,8 @@
 import React from 'react'
 import {Icon, Layout, Menu} from 'antd';
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import '../style.css'
-import {loadUsers} from "../../actions";
+import {logout} from "../../actions";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 //constant for SiderDashboard from antd
@@ -36,8 +36,8 @@ class SiderDashboard extends React.Component {
                                 type="user"/>My Profile</Link></span>
                         </Menu.Item>
                         <Menu.Item key="4">
-                            <span className="nav-text"><Link className='SideBarText' to='/'><Icon
-                                type="logout"/>Logout</Link></span>
+                            <span className="nav-text"><a onClick={() => this.props.logout(this.props.history)} className='SideBarText' ><Icon
+                                type="logout"/>Logout</a></span>
                         </Menu.Item>
                     </Menu>
                 </Sider>
@@ -47,7 +47,7 @@ class SiderDashboard extends React.Component {
 }
 
 function mapDispatchToProps(dispatch){
-    return(bindActionCreators({loadUsers: loadUsers}, dispatch))
+    return(bindActionCreators({logout: logout}, dispatch))
 }
 
-export default connect(null, mapDispatchToProps) (SiderDashboard);
+export default connect(null, mapDispatchToProps) (withRouter(SiderDashboard));
