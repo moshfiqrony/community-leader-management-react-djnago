@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from './Header'
+import Header from './header-error'
 import FooterWeb from "../footer/footer-home";
 
 const ErrorPage = () => {
@@ -7,7 +7,7 @@ const ErrorPage = () => {
         <div>
             <Header/>
             <div style={{minHeight: '79vh'}} className='center'>
-                <h1>Page You Requested Is Not Found</h1>
+                <img src='/notfound.png'/>
             </div>
             <FooterWeb/>
         </div>
