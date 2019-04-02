@@ -94,10 +94,10 @@ class Submissions extends React.Component {
             render: (text, record) => record.amount === 0 ? null : record.amount
         }
         ];
-        if(this.state.submissions.length > 0){
-            this.state.amount=0;
+        if (this.state.submissions.length > 0) {
+            this.state.amount = 0;
             this.state.submissions.map(res => {
-                this.state.amount+=parseInt(res.amount);
+                this.state.amount += parseInt(res.amount);
             })
         }
         if (this.state.submissions.length > 0 && this.state.amount !== null) {
@@ -129,6 +129,38 @@ class Submissions extends React.Component {
                                     </div>
                                     <Table rowKey='id' pagination={false} columns={columns}
                                            dataSource={this.state.submissions}/>
+                                </div>
+                            </div>
+                            <FooterMain/>
+                        </Layout>
+                    </Layout>
+                </div>
+            );
+        } else if (this.state.submissions.length === 0) {
+            return (
+                <div>
+                    <Layout>
+                        <SiderMain/>
+                        <Layout style={{marginLeft: 200}}>
+                            <HeaderMain data={this.state.title}/>
+                            <div style={{
+                                margin: '24px 16px 0',
+                                overflow: 'initial',
+                                backgroundColor: '#fff',
+                                padding: 10
+                            }}>
+                                <div>
+                                    <Form style={{width: 300}}>
+                                        <Form.Item>
+                                            <Select placeholder='Select District' onChange={this.handleChange}>
+                                                <Option key={'all'} value={'all'}>All</Option>
+                                                {this.state.dists.map(dist => {
+                                                    return (<Option key={dist.id} value={dist.id}>{dist.name}</Option>)
+                                                })}
+                                            </Select>
+                                        </Form.Item>
+                                    </Form>
+                                    <h4>No Data Found...</h4>
                                 </div>
                             </div>
                             <FooterMain/>
