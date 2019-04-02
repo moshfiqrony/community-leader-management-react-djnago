@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from './Header'
+import Header from './header-error'
 import FooterWeb from "../footer/footer-home";
 
 const ErrorPage = () => {
@@ -7,7 +7,8 @@ const ErrorPage = () => {
         <div>
             <Header/>
             <div style={{minHeight: '79vh'}} className='center'>
-                <h1>You Are not Authorized To Access it. Contact admin to Active your profile</h1>
+                <img src='/404.png'/>
+                <h6>Unauthorized Access. Contact Admin to Activate your profile. If you are new, please Register</h6>
             </div>
             <FooterWeb/>
         </div>
