@@ -29,6 +29,12 @@ const About = () => {
                         control features let you set up test questions and actively monitor agent performance so you can
                         breathe easy, knowing that your work is in safe hands.</p>
                 </div>
+                <div>
+                    <Divider orientation="left"><h4>What Products We Have</h4></Divider>
+                    <img src='/shujog1.png'/>
+                    <img src='/shujog2.png'/>
+                    <img src='/shujog.png'/>
+                </div>
             </div>
             <FooterWeb/>
         </div>
