@@ -20,7 +20,8 @@ class Submissions extends React.Component {
             agentCnt: 20,
             submissions: [],
             dists: [],
-        }
+            amount: null,
+        };
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -36,16 +37,16 @@ class Submissions extends React.Component {
     }
 
     handleChange(district) {
-        if(district !== 'all'){
+        if (district !== 'all') {
             axios.get(`http://127.0.0.1:8000/api/locationView/?campgDetails__campaignId__id=${this.props.match.params.campaignId}&&campgDetails__agentId__district=${district}`)
-            .then(res => this.setState({
-                submissions: res.data,
-            }));
-        }else{
+                .then(res => this.setState({
+                    submissions: res.data,
+                }));
+        } else {
             axios.get(`http://127.0.0.1:8000/api/locationView/?campgDetails__campaignId__id=${this.props.match.params.campaignId}`)
-            .then(res => this.setState({
-                submissions: res.data,
-            }));
+                .then(res => this.setState({
+                    submissions: res.data,
+                }));
         }
     }
 
@@ -93,33 +94,71 @@ class Submissions extends React.Component {
             render: (text, record) => record.amount === 0 ? null : record.amount
         }
         ];
-        return (
-            <div>
-                <Layout>
-                    <SiderMain/>
-                    <Layout style={{marginLeft: 200}}>
-                        <HeaderMain data={this.state.title}/>
-                        <div style={{margin: '24px 16px 0', overflow: 'initial', backgroundColor: '#fff', padding: 10}}>
-                            <div>
-                                <Form style={{width: 300}}>
-                                    <Form.Item>
-                                        <Select placeholder='Select District' onChange={this.handleChange}>
-                                            <Option key={'all'} value={'all'}>All</Option>
-                                            {this.state.dists.map(dist => {
-                                                return(<Option key={dist.id} value={dist.id}>{dist.name}</Option>)
-                                            })}
-                                        </Select>
-                                    </Form.Item>
-                                </Form>
-                                <Table rowKey='id' pagination={false} columns={columns}
-                                       dataSource={this.state.submissions}/>
+        if(this.state.submissions.length > 0){
+            this.state.amount=0;
+            this.state.submissions.map(res => {
+                this.state.amount+=parseInt(res.amount);
+            })
+        }
+        if (this.state.submissions.length > 0 && this.state.amount !== null) {
+            return (
+                <div>
+                    <Layout>
+                        <SiderMain/>
+                        <Layout style={{marginLeft: 200}}>
+                            <HeaderMain data={this.state.title}/>
+                            <div style={{
+                                margin: '24px 16px 0',
+                                overflow: 'initial',
+                                backgroundColor: '#fff',
+                                padding: 10
+                            }}>
+                                <div>
+                                    <Form style={{width: 300}}>
+                                        <Form.Item>
+                                            <Select placeholder='Select District' onChange={this.handleChange}>
+                                                <Option key={'all'} value={'all'}>All</Option>
+                                                {this.state.dists.map(dist => {
+                                                    return (<Option key={dist.id} value={dist.id}>{dist.name}</Option>)
+                                                })}
+                                            </Select>
+                                        </Form.Item>
+                                    </Form>
+                                    <div>
+                                        <h4>Total Submissions: {this.state.amount}</h4>
+                                    </div>
+                                    <Table rowKey='id' pagination={false} columns={columns}
+                                           dataSource={this.state.submissions}/>
+                                </div>
                             </div>
-                        </div>
-                        <FooterMain/>
+                            <FooterMain/>
+                        </Layout>
                     </Layout>
-                </Layout>
-            </div>
-        );
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <Layout>
+                        <SiderMain/>
+                        <Layout style={{marginLeft: 200}}>
+                            <HeaderMain data={this.state.title}/>
+                            <div style={{
+                                margin: '24px 16px 0',
+                                overflow: 'initial',
+                                backgroundColor: '#fff',
+                                padding: 10
+                            }}>
+                                <div>
+                                    <h4>Loading........</h4>
+                                </div>
+                            </div>
+                            <FooterMain/>
+                        </Layout>
+                    </Layout>
+                </div>
+            );
+        }
     }
 }
 
