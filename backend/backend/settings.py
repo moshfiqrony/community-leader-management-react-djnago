@@ -12,7 +12,7 @@ SECRET_KEY = '-hlcp_**951cxl+hzes5)v-03w7##vw=2fo3i@*0646e2k^^sb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 # Application definition
 
