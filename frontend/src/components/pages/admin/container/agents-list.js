@@ -24,11 +24,11 @@ class AgentList extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://lcoalhost:8000/api/agent/')
+        axios.get('http://localhost:8000/api/agent/')
             .then(res => this.setState({
                 agents: res.data,
             }));
-        axios.get('http://lcoalhost:8000/api/districts/')
+        axios.get('http://localhost:8000/api/districts/')
             .then(res => this.setState({
                 dists: res.data,
             }));
@@ -36,11 +36,11 @@ class AgentList extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps !== this.props) {
-            axios.get('http://lcoalhost:8000/api/agent/')
+            axios.get('http://localhost:8000/api/agent/')
                 .then(res => this.setState({
                     agents: res.data,
                 }));
-            axios.get('http://lcoalhost:8000/api/districts/')
+            axios.get('http://localhost:8000/api/districts/')
                 .then(res => this.setState({
                     dists: res.data,
                 }));
