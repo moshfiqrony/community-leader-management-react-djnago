@@ -128,6 +128,10 @@ class MyApp extends React.Component {
                         <Route path='/admin/submissions/campaignlist/:campaignId'
                                component={(props) => this.state.isLogin ?
                                    <AdminSubmissionList {...props}/> : <Redirect to='/error'/>}/>
+
+                        <Route path='/agent/campaignlist/:campaignId'
+                               component={(props) => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' && this.props.loggedInUser.active ?
+                                   <CLCampaignDetails {...props}/> : <Redirect to='/error'/>}/>
                         {/* admin routing end */}
 
 
