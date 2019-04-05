@@ -50,7 +50,7 @@ class CampaignDetailsViews(viewsets.ModelViewSet):
     queryset = CampaignDetails.objects.all()
     serializer_class = CampaignDetailsSerializers
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('clId', 'campaignId',)
+    filter_fields = ('clId', 'campaignId','agentId', 'agentId__id', 'campaignId__id')
 
 
 class LocationInsertViews(viewsets.ModelViewSet):
@@ -62,5 +62,5 @@ class LocationViews(viewsets.ModelViewSet):
     queryset = LocationChecklist.objects.all()
     serializer_class = LocationViewSerializers
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('campgDetails__campaignId__id', 'campgDetails__clId__id', 'campgDetails__agentId__district' ,'campgDetails__id', 'date', 'amount',)
+    filter_fields = ('campgDetails__campaignId__id', 'campgDetails__clId__id', 'campgDetails__agentId__district' ,'campgDetails__id', 'date', 'amount', 'campgDetails__agentId__id', )
 
