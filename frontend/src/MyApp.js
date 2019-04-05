@@ -22,6 +22,7 @@ import AdminCLList from './components/pages/admin/cl-list';
 import AdminSubmission from './components/pages/admin/submissions';
 import AdminSubmissionList from './components/pages/admin/submissions-list';
 import AdminSubmissionsView from './components/pages/admin/submission-view';
+import AgentCampaignDetails from './components/pages/agents/campaign-details';
 //agents routing
 import AgentCampaignList from './components/pages/agents/campaign-list';
 import AgentProfile from "./components/pages/agents/profile";
@@ -128,10 +129,6 @@ class MyApp extends React.Component {
                         <Route path='/admin/submissions/campaignlist/:campaignId'
                                component={(props) => this.state.isLogin ?
                                    <AdminSubmissionList {...props}/> : <Redirect to='/error'/>}/>
-
-                        <Route path='/agent/campaignlist/:campaignId'
-                               component={(props) => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' && this.props.loggedInUser.active ?
-                                   <CLCampaignDetails {...props}/> : <Redirect to='/error'/>}/>
                         {/* admin routing end */}
 
 
@@ -139,9 +136,12 @@ class MyApp extends React.Component {
                         <Route exact path='/agent/'
                                component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' ?
                                    <AgentDashboard/> : <Redirect to='/error'/>}/>
-                        <Route path='/agent/campaignlist'
+                        <Route exact path='/agent/campaignlist'
                                component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' && this.props.loggedInUser.active ?
                                    <AgentCampaignList/> : <Redirect to='/error'/>}/>
+                        <Route path='/agent/campaignlist/:campaignId'
+                               component={(props) => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' && this.props.loggedInUser.active ?
+                                   <AgentCampaignDetails {...props}/> : <Redirect to='/error'/>}/>
 
                         <Route exact path='/agent/profile'
                                component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'agent' ?
