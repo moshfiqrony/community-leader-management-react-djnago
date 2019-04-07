@@ -15,6 +15,7 @@ import CLProfile from './components/pages/cl/profile';
 import CLCampaignDetails from './components/pages/cl/campaign-details';
 import CLProfileEdit from './components/pages/cl/container/profile-edit'
 //admin components
+import AdminLogin from './components/pages/admin/login';
 import AdminCampaignList from './components/pages/admin/campaign-list';
 import AdminDashboard from './components/pages/admin/dashboard';
 import AdminAgentList from './components/pages/admin/agent-list';
@@ -46,9 +47,9 @@ class MyApp extends React.Component {
 
     render() {
         console.log(this.props.loggedInUser);
-        if(this.props.loggedInUser.isLogin === true && this.props.loggedInUser.role==='cl'){
+        if (this.props.loggedInUser.isLogin === true && this.props.loggedInUser.role === 'cl') {
             this.state.url = '/cl';
-        }else if(this.props.loggedInUser.isLogin === true && this.props.loggedInUser.role==='agent'){
+        } else if (this.props.loggedInUser.isLogin === true && this.props.loggedInUser.role === 'agent') {
             this.state.url = '/agent';
         }
         return (
@@ -57,11 +58,17 @@ class MyApp extends React.Component {
                 <BrowserRouter>
                     <Switch>
                         {/* web view routing */}
-                        <Route path='/about' component={() => this.props.loggedInUser.isLogin ? <Redirect to={this.state.url}/> : <About/>}/>
+                        <Route path='/about'
+                               component={() => this.props.loggedInUser.isLogin ? <Redirect to={this.state.url}/> :
+                                   <About/>}/>
 
-                        <Route exact path='/' component={() => this.props.loggedInUser.isLogin ? <Redirect to={this.state.url}/> : <Home/>}/>
+                        <Route exact path='/'
+                               component={() => this.props.loggedInUser.isLogin ? <Redirect to={this.state.url}/> :
+                                   <Home/>}/>
 
-                        <Route path='/contact' component={() => this.props.loggedInUser.isLogin ? <Redirect to={this.state.url}/> : <Contact/>}/>
+                        <Route path='/contact'
+                               component={() => this.props.loggedInUser.isLogin ? <Redirect to={this.state.url}/> :
+                                   <Contact/>}/>
                         {/* webview routing end */}
 
 
@@ -98,12 +105,14 @@ class MyApp extends React.Component {
 
 
                         {/* admin routing starts */}
+                        <Route path='/d2admin' component={AdminLogin}/>
                         <Route path='/admin/campaignlist'
-                               component={() => this.state.isLogin ?
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'admin' ?
                                    <AdminCampaignList/> : <Redirect to='/error'/>}/>
 
                         <Route exact path='/admin/'
-                               component={() => this.state.isLogin ? <AdminDashboard/> :
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'admin' ?
+                                   <AdminDashboard/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route path='/admin/dashboard'
@@ -111,23 +120,27 @@ class MyApp extends React.Component {
                                    <Redirect to='/error'/>}/>
 
                         <Route path='/admin/agentslist'
-                               component={() => this.state.isLogin ? <AdminAgentList/> :
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'admin' ?
+                                   <AdminAgentList/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route path='/admin/cllist'
-                               component={() => this.state.isLogin ? <AdminCLList/> :
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'admin' ?
+                                   <AdminCLList/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route exact path='/admin/submissions'
-                               component={() => this.state.isLogin ? <AdminSubmission/> :
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'admin' ?
+                                   <AdminSubmission/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route exact path='/admin/submissionsview'
-                               component={() => this.state.isLogin ? <AdminSubmissionsView/> :
+                               component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'admin' ?
+                                   <AdminSubmissionsView/> :
                                    <Redirect to='/error'/>}/>
 
                         <Route path='/admin/submissions/campaignlist/:campaignId'
-                               component={(props) => this.state.isLogin ?
+                               component={(props) => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'admin' ?
                                    <AdminSubmissionList {...props}/> : <Redirect to='/error'/>}/>
                         {/* admin routing end */}
 
