@@ -159,7 +159,7 @@ class CLListContainer extends React.Component {
 
     reloadData() {
         console.log('i am on');
-        axios.get('http://127.0.0.1:8000/api/agent/')
+        axios.get('http://127.0.0.1:8000/api/cl/')
             .then(res => this.setState({
                 agents: res.data
             }))
