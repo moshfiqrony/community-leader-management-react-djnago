@@ -10,7 +10,7 @@ class CLDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
-            title: 'Admin Dashboard',
+            title: 'HR Dashboard',
             welcome: 'Welcome to Mr X To Your Panel',
             date: new Date().toDateString(),
             campCnt: 10,

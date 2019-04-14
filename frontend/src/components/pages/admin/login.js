@@ -1,5 +1,10 @@
 import React from 'react';
 import {Button, Form, Input,} from 'antd';
+import axios from 'axios';
+import {loadUsers} from '../../../actions/index';
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 
 
 class RegistrationForm extends React.Component {
@@ -13,6 +18,14 @@ class RegistrationForm extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                let fd = new FormData();
+                fd.append('username', values.username)
+                fd.append('password', values.password)
+                axios.get(`http://127.0.0.1:8000/api/useradmin/`, fd)
+                    .then(res => {
+                        this.props.loadUsers(res.data, 'admin', this.props.history);
+                    })
+                    .catch(err => alert(err));
             }
         });
     };
@@ -42,12 +55,12 @@ class RegistrationForm extends React.Component {
                     <Form.Item
                         label="Phone"
                     >
-                        {getFieldDecorator('phone', {
+                        {getFieldDecorator('username', {
                             rules: [{
-                                required: true, message: 'Please input your phone',
+                                required: true, message: 'Please input Username',
                             }],
                         })(
-                            <Input placeholder='Enter Your Phone Number *' className='browser-default'/>
+                            <Input placeholder='Enter Your Username *' className='browser-default'/>
                         )}
                     </Form.Item>
                     <Form.Item
@@ -70,6 +83,10 @@ class RegistrationForm extends React.Component {
     }
 }
 
+function mapDispatchToProps(dispatch){
+    return(bindActionCreators({loadUsers: loadUsers}, dispatch))
+}
+
 const WrappedRegistrationForm = Form.create({name: 'register'})(RegistrationForm);
 
-export default WrappedRegistrationForm;
+export default connect(null, mapDispatchToProps) (withRouter(WrappedRegistrationForm));

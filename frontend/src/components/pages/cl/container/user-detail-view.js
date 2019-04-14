@@ -47,7 +47,7 @@ class App extends React.Component {
     handlePDFDetilas(name) {
         console.log('i am ohjsdfjh');
         var div = "<html><head><style> img{width: 150px} .hideforpdf{display: none;}</style></head><body><center>";
-        div += document.getElementById('printArea2').innerHTML;
+        div += document.getElementById('printArea3').innerHTML;
         div += "</center></body></html>";
         var win = window.open("", "", "width=960,height=500");
         win.document.write("<center><img src='http://getd2.com/img/logo-new.png'/><h1>"+name+"'s Personal Infromation</h1></center><br><br>");
@@ -60,7 +60,7 @@ class App extends React.Component {
         return (
             <div>
                 <Button onClick={() => this.handlePDFDetilas(this.state.data.name)} className='center'>Print PDF</Button>
-                <div id='printArea2'>
+                <div id='printArea3'>
                 <table>
                     <tbody>
                     <tr>

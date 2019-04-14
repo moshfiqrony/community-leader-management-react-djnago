@@ -51,6 +51,8 @@ class MyApp extends React.Component {
             this.state.url = '/cl';
         } else if (this.props.loggedInUser.isLogin === true && this.props.loggedInUser.role === 'agent') {
             this.state.url = '/agent';
+        }else if(this.props.loggedInUser.isLogin === true && this.props.loggedInUser.role === 'admin'){
+            this.state.url = '/admin';
         }
         return (
             <div>
@@ -69,6 +71,9 @@ class MyApp extends React.Component {
                         <Route path='/contact'
                                component={() => this.props.loggedInUser.isLogin ? <Redirect to={this.state.url}/> :
                                    <Contact/>}/>
+                        <Route path='/d2admin'
+                               component={() => this.props.loggedInUser.isLogin ? <Redirect to={this.state.url}/> :
+                                   <AdminLogin/>}/>
                         {/* webview routing end */}
 
 
@@ -105,7 +110,7 @@ class MyApp extends React.Component {
 
 
                         {/* admin routing starts */}
-                        <Route path='/d2admin' component={AdminLogin}/>
+
                         <Route path='/admin/campaignlist'
                                component={() => this.props.loggedInUser.isLogin && this.props.loggedInUser.role === 'admin' ?
                                    <AdminCampaignList/> : <Redirect to='/error'/>}/>
