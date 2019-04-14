@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..models import CL, Agent, Campaign, CampaignDetails, Districts, LocationChecklist
+from ..models import CL, Agent, Campaign, CampaignDetails, Districts, LocationChecklist, UserAdmin
 
 
 class DistrictsSerializers(serializers.ModelSerializer):
@@ -69,4 +69,10 @@ class LocationViewSerializers(serializers.ModelSerializer):
     class Meta:
         model = LocationChecklist
         fields = ('id', 'campgDetails', 'date', 'location','amount')
+
+
+class UserAdminSerializers(serializers.ModelSerializer):
+    class Meta:
+        model=UserAdmin
+        fields=('id', 'username', 'password')
 

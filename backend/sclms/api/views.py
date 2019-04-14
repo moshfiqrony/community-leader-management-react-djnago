@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .serializers import CLSerializers, AgentSerializers, CampaignSerializers, AddCampaignDetailsSerializers,DistrictsSerializers, CampaignDetailsSerializers, CLSerializers2, LocationSerializers, LocationViewSerializers
-from ..models import CL, Agent, Campaign, CampaignDetails, Districts, LocationChecklist
+from .serializers import CLSerializers, AgentSerializers, CampaignSerializers, AddCampaignDetailsSerializers,DistrictsSerializers, CampaignDetailsSerializers, CLSerializers2, LocationSerializers, LocationViewSerializers, UserAdminSerializers
+from ..models import CL, Agent, Campaign, CampaignDetails, Districts, LocationChecklist, UserAdmin
 
 
 class DistrictsViews(viewsets.ModelViewSet):
@@ -64,3 +64,7 @@ class LocationViews(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('campgDetails__campaignId__id', 'campgDetails__clId__id', 'campgDetails__agentId__district' ,'campgDetails__id', 'date', 'amount', 'campgDetails__agentId__id', )
 
+
+class UserAdminView(viewsets.ModelViewSet):
+    queryset = UserAdmin.objects.all()
+    serializer_class = UserAdminSerializers

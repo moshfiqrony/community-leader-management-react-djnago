@@ -53,5 +53,9 @@ class LocationChecklist(models.Model):
     location = models.CharField(max_length=60)
     amount = models.IntegerField(default=0)
 
+class UserAdmin(models.Model):
+    username = models.CharField(max_length=60)
+    password = models.CharField(max_length=60)
+
 
 
