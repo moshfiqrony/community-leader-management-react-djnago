@@ -269,16 +269,16 @@ class CampaignDataTabularView extends React.Component {
                                         hoverable
                                         title={'Total Submissions'}
                                         headStyle={{
-                                            backgroundColor: '#f7f7f7',
-                                            color: '#3F4654',
+                                            backgroundColor: '#B70000',
+                                            color: '#fdf9f9',
                                             border: '1px',
                                             borderRadius: 5,
                                             textAlign: 'center'
                                         }}
                                         style={{
-                                            backgroundColor: '#f7f7f7',
+                                            backgroundColor: '#E50000',
                                             width: 300,
-                                            color: '#3F4654',
+                                            color: '#fdf9f9',
                                             border: '1px',
                                             borderRadius: 5, textAlign: 'center',
                                         }}
@@ -286,6 +286,7 @@ class CampaignDataTabularView extends React.Component {
                                         <h1 style={{
                                             fontSize: 50,
                                             margin: 0,
+                                            color: '#fdf9f9',
                                             marginTop: -24
                                         }}>{this.state.agents.length}</h1>
                                     </Card>
@@ -295,16 +296,16 @@ class CampaignDataTabularView extends React.Component {
                                         hoverable
                                         title={'Average Duration of Submissions'}
                                         headStyle={{
-                                            backgroundColor: '#f7f7f7',
-                                            color: '#3F4654',
+                                            backgroundColor: '#00a7b3',
+                                            color: '#fdf9f9',
                                             border: '1px',
                                             borderRadius: 5,
                                             textAlign: 'center'
                                         }}
                                         style={{
-                                            backgroundColor: '#f7f7f7',
+                                            backgroundColor: '#00bfcd',
                                             width: 'auto',
-                                            color: '#3F4654',
+                                            color: '#fdf9f9',
                                             border: '1px',
                                             borderRadius: 5,
                                             textAlign: 'center'
@@ -313,6 +314,7 @@ class CampaignDataTabularView extends React.Component {
                                         <h1 style={{
                                             fontSize: 50,
                                             margin: 0,
+                                            color: '#fdf9f9',
                                             marginTop: -24
                                         }}>{this.avgSubmission()}</h1>
                                     </Card>
@@ -322,14 +324,14 @@ class CampaignDataTabularView extends React.Component {
                                         hoverable
                                         title={'Submissions in Last 24 Hours'}
                                         headStyle={{
-                                            backgroundColor: '#f7f7f7',
-                                            color: '#3F4654',
+                                            backgroundColor: '#cf984b',
+                                            color: '#fdf9f9',
                                             border: '1px',
                                             borderRadius: 5,
                                             textAlign: 'center'
                                         }}
                                         style={{
-                                            backgroundColor: '#f7f7f7',
+                                            backgroundColor: '#E7A954',
                                             width: 300,
                                             color: '#3F4654',
                                             border: '1px',
@@ -337,7 +339,7 @@ class CampaignDataTabularView extends React.Component {
                                             textAlign: 'center',
                                         }}
                                     >
-                                        <h1 style={{fontSize: 50, margin: 0, marginTop: -24}}>{this.hrs24()}</h1>
+                                        <h1 style={{fontSize: 50, color: '#fdf9f9', margin: 0, marginTop: -24}}>{this.hrs24()}</h1>
                                     </Card>
                                 </div>
                             </div>
