@@ -39,6 +39,7 @@ class CampaignDataTabularView extends React.Component {
     }
 
     avgSubmission() {
+
         let tmp1 = 0;
         this.state.agents.map(record => {
             let dur = ((new Date(record.end + '00').getTime() - new Date(record.start + '00').getTime()));
