@@ -144,12 +144,12 @@ class AgentList extends React.Component {
             title: 'Views',
             key: 'details',
             width: '10%',
-            render: (text, record) => <Button onClick={() => this.handleViewDetails(record.id)} type='primary'>View
+            render: (text, record) => <Button className='hoverable' onClick={() => this.handleViewDetails(record.id)} type='primary'>View
                 Details</Button>
         }];
         return (
             <div>
-                <Button icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
+                <Button className='hoverable' icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
                 <Table pagination={false} columns={columns} dataSource={this.state.agents}/>
                 <Drawer
                     title="Profile Information"

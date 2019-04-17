@@ -179,14 +179,14 @@ class NewAgentChecklist extends React.Component {
             key: 'action',
             className: 'hideforpdf',
             width: '10%',
-            render: (text, record) => <Button onClick={() => this.handleRemove(record.agentId.id, record.id)}
+            render: (text, record) => <Button className='hoverable' onClick={() => this.handleRemove(record.agentId.id, record.id)}
                                               type='danger'>Remove</Button>
         }, {
             title: 'Views',
             key: 'details',
             className: 'hideforpdf',
             width: '10%',
-            render: (text, record) => <Button onClick={() => this.handleViewDetails(record.agentId.id)} type='primary'>View
+            render: (text, record) => <Button className='hoverable' onClick={() => this.handleViewDetails(record.agentId.id)} type='primary'>View
                 Details</Button>
         }
         ];
@@ -194,9 +194,9 @@ class NewAgentChecklist extends React.Component {
             <div>
                 <AddNewAgent {...this.props}/>
                 <div style={{paddingBottom: 20, paddingTop: 20}}>
-                    <Button icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
+                    <Button className='hoverable' icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
                     <div style={{float: 'right'}}>
-                        <Button onClick={() => this.handlePDF(this.props.user.name)}>Download PDF</Button>
+                        <Button className='hoverable' onClick={() => this.handlePDF(this.props.user.name)}>Download PDF</Button>
                     </div>
                 </div>
                 <div id='printArea'>

@@ -71,6 +71,7 @@ class CLListContainer extends React.Component {
                     type="primary"
                     onClick={() => this.handleSearch(selectedKeys, confirm)}
                     icon="search"
+                    className='hoverable'
                     size="small"
                     style={{width: 90, marginRight: 8}}
                 >
@@ -79,6 +80,7 @@ class CLListContainer extends React.Component {
                 <Button
                     onClick={() => this.handleReset(clearFilters)}
                     size="small"
+                    className='hoverable'
                     style={{width: 90}}
                 >
                     Reset
@@ -224,23 +226,23 @@ class CLListContainer extends React.Component {
             width: '10%',
             render: (text, record) => record.active
                 ?
-                <Button onClick={() => this.handleBlock(record.id)} type='danger'>Block</Button>
+                <Button className='hoverable' onClick={() => this.handleBlock(record.id)} type='danger'>Block</Button>
                 :
-                <Button onClick={() => this.handleActivate(record.id)} type='primary'>Activate</Button>
+                <Button className='hoverable' onClick={() => this.handleActivate(record.id)} type='primary'>Activate</Button>
         }, {
             title: 'Views',
             className: 'hideforpdf',
             key: 'details',
             width: '10%',
-            render: (text, record) => <Button onClick={() => this.handleViewDetails(record.id)} type='primary'>View
+            render: (text, record) => <Button className='hoverable' onClick={() => this.handleViewDetails(record.id)} type='primary'>View
                 Details</Button>
         }];
         return (
             <div>
                 <div style={{paddingBottom: 20}}>
-                    <Button icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
+                    <Button className='hoverable' icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
                     <div style={{float: 'right'}}>
-                        <Button onClick={() => this.handlePDF()}>Download PDF</Button>
+                        <Button className='hoverable' onClick={() => this.handlePDF()}>Download PDF</Button>
                     </div>
                 </div>
                 <Form style={{width: 300}}>

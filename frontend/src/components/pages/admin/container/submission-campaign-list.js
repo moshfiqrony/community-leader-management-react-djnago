@@ -37,7 +37,7 @@ class CampaignList extends React.Component {
     render() {
         return (
             <div>
-                <Button icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
+                <Button className='hoverable' icon='reload' type='primary' onClick={() => this.reloadData()}>Reload</Button>
                 <table className="centered">
                     <thead>
                     <tr>

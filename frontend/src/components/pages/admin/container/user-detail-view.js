@@ -60,7 +60,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Button onClick={() => this.handlePDFDetilas(this.state.data.name)} className='center'>Print PDF</Button>
+                <Button className='hoverable' onClick={() => this.handlePDFDetilas(this.state.data.name)} className='center'>Print PDF</Button>
                 <div id='printArea2'>
                 <table>
                     <tbody>

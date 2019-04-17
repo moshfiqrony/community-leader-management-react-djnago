@@ -89,7 +89,7 @@ class CollectionsPage extends React.Component {
     render() {
         return (
             <div>
-                <Button icon='plus' type="primary" onClick={this.showModal}>Add New</Button>
+                <Button className='hoverable' icon='plus' type="primary" onClick={this.showModal}>Add New</Button>
                 <CollectionCreateForm
                     wrappedComponentRef={this.saveFormRef}
                     visible={this.state.visible}

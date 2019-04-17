@@ -65,6 +65,7 @@ class CampaignList extends React.Component {
                     type="primary"
                     onClick={() => this.handleSearch(selectedKeys, confirm)}
                     icon="search"
+                    className='hoverable'
                     size="small"
                     style={{width: 90, marginRight: 8}}
                 >
@@ -73,6 +74,7 @@ class CampaignList extends React.Component {
                 <Button
                     onClick={() => this.handleReset(clearFilters)}
                     size="small"
+                    className='hoverable'
                     style={{width: 90}}
                 >
                     Reset
@@ -172,9 +174,9 @@ class CampaignList extends React.Component {
                 key: 'operation',
                 width: '30%',
                 render: (text, record) => <div>
-                    <Button type='primary' onClick={() => this.handleEdit(record.id, record.name)}>Edit</Button><Divider
+                    <Button className='hoverable' type='primary' onClick={() => this.handleEdit(record.id, record.name)}>Edit</Button><Divider
                     type='vertical'/>
-                    <Button type='danger' onClick={() => this.handleDelete(record.id)}>Delete</Button>
+                    <Button className='hoverable' type='danger' onClick={() => this.handleDelete(record.id)}>Delete</Button>
                 </div>
             }
         ];

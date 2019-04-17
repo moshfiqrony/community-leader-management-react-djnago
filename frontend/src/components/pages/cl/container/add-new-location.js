@@ -43,7 +43,7 @@ const CollectionCreateForm = Form.create({name: 'form_in_modal'})(
             return (
                 <Modal
                     visible={visible}
-                    title="Add New Location Checklist"
+                    title="Add New Location"
                     okText="Save"
                     onCancel={onCancel}
                     onOk={onCreate}

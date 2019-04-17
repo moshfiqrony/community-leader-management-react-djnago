@@ -275,6 +275,7 @@ class CampaignDataTabularView extends React.Component {
                                             borderRadius: 5,
                                             textAlign: 'center'
                                         }}
+                                        className='hoverable'
                                         style={{
                                             backgroundColor: '#E50000',
                                             width: 300,
@@ -302,6 +303,7 @@ class CampaignDataTabularView extends React.Component {
                                             borderRadius: 5,
                                             textAlign: 'center'
                                         }}
+                                        className='hoverable'
                                         style={{
                                             backgroundColor: '#00bfcd',
                                             width: 'auto',
@@ -330,6 +332,7 @@ class CampaignDataTabularView extends React.Component {
                                             borderRadius: 5,
                                             textAlign: 'center'
                                         }}
+                                        className='hoverable'
                                         style={{
                                             backgroundColor: '#E7A954',
                                             width: 300,
@@ -357,6 +360,7 @@ class CampaignDataTabularView extends React.Component {
                             <Button
                             htmlType='button'
                             type='primary'
+                            className='hoverable'
                             onClick={this.handleLoad}
                         >
                             <Icon type="sync" spin={this.state.visibleLoading} />Refresh

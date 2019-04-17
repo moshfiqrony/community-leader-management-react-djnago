@@ -43,6 +43,7 @@ class Overview extends React.Component {
                 <div style={{width: 650, margin: '0 auto'}}>
                     <div style={{width: 200, float: 'left'}}>
                         <Card
+                            className='hoverable'
                             title="Agents"
                             style={{width: 200, backgroundColor: '#00A65A', border: 1, borderRadius: 10}}
                             headStyle={{backgroundColor: '#008a42',borderBottom: '1px solid #fff', borderRadius: 10, color: '#ffff'}}
@@ -52,6 +53,7 @@ class Overview extends React.Component {
                     </div>
                     <div style={{width: 200, marginLeft: 25, float: 'left'}}>
                         <Card
+                            className='hoverable'
                             title="Location Checklist"
                             style={{width: 200, backgroundColor: '#0073B6', border: 1, borderRadius: 10}}
                             headStyle={{backgroundColor: '#005e9c',borderBottom: '1px solid #fff', borderRadius: 10, color: '#ffff'}}
@@ -62,6 +64,7 @@ class Overview extends React.Component {
                     </div>
                     <div style={{width: 200, float: 'right'}}>
                         <Card
+                            className='hoverable'
                             title="Submissions"
                             style={{width: 200, backgroundColor: '#DC4B38', border: 1, borderRadius: 10}}
                             headStyle={{backgroundColor: '#ac2200',borderBottom: '1px solid #fff', borderRadius: 10, color: '#ffff'}}
