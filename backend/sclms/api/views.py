@@ -68,3 +68,5 @@ class LocationViews(viewsets.ModelViewSet):
 class UserAdminView(viewsets.ModelViewSet):
     queryset = UserAdmin.objects.all()
     serializer_class = UserAdminSerializers
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('username', 'password');
