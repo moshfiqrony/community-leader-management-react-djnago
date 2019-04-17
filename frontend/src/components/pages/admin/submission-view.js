@@ -10,7 +10,7 @@ class SubmissionsView extends React.Component {
     constructor() {
         super();
         this.state = {
-            title: 'Campaign List',
+            title: 'Submission View',
             welcome: 'Welcome to Mr X To Your Panel',
             date: new Date().toDateString(),
             campCnt: 10,

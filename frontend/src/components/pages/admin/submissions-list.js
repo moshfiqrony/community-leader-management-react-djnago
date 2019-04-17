@@ -13,7 +13,7 @@ class Submissions extends React.Component {
     constructor() {
         super();
         this.state = {
-            title: 'Campaign List',
+            title: 'Data Collection Checklist',
             welcome: 'Welcome to Mr X To Your Panel',
             date: new Date().toDateString(),
             campCnt: 10,
