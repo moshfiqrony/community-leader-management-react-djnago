@@ -19,11 +19,14 @@ class RegistrationForm extends React.Component {
             if (!err) {
                 console.log('Received values of form: ', values);
                 let fd = new FormData();
-                fd.append('username', values.username)
-                fd.append('password', values.password)
-                axios.get(`http://127.0.0.1:8000/api/useradmin/`, fd)
+                axios.get(`http://127.0.0.1:8000/api/useradmin/?username=${values.username}&password=${values.password}`)
                     .then(res => {
-                        this.props.loadUsers(res.data, 'admin', this.props.history);
+                        if(res.statusText === 'OK' && res.data.length === 1){
+                            console.log(res.data);
+                            this.props.loadUsers(res.data, 'admin', this.props.history);
+                        }else {
+                            alert('Wrong Credentials Try Again!!');
+                        }
                     })
                     .catch(err => alert(err));
             }
