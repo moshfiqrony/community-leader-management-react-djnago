@@ -7,6 +7,6 @@ const {
 
 export default function () {
     return (<Footer style={{textAlign: 'center'}}>
-        D2 ©2019 Created D2
+        D2 ©2019 Created By D2 Software Engineer Team
     </Footer>)
 }
