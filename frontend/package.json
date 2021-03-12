@@ -7,7 +7,7 @@
     "axios": "^0.18.0",
     "google-maps-react": "^2.0.2",
     "html2canvas": "^1.0.0-alpha.12",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "materialize-css": "^1.0.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
